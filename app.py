@@ -50,32 +50,6 @@ def logout():
     st.session_state.username = ""
     st.rerun()
 
-def create_sample_data():
-    """Create sample catalog data"""
-    sample_data = {
-        'program': [
-            'Computer Science', 'Computer Science', 'Computer Science', 'Computer Science',
-            'MBA', 'MBA', 'MBA', 'MBA',
-            'Engineering', 'Engineering', 'Engineering', 'Engineering',
-        ],
-        'semester': [
-            '1', '1', '2', '2',
-            '1', '1', '2', '2', 
-            '1', '1', '2', '2',
-        ],
-        'course_code': [
-            'CS101', 'CS102', 'CS201', 'CS202',
-            'MBA101', 'MBA102', 'MBA201', 'MBA202',
-            'ENG101', 'ENG102', 'ENG201', 'ENG202',
-        ],
-        'course_title': [
-            'Introduction to Programming', 'Data Structures', 'Database Systems', 'Web Development',
-            'Business Management', 'Marketing Strategy', 'Financial Management', 'Operations Management',
-            'Engineering Mathematics', 'Physics for Engineers', 'Circuit Analysis', 'Thermodynamics',
-        ]
-    }
-    return pd.DataFrame(sample_data)
-
 # Check authentication first
 if not check_login():
     st.stop()
@@ -95,38 +69,29 @@ with col2:
 # Sidebar
 st.sidebar.header("📋 Input Parameters")
 
-# Data source selection
-data_source = st.sidebar.radio("Select Data Source", ["Upload File", "Use Sample Data"])
+# Data source selection (Only file upload now)
+st.sidebar.markdown("### 📁 Upload Your Catalog File")
+uploaded_file = st.sidebar.file_uploader(
+    "Choose catalog file", 
+    type=["csv", "xlsx"],
+    help="Upload CSV/Excel with at least these fields: program, semester, course_code, course_title"
+)
 
-# Load data based on selection
 catalog_df = None
-
-if data_source == "Upload File":
-    st.sidebar.markdown("### 📁 Upload Your Catalog File")
-    uploaded_file = st.sidebar.file_uploader(
-        "Choose catalog file", 
-        type=["csv", "xlsx"],
-        help="Upload CSV/Excel with: program, semester, course_code, course_title"
-    )
-    
-    if uploaded_file:
-        try:
-            if uploaded_file.name.endswith(".csv"):
-                catalog_df = pd.read_csv(uploaded_file)
-            else:
-                catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
-            
-            st.sidebar.success(f"✅ Loaded {len(catalog_df)} courses")
-            
-        except Exception as e:
-            st.sidebar.error(f"❌ Error: {e}")
-            st.stop()
-    else:
-        st.sidebar.info("👆 Please upload a file")
-
-else:  # Use Sample Data
-    catalog_df = create_sample_data()
-    st.sidebar.success(f"✅ Using sample data ({len(catalog_df)} courses)")
+if uploaded_file:
+    try:
+        if uploaded_file.name.endswith(".csv"):
+            catalog_df = pd.read_csv(uploaded_file)
+        else:
+            catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
+        
+        st.sidebar.success(f"✅ Loaded {len(catalog_df)} courses")
+        
+    except Exception as e:
+        st.sidebar.error(f"❌ Error: {e}")
+        st.stop()
+else:
+    st.sidebar.info("👆 Please upload a file")
 
 # Only proceed if we have data
 if catalog_df is not None:
@@ -225,10 +190,30 @@ else:
     ## 🚀 How to use:
     
     1. **Login** with your credentials
-    2. **Choose data source** (Upload file or Sample data)
-    3. **Select filters** (Program, Semester, Students)
-    4. **Generate report** 
-    5. **Download CSV** file
+    2. **Upload file** (CSV/Excel)
+    3. File **must contain these columns**: `program`, `semester`, `course_code`, `course_title`, `pre-req`, `elective`, `catalog code`
+    4. **Select filters** (Program, Semester, Students)
+    5. **Generate report**
+    6. **Download CSV** file
+
+    ### 📑 Sample Data Format:
+
+    | course_code | course_title                               | semester | program                 | pre-req | elective | catalog code |
+    |-------------|---------------------------------------------|----------|-------------------------|---------|----------|--------------|
+    | ACS101      | Introduction to Financial Accounting       | one      | BBA (Honors) 4Y         |         |          |              |
+    | BCN101      | Academic English                           | one      | BBA (Honors) 4Y         |         |          |              |
+    | MGT101      | Principles of Management                   | one      | BBA (Honors) 4Y         |         |          |              |
+    | MAT102      | Business Mathematics and Statistics        | one      | BBA (Honors) 4Y         |         |          |              |
+    | SSC101      | Introduction To Psychology                 | one      | BBA (Honors) 4Y         |         |          |              |
+    | ECN101      | Principles of Microeconomics               | one      | BBA (Honors) 4Y         |         |          |              |
+    | CSP111      | Intro to Info. & Comm. Technology [GER]    | one      | BS COMPUTER SCIENCE     |         |          |              |
+    | CSP111L     | Intro to Info. & Comm. Technology Lab      | one      | BS COMPUTER SCIENCE     | CSP111  |          |              |
+    | CSP121      | Programming Fundamentals [CC]              | one      | BS COMPUTER SCIENCE     |         |          |              |
+    | CSP121L     | Programming Fundamentals Lab               | one      | BS COMPUTER SCIENCE     | CSP121  |          |              |
+    | BCN101      | Academic English [GER]                     | one      | BS COMPUTER SCIENCE     |         |          |              |
+    | PHY111      | Applied Physics [GER]                      | one      | BS COMPUTER SCIENCE     |         |          |              |
+    | PHY111L     | Applied Physics Lab                        | one      | BS COMPUTER SCIENCE     | PHY111  |          |              |
+    | MAT110      | Calculus and Analytical Geometry [GER]     | one      | BS COMPUTER SCIENCE     |         |          |              |
     
     ### Valid Login Credentials:
     - Fahadhassan / Iobm1
