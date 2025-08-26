@@ -49,6 +49,12 @@ def load_catalog_data(selected_year):
         # Handle inconsistent column names
         if 'semester#' in catalog_df.columns:
             catalog_df.rename(columns={'semester#': 'semester'}, inplace=True)
+        
+        # This is the new fix for the 'course_code' and 'course_title' KeyErrors
+        if 'code' in catalog_df.columns:
+            catalog_df.rename(columns={'code': 'course_code'}, inplace=True)
+        if 'course title' in catalog_df.columns:
+            catalog_df.rename(columns={'course title': 'course_title'}, inplace=True)
             
         # Fill missing 'semester' values with 'Elective' and ensure the column is a string
         if 'semester' in catalog_df.columns:
