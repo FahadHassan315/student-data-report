@@ -1,4 +1,4 @@
-Code,Course Title ,Semester#,Term,Program,Pre-Req,Electives,Elective Code ,Elective Title,Department
+Code,Course Title ,Semester#,Term,Program,Pre-Req,Electives,Elective Code ,Elective Title,Department,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
 SSC101,Introduction to Psychology,one,Fall-2024,BBA,,,ACC302,Accounting and Financial Information Systems,Accounting Electives
 ECO101,Principles of Microeconomics,one,Fall-2024,BBA,,,ACC405,Internal Audit & EDP Accounting,Accounting Electives
 MTH108,Business Mathematics and Statistics,one,Fall-2024,BBA,,,ACC501,Advanced Financial Accounting,Accounting Electives
@@ -1541,3 +1541,4 @@ PSY506,Quality of Work Life,,,BS PSYCHOLOGY,,Elective,,,
 ,Inclusive Education,three,Fall-2025,B.Ed (HONORS) 1.5 Year,,,,,
 ,Area of Specialization  III*,three,Fall-2025,B.Ed (HONORS) 1.5 Year,,,,,
 ,Edupreneurship,three,Fall-2025,B.Ed (HONORS) 1.5 Year,,,,,
+
