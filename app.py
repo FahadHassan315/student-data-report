@@ -90,17 +90,24 @@ def how_to_use_section():
     
     # Sample data in a nice table format
     sample_data = {
-        'course_code': ['ACS101', 'BCN101', 'MGT101', 'MAT102', 'SSC101', 'ECN101'],
+        'course_code': ['ACS101', 'BCN101', 'MGT101', 'MAT102', 'SSC101', 'ECN101', 'CSP111', 'CSP111L', 'CSP121', 'CSP121L', 'PHY111', 'PHY111L', 'MAT110'],
         'course_title': [
             'Introduction to Financial Accounting',
             'Academic English',
             'Principles of Management',
             'Business Mathematics and Statistics',
             'Introduction To Psychology',
-            'Principles of Microeconomics'
+            'Principles of Microeconomics',
+            'Intro to Info. & Comm. Technology [GER]',
+            'Intro to Info. & Comm. Technology Lab',
+            'Programming Fundamentals [CC]',
+            'Programming Fundamentals Lab',
+            'Applied Physics [GER]',
+            'Applied Physics Lab',
+            'Calculus and Analytical Geometry [GER]'
         ],
-        'semester': ['one', 'one', 'one', 'one', 'one', 'one'],
-        'program': ['BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y']
+        'semester': ['one'] * 6 + ['one'] * 7,
+        'program': ['BBA (Honors) 4Y'] * 6 + ['BS COMPUTER SCIENCE (BS CS)'] * 7
     }
     
     sample_df = pd.DataFrame(sample_data)
