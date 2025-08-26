@@ -1,4 +1,4 @@
-Code,Course Title ,Semester#,Term,Program,Pre-Req,Elective
+Code,Course Title ,Semester#,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
        SSC101,Introduction to Psychology,one,Fall-2022,BBA,,
       ECO101,Principles of Micro Economics,one,Fall-2022,BBA,,
      MTH102,Business Mathematics,one,Fall-2022,BBA,,
@@ -446,22 +446,22 @@ SCM706,Business Research Project (Supply Chain),Seventh,Fall-2025,BS (JOINT) HON
 ,Logistics Elective VI,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,
 MAN405,Strategic Management,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,
 LOG706,Business Research Project (Logistics),Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,
-SCM751,Supply Chain Finance and Costing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM752,"Supply Chain Technology, Systems and Innovation",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM753,Globalization and Outsourcing Strategies,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM754,Packaging Design and Environmental Aspects,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM755,E-business Strategies in SCM,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM756,Operational Research and Simulation,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM757,Managing Sustainable Supply Chain,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-SCM758,Supply Chain i4.0 & Data Sciences,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6
-LOG751,Import Export Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG752,Lean Six Sigma and Lean Manufacturing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG753,"Shipping, Ocean Freights and Port Operations",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG754,Humanitarian Logistics Supply Chain Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG755,Reverse Logistics and Supply Chain Sustainability,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG756,Retail Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG757,Dock Mgmt. Systems & IT Applications in Logistics,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
-LOG758,Inventory Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6
+SCM751,Supply Chain Finance and Costing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM752,"Supply Chain Technology, Systems and Innovation",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM753,Globalization and Outsourcing Strategies,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM754,Packaging Design and Environmental Aspects,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM755,E-business Strategies in SCM,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM756,Operational Research and Simulation,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM757,Managing Sustainable Supply Chain,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+SCM758,Supply Chain i4.0 & Data Sciences,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives Â– 6
+LOG751,Import Export Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG752,Lean Six Sigma and Lean Manufacturing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG753,"Shipping, Ocean Freights and Port Operations",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG754,Humanitarian Logistics Supply Chain Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG755,Reverse Logistics and Supply Chain Sustainability,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG756,Retail Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG757,Dock Mgmt. Systems & IT Applications in Logistics,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
+LOG758,Inventory Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives Â– 6
 ACC419,Financial Accounting ,one,Fall-2022,MBA,,
 COM402,Business Communication,one,Fall-2022,MBA,,
 ECO409,Business Economics ,one,Fall-2022,MBA,,
@@ -1312,18 +1312,18 @@ MMM318,Business Journalism (J),Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,
 ,Methods in Media Research,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
 ,Media Law & Ethics,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
 ,Creative Portfolio Management,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
-MMM342,Filmmaking – The Art & Craft: Thesis I (P) (6C),Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
+MMM342,Filmmaking Â– The Art & Craft: Thesis I (P) (6C),Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
 MMM403,Investigative Journalism: Thesis I (J) (6C),Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
-,Elective I – Design Thinking,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
+,Elective I Â– Design Thinking,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
 ,Elective II,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,
 ,Content Distribution & Promotion,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 ,Entrepreneurship & Small Business,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 MMM336,Human Rights & Gender Reporting (J),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
-MMM366,Filmmaking – The Art & Craft: Thesis II (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
+MMM366,Filmmaking Â– The Art & Craft: Thesis II (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 MMM382,Editing & Post Production III (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 MMM392,Investigative Journalism: Thesis II (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
-,Elective I – Discovering Film (J),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
-,Elective II – Introduction to Unreal Engine (P),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
+,Elective I Â– Discovering Film (J),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
+,Elective II Â– Introduction to Unreal Engine (P),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 ,Elective II,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,
 MMM301,Photojournalism,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major)
 MMM367,Digital Journalism,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major)
@@ -1613,13 +1613,13 @@ BED213,Teaching in Early Years,four,Spring-2024,BS Education (4 Year) ,,
 BED231,Educational Policy and Economics,four,Spring-2024,BS Education (4 Year) ,,
 BED421,Sociology of Education,four,Spring-2024,BS Education (4 Year) ,,
 BED201,Teaching of Science,four,Spring-2024,BS Education (4 Year) ,,
-BED281,Teaching Practicum – I,four,Spring-2024,BS Education (4 Year) ,,
+BED281,Teaching Practicum Â– I,four,Spring-2024,BS Education (4 Year) ,,
 BED303,Contemporary Issues & Trends in Edu.,Fifth,Fall-2024,BS Education (4 Year) ,,
 EDM621,Edupreneurship,Fifth,Fall-2024,BS Education (4 Year) ,,
 EDM656,Teacher Education,Fifth,Fall-2024,BS Education (4 Year) ,,
 BED337,Educational Counseling,Fifth,Fall-2024,BS Education (4 Year) ,,
 BED353,Teaching of Social Science Subjects,Fifth,Fall-2024,BS Education (4 Year) ,,
-BED381,Teaching Practicum – II,Fifth,Fall-2024,BS Education (4 Year) ,,
+BED381,Teaching Practicum Â– II,Fifth,Fall-2024,BS Education (4 Year) ,,
 BED301,Curriculum Development,Sixth,Fall-2024,BS Education (4 Year) ,,
 BED361,Research Methods in Education I (Qualitative),Sixth,Spring-2025,BS Education (4 Year) ,,
 BED357,Critical Thinking and Reading,Sixth,Spring-2025,BS Education (4 Year) ,,
@@ -1628,12 +1628,13 @@ BED359,School Management,Sixth,Spring-2025,BS Education (4 Year) ,,
 BED491,Psychological Assessment,Sixth,Spring-2025,BS Education (4 Year) ,,
 EDM654,Lifelong Learning,Seventh,Spring-2025,BS Education (4 Year) ,,
 BED362,Research Methods in Education II (Quantitative),Seventh,Fall-2025,BS Education (4 Year) ,,
-BED401,Area of Specialization – I *,Seventh,Fall-2025,BS Education (4 Year) ,,
-BED403,Area of Specialization – II*,Seventh,Fall-2025,BS Education (4 Year) ,,
-BED405,Area of Specialization – III *,Seventh,Fall-2025,BS Education (4 Year) ,,
+BED401,Area of Specialization Â– I *,Seventh,Fall-2025,BS Education (4 Year) ,,
+BED403,Area of Specialization Â– II*,Seventh,Fall-2025,BS Education (4 Year) ,,
+BED405,Area of Specialization Â– III *,Seventh,Fall-2025,BS Education (4 Year) ,,
 BED426,Comparative Education System,Seventh,Fall-2025,BS Education (4 Year) ,,
 EDM624,Innovations and Technology in Education,Eights,Fall-2025,BS Education (4 Year) ,,
 BED405,Inclusive Education,Eights,Spring-2027,BS Education (4 Year) ,,
 BED409,Research Project,Eights,Spring-2027,BS Education (4 Year) ,,
 BED409,Marketing Education Services,Eights,Spring-2027,BS Education (4 Year) ,,
 BED417,Quality Assurance in Education,Eights,Spring-2027,BS Education (4 Year) ,,
+
