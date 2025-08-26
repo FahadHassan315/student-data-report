@@ -1,4 +1,4 @@
-Code,Course Title ,Semester#,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
+Code,Course Title ,Semester,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
        SSC101,Introduction to Psychology,one,Fall-2022,BBA,,
       ECO101,Principles of Micro Economics,one,Fall-2022,BBA,,
      MTH102,Business Mathematics,one,Fall-2022,BBA,,
@@ -1637,4 +1637,5 @@ BED405,Inclusive Education,Eights,Spring-2027,BS Education (4 Year) ,,
 BED409,Research Project,Eights,Spring-2027,BS Education (4 Year) ,,
 BED409,Marketing Education Services,Eights,Spring-2027,BS Education (4 Year) ,,
 BED417,Quality Assurance in Education,Eights,Spring-2027,BS Education (4 Year) ,,
+
 
