@@ -43,23 +43,29 @@ def load_catalog_data(selected_year):
         # Drop any columns that are entirely empty
         catalog_df = catalog_df.dropna(axis=1, how='all')
 
-        # Normalize columns
-        catalog_df.columns = catalog_df.columns.str.lower()
+        # Normalize columns with a robust mapping
+        column_map = {
+            'course_code': 'course_code',
+            'code': 'course_code',
+            'course title': 'course_title',
+            'course_title': 'course_title',
+            'semester': 'semester',
+            'semester#': 'semester',
+            'program': 'program',
+            'program ': 'program' # handle trailing space if it exists
+        }
         
-        # Handle inconsistent column names
-        if 'semester#' in catalog_df.columns:
-            catalog_df.rename(columns={'semester#': 'semester'}, inplace=True)
+        # Create a new, normalized DataFrame with standardized column names
+        normalized_df = pd.DataFrame()
+        for col in catalog_df.columns:
+            lower_col = col.lower().strip()
+            if lower_col in column_map:
+                normalized_df[column_map[lower_col]] = catalog_df[col]
+            else:
+                normalized_df[lower_col] = catalog_df[col]
         
-        # This is the new fix for the 'course_code' and 'course_title' KeyErrors
-        if 'code' in catalog_df.columns:
-            catalog_df.rename(columns={'code': 'course_code'}, inplace=True)
-        if 'course title' in catalog_df.columns:
-            catalog_df.rename(columns={'course title': 'course_title'}, inplace=True)
+        catalog_df = normalized_df
         
-        # FIX: Added a check for the 'program' column
-        if 'program' not in catalog_df.columns and 'program' in catalog_df.columns.str.lower():
-            catalog_df.rename(columns={col: 'program' for col in catalog_df.columns if col.lower() == 'program'}, inplace=True)
-            
         # Fill missing 'semester' values with 'Elective' and ensure the column is a string
         if 'semester' in catalog_df.columns:
             catalog_df['semester'] = catalog_df['semester'].fillna('Elective')
@@ -251,8 +257,27 @@ def main_app():
                 # Drop any columns that are entirely empty
                 catalog_df = catalog_df.dropna(axis=1, how='all')
 
-                # Normalize columns
-                catalog_df.columns = catalog_df.columns.str.lower()
+                # Normalize columns with a robust mapping
+                column_map = {
+                    'course_code': 'course_code',
+                    'code': 'course_code',
+                    'course title': 'course_title',
+                    'course_title': 'course_title',
+                    'semester': 'semester',
+                    'semester#': 'semester',
+                    'program': 'program',
+                    'program ': 'program' # handle trailing space if it exists
+                }
+                
+                normalized_df = pd.DataFrame()
+                for col in catalog_df.columns:
+                    lower_col = col.lower().strip()
+                    if lower_col in column_map:
+                        normalized_df[column_map[lower_col]] = catalog_df[col]
+                    else:
+                        normalized_df[lower_col] = catalog_df[col]
+                
+                catalog_df = normalized_df
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
             except Exception as e:
@@ -262,14 +287,13 @@ def main_app():
             st.warning("Please upload a file to continue.")
             st.stop()
 
-    # Required columns check (only for uploaded files)
-    if data_source == "📁 Upload Your Own File":
-        required_columns = ["program", "semester", "course_code", "course_title"]
-        missing_columns = [col for col in required_columns if col not in catalog_df.columns]
+    # Required columns check
+    required_columns = ["program", "semester", "course_code", "course_title"]
+    missing_columns = [col for col in required_columns if col not in catalog_df.columns]
 
-        if missing_columns:
-            st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
-            st.stop()
+    if missing_columns:
+        st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
+        st.stop()
 
     # Dropdowns
     programs_list = sorted(catalog_df["program"].unique())
