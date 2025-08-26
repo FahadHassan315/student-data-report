@@ -41,6 +41,18 @@ def load_catalog_data(selected_year):
         catalog_df = pd.read_csv(filename)
         # Normalize columns
         catalog_df.columns = catalog_df.columns.str.lower()
+        
+        # Clean the data - remove rows where essential columns are NaN
+        essential_columns = ['course_code', 'course_title', 'semester', 'program']
+        for col in essential_columns:
+            if col in catalog_df.columns:
+                catalog_df = catalog_df.dropna(subset=[col])
+        
+        # Convert columns to string and clean them
+        for col in ['semester', 'program', 'course_code', 'course_title']:
+            if col in catalog_df.columns:
+                catalog_df[col] = catalog_df[col].astype(str).str.strip()
+        
         return catalog_df, True
     except Exception as e:
         st.error(f"Error loading catalog file {filename}: {e}")
@@ -206,12 +218,19 @@ def main_app():
         
         st.sidebar.success(f"✅ {selected_catalog} loaded ({len(catalog_df)} courses)")
         
-        # Show catalog info
+        # Show catalog info - with safe handling of unique values
         with st.sidebar.expander("📋 Catalog Info"):
             st.write(f"**Selected Year:** {selected_catalog}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
-            st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
-            st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
+            
+            # Safe handling of unique programs
+            unique_programs = catalog_df['program'].dropna().unique()
+            st.write(f"**Programs:** {len(unique_programs)}")
+            
+            # Safe handling of unique semesters - filter out NaN and convert to string
+            unique_semesters = catalog_df['semester'].dropna().unique()
+            semester_strings = [str(sem) for sem in unique_semesters if str(sem) != 'nan']
+            st.write(f"**Semesters:** {', '.join(sorted(semester_strings))}")
             
     else:
         # Upload option
@@ -225,6 +244,17 @@ def main_app():
                 
                 # Normalize columns
                 catalog_df.columns = catalog_df.columns.str.lower()
+                
+                # Clean the data - remove rows where essential columns are NaN
+                essential_columns = ['course_code', 'course_title', 'semester', 'program']
+                for col in essential_columns:
+                    if col in catalog_df.columns:
+                        catalog_df = catalog_df.dropna(subset=[col])
+                
+                # Convert columns to string and clean them
+                for col in ['semester', 'program', 'course_code', 'course_title']:
+                    if col in catalog_df.columns:
+                        catalog_df[col] = catalog_df[col].astype(str).str.strip()
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
             except Exception as e:
@@ -243,11 +273,18 @@ def main_app():
             st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
             st.stop()
 
-    # Dropdowns
-    programs_list = sorted(catalog_df["program"].unique())
+    # Dropdowns - with safe handling of unique values
+    programs_list = sorted(catalog_df["program"].dropna().unique())
     programs_with_all = ["All Programs"] + programs_list
     program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
-    semester_filter = st.sidebar.selectbox("Select Semester", sorted(catalog_df["semester"].unique()))
+    
+    # Safe handling of semester dropdown
+    semester_options = sorted(catalog_df["semester"].dropna().unique())
+    if not semester_options:
+        st.error("No valid semester data found in the catalog.")
+        st.stop()
+    
+    semester_filter = st.sidebar.selectbox("Select Semester", semester_options)
     
     # Student count input - different behavior for "All Programs"
     if program_filter == "All Programs":
