@@ -1,4 +1,4 @@
-Code,Course Title ,Semester#,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
+Code,Course Title ,Semester,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
 PSC301,Pakistan Studies,one,Fall-2020,BBA(H),,
 ECO101,Principles of Microeconomics,one,Fall-2020,BBA(H),,
 ECO102,Principles of Management,one,Fall-2020,BBA(H),,
@@ -1489,4 +1489,5 @@ HRM617 ,HR Analytics,,,MSc Org Psychology 14th year ,,Human Resource Management
 HRM614 ,Rewards Management,,,MSc Org Psychology 14th year ,,Human Resource Management
 HRM615 ,Leadership Studies,,,MSc Org Psychology 14th year ,,Human Resource Management
 HRM616 ,Talent Management and Performance Development,,,MSc Org Psychology 14th year ,,Human Resource Management
+
 
