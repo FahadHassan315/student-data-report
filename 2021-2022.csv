@@ -1,4 +1,4 @@
-Code,Course Title ,Semester#,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
+Code,Course Title ,Semester,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
 SSC101,Introduction to Psychology,one,Fall-2021,BBA(H),,
 ECO101,Principles of Micro Economics,one,Fall-2021,BBA(H),,
 MTH102,Business Mathematics,one,Fall-2021,BBA(H),,
@@ -1620,4 +1620,5 @@ HRM617,HR Analytics,,,MSc,,MSc ORG PSY AND HRM FOR STUDENTS WITH 14 YEARS EDUCAT
 ,,,,,,
 ,,,,,,
 ,,,,,,
+
 
