@@ -1,4 +1,4 @@
-Code,Course Title,Semester#,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
+Code,Course Title,Semester,Term,Program,Pre-Req,Elective,Catalog code, Catalog ,program code,ProgramSchedule,	Catalog Code,	Term
 SSC101,Introduction to Psychology,One,Fall 2023,BBA,,,,,,,,,,,,,,,,,,
 ECO101,Principles of Micro Economics,One,Fall 2023,BBA,,,,,,,,,,,,,,,,,,
 MTH102,Business Mathematics,One,Fall 2023,BBA,,,,,,,,,,,,,,,,,,
@@ -2214,4 +2214,5 @@ PSY505,Psychological Crisis Management,,,BS PSY,, Psychology,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,
+
 
