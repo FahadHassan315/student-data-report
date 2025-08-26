@@ -19,16 +19,31 @@ USERS = {
     "rabiyasabri": {"password": "iobm4", "display_name": "Rabiya Sabri"}
 }
 
-def load_catalog_data():
-    """Load catalog data from the repository CSV file"""
+def load_catalog_data(selected_year):
+    """Load catalog data from the repository CSV files"""
     try:
+        # Map display names to file names
+        catalog_files = {
+            "2025-2026 Catalog": "csvcatalog 2025-26 timetables.csv",
+            "2024-2025 Catalog": "2024-2025.csv",
+            "2023-2024 Catalog": "2023-2024.csv",
+            "2022-2023 Catalog": "2022-2023.csv",
+            "2021-2022 Catalog": "2021-2022.csv",
+            "2020-2021 Catalog": "2020-2021.csv"
+        }
+        
+        filename = catalog_files.get(selected_year)
+        if not filename:
+            st.error(f"Unknown catalog selection: {selected_year}")
+            return None, False
+            
         # Load the CSV file from the repository
-        catalog_df = pd.read_csv("csvcatalog 2025-26 timetables.csv")
+        catalog_df = pd.read_csv(filename)
         # Normalize columns
         catalog_df.columns = catalog_df.columns.str.lower()
         return catalog_df, True
     except Exception as e:
-        st.error(f"Error loading catalog file: {e}")
+        st.error(f"Error loading catalog file {filename}: {e}")
         return None, False
 
 def login_page():
@@ -63,9 +78,10 @@ def how_to_use_section():
     
     st.markdown("### Step 1: Choose Your Data Source")
     st.markdown("""
-    **Option 1: Use 2025-2026 Catalog** 📊
-    - Select "2025-2026 Catalog" in the sidebar
-    - Uses the institutional catalog directly from the system
+    **Option 1: Use Academic Year Catalogs** 📊
+    - Select "Academic Year Catalogs" in the sidebar
+    - Choose from available academic years (2020-2021 through 2025-2026)
+    - Uses institutional catalogs directly from the system
     - No file upload needed
     
     **Option 2: Upload Your Own File** 📁
@@ -73,7 +89,18 @@ def how_to_use_section():
     - Upload your custom CSV with the required columns
     """)
     
-    st.markdown("### Step 2: Required Fields for Custom Upload")
+    st.markdown("### Step 2: Select Academic Year (if using catalogs)")
+    st.markdown("Choose from the available academic year catalogs:")
+    st.markdown("""
+    - **2025-2026 Catalog** (Latest)
+    - **2024-2025 Catalog** 
+    - **2023-2024 Catalog**
+    - **2022-2023 Catalog**
+    - **2021-2022 Catalog**
+    - **2020-2021 Catalog**
+    """)
+    
+    st.markdown("### Step 3: Required Fields for Custom Upload")
     st.markdown("If uploading your own file, ensure these **required columns** exist:")
     
     # Required fields info
@@ -115,11 +142,12 @@ def how_to_use_section():
     
     st.markdown("### Step 4: Generate Schedule")
     st.markdown("""
-    1. Choose your data source (2025-2026 Catalog or Upload File)
-    2. Select the Program and Semester from the dropdown menus
-    3. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
-    4. Click "Generate Report" to create the schedule
-    5. Download the generated timetable as CSV
+    1. Choose your data source (Academic Year Catalogs or Upload File)
+    2. If using catalogs, select the desired academic year
+    3. Select the Program and Semester from the dropdown menus
+    4. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
+    5. Click "Generate Report" to create the schedule
+    6. Download the generated timetable as CSV
     """)
     
     st.markdown("---")
@@ -149,21 +177,38 @@ def main_app():
     # Data source selection
     data_source = st.sidebar.radio(
         "Choose Data Source:",
-        ["📊 2025-2026 Catalog", "📁 Upload Your Own File"],
+        ["📊 Academic Year Catalogs", "📁 Upload Your Own File"],
         index=0
     )
     
-    if data_source == "📊 2025-2026 Catalog":
+    if data_source == "📊 Academic Year Catalogs":
+        # Catalog year selection
+        catalog_options = [
+            "2025-2026 Catalog",
+            "2024-2025 Catalog", 
+            "2023-2024 Catalog",
+            "2022-2023 Catalog",
+            "2021-2022 Catalog",
+            "2020-2021 Catalog"
+        ]
+        
+        selected_catalog = st.sidebar.selectbox(
+            "Select Academic Year:",
+            catalog_options,
+            index=0
+        )
+        
         # Use catalog from repository
-        catalog_df, success = load_catalog_data()
+        catalog_df, success = load_catalog_data(selected_catalog)
         if not success:
-            st.error("Failed to load the 2025-2026 catalog. Please try uploading your own file.")
+            st.error(f"Failed to load the {selected_catalog}. Please try uploading your own file.")
             st.stop()
         
-        st.sidebar.success(f"✅ 2025-2026 Catalog loaded ({len(catalog_df)} courses)")
+        st.sidebar.success(f"✅ {selected_catalog} loaded ({len(catalog_df)} courses)")
         
         # Show catalog info
         with st.sidebar.expander("📋 Catalog Info"):
+            st.write(f"**Selected Year:** {selected_catalog}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
             st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
             st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
