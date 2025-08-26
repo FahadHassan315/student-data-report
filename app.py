@@ -55,6 +55,10 @@ def load_catalog_data(selected_year):
             catalog_df.rename(columns={'code': 'course_code'}, inplace=True)
         if 'course title' in catalog_df.columns:
             catalog_df.rename(columns={'course title': 'course_title'}, inplace=True)
+        
+        # FIX: Added a check for the 'program' column
+        if 'program' not in catalog_df.columns and 'program' in catalog_df.columns.str.lower():
+            catalog_df.rename(columns={col: 'program' for col in catalog_df.columns if col.lower() == 'program'}, inplace=True)
             
         # Fill missing 'semester' values with 'Elective' and ensure the column is a string
         if 'semester' in catalog_df.columns:
