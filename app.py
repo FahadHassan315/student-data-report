@@ -39,20 +39,22 @@ def load_catalog_data(selected_year):
             
         # Load the CSV file from the repository
         catalog_df = pd.read_csv(filename)
+        
+        # Drop any columns that are entirely empty
+        catalog_df = catalog_df.dropna(axis=1, how='all')
+
         # Normalize columns
         catalog_df.columns = catalog_df.columns.str.lower()
         
-        # Clean the data - remove rows where essential columns are NaN
-        essential_columns = ['course_code', 'course_title', 'semester', 'program']
-        for col in essential_columns:
-            if col in catalog_df.columns:
-                catalog_df = catalog_df.dropna(subset=[col])
-        
-        # Convert columns to string and clean them
-        for col in ['semester', 'program', 'course_code', 'course_title']:
-            if col in catalog_df.columns:
-                catalog_df[col] = catalog_df[col].astype(str).str.strip()
-        
+        # Handle inconsistent column names
+        if 'semester#' in catalog_df.columns:
+            catalog_df.rename(columns={'semester#': 'semester'}, inplace=True)
+            
+        # Fill missing 'semester' values with 'Elective' and ensure the column is a string
+        if 'semester' in catalog_df.columns:
+            catalog_df['semester'] = catalog_df['semester'].fillna('Elective')
+            catalog_df['semester'] = catalog_df['semester'].astype(str).str.strip()
+            
         return catalog_df, True
     except Exception as e:
         st.error(f"Error loading catalog file {filename}: {e}")
@@ -105,8 +107,7 @@ def how_to_use_section():
     st.markdown("Choose from the available academic year catalogs:")
     st.markdown("""
     - **2025-2026 Catalog** (Latest)
-    - **2024-2025 Catalog** 
-    - **2023-2024 Catalog**
+    - **2024-2025 Catalog** - **2023-2024 Catalog**
     - **2022-2023 Catalog**
     - **2021-2022 Catalog**
     - **2020-2021 Catalog**
@@ -215,22 +216,17 @@ def main_app():
         if not success:
             st.error(f"Failed to load the {selected_catalog}. Please try uploading your own file.")
             st.stop()
-        
+            
         st.sidebar.success(f"✅ {selected_catalog} loaded ({len(catalog_df)} courses)")
         
-        # Show catalog info - with safe handling of unique values
+        # Show catalog info
         with st.sidebar.expander("📋 Catalog Info"):
             st.write(f"**Selected Year:** {selected_catalog}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
-            
-            # Safe handling of unique programs
-            unique_programs = catalog_df['program'].dropna().unique()
-            st.write(f"**Programs:** {len(unique_programs)}")
-            
-            # Safe handling of unique semesters - filter out NaN and convert to string
-            unique_semesters = catalog_df['semester'].dropna().unique()
-            semester_strings = [str(sem) for sem in unique_semesters if str(sem) != 'nan']
-            st.write(f"**Semesters:** {', '.join(sorted(semester_strings))}")
+            if "program" in catalog_df.columns:
+                st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
+            if "semester" in catalog_df.columns:
+                st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
             
     else:
         # Upload option
@@ -242,19 +238,11 @@ def main_app():
                 else:
                     catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
                 
+                # Drop any columns that are entirely empty
+                catalog_df = catalog_df.dropna(axis=1, how='all')
+
                 # Normalize columns
                 catalog_df.columns = catalog_df.columns.str.lower()
-                
-                # Clean the data - remove rows where essential columns are NaN
-                essential_columns = ['course_code', 'course_title', 'semester', 'program']
-                for col in essential_columns:
-                    if col in catalog_df.columns:
-                        catalog_df = catalog_df.dropna(subset=[col])
-                
-                # Convert columns to string and clean them
-                for col in ['semester', 'program', 'course_code', 'course_title']:
-                    if col in catalog_df.columns:
-                        catalog_df[col] = catalog_df[col].astype(str).str.strip()
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
             except Exception as e:
@@ -273,18 +261,11 @@ def main_app():
             st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
             st.stop()
 
-    # Dropdowns - with safe handling of unique values
-    programs_list = sorted(catalog_df["program"].dropna().unique())
+    # Dropdowns
+    programs_list = sorted(catalog_df["program"].unique())
     programs_with_all = ["All Programs"] + programs_list
     program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
-    
-    # Safe handling of semester dropdown
-    semester_options = sorted(catalog_df["semester"].dropna().unique())
-    if not semester_options:
-        st.error("No valid semester data found in the catalog.")
-        st.stop()
-    
-    semester_filter = st.sidebar.selectbox("Select Semester", semester_options)
+    semester_filter = st.sidebar.selectbox("Select Semester", sorted(catalog_df["semester"].unique()))
     
     # Student count input - different behavior for "All Programs"
     if program_filter == "All Programs":
@@ -315,8 +296,8 @@ def main_app():
 
     mba_slots = [
         ("9:00 AM", "12:00 PM"),  # Weekend morning
-        ("2:00 PM", "5:00 PM"),   # Weekend afternoon
-        ("6:30 PM", "9:30 PM")    # Weekday evening
+        ("2:00 PM", "5:00 PM"),    # Weekend afternoon
+        ("6:30 PM", "9:30 PM")     # Weekday evening
     ]
 
     weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
@@ -371,7 +352,7 @@ def main_app():
                     candidate_slots = all_slots.copy()
                 else:
                     section_weekend_classes = sum(1 for (d, t) in section_occupied_slots[sec] 
-                                                if any(wd in str(d) for wd in weekend_days))
+                                                 if any(wd in str(d) for wd in weekend_days))
                     section_weekday_classes = len(section_occupied_slots[sec]) - section_weekend_classes
                     prefer_weekend = weekend_preference.get(sec, False)
                     
@@ -394,7 +375,7 @@ def main_app():
                         continue
                     if not is_mba and any(wd in str(day) for wd in weekend_days):
                         section_weekend_days = [d for (d, t) in section_occupied_slots[sec] 
-                                              if any(wd in str(d) for wd in weekend_days)]
+                                                  if any(wd in str(d) for wd in weekend_days)]
                         if section_weekend_days and day not in section_weekend_days:
                             existing_weekend_day = next(iter([d for d in section_weekend_days if d in weekend_days]), None)
                             if existing_weekend_day and (existing_weekend_day, slot) not in section_occupied_slots[sec]:
@@ -522,7 +503,7 @@ def main_app():
                     )
                 else:
                     st.warning("No data found for any programs in the selected semester.")
-        
+            
         else:
             # Handle single program (original functionality)
             df = catalog_df[
