@@ -32,7 +32,25 @@ CATALOG_FILES = {
 def load_rooms_data():
     """Load rooms data from the repository CSV file"""
     try:
-        rooms_df = pd.read_csv("rooms.csv")
+        # Try different encodings for rooms.csv
+        encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
+        
+        for encoding in encodings_to_try:
+            try:
+                rooms_df = pd.read_csv("rooms.csv", encoding=encoding)
+                st.info(f"Successfully loaded rooms.csv using {encoding} encoding")
+                break
+            except UnicodeDecodeError:
+                continue
+            except Exception as e:
+                if encoding == encodings_to_try[-1]:
+                    st.error(f"Error loading rooms file: {e}")
+                    return [], [], [], False
+                continue
+        else:
+            st.error(f"Could not decode rooms.csv with any of the attempted encodings")
+            return [], [], [], False
+        
         # Get all room columns (excluding 'Total Roms Numbers' if it exists)
         room_columns = [col for col in rooms_df.columns if col != 'Total Roms Numbers']
         
@@ -215,11 +233,6 @@ def main_app():
             st.session_state.username = ""
             st.rerun()
     
-    # Load rooms data
-    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
-    if not rooms_loaded:
-        st.warning("Could not load rooms data. Room allocation will be disabled.")
-    
     # How to use section
     with st.expander("📖 How to Use This Application", expanded=False):
         how_to_use_section()
@@ -322,6 +335,11 @@ def main_app():
         if missing_columns:
             st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
             st.stop()
+
+    # Load rooms data after catalog is successfully loaded
+    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
+    if not rooms_loaded:
+        st.warning("Could not load rooms data. Room allocation will be disabled.")
 
     # Dropdowns
     programs_list = sorted(catalog_df["program"].unique())
