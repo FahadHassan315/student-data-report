@@ -29,7 +29,32 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
-def load_catalog_data(catalog_year):
+def load_rooms_data():
+    """Load rooms data from the repository CSV file"""
+    try:
+        rooms_df = pd.read_csv("rooms.csv")
+        # Get all room columns (excluding 'Total Roms Numbers' if it exists)
+        room_columns = [col for col in rooms_df.columns if col != 'Total Roms Numbers']
+        
+        # Extract all room names from the dataframe
+        rooms_list = []
+        for col in room_columns:
+            rooms_in_col = rooms_df[col].dropna().astype(str).tolist()
+            rooms_list.extend([room for room in rooms_in_col if room and room.strip() and room != 'nan'])
+        
+        # Remove duplicates and sort
+        rooms_list = sorted(list(set(rooms_list)))
+        
+        # Separate IT labs/rooms from regular rooms
+        it_rooms = [room for room in rooms_list if room.upper().startswith(('IT LAB', 'ITROOM'))]
+        regular_rooms = [room for room in rooms_list if not room.upper().startswith(('IT LAB', 'ITROOM'))]
+        
+        st.info(f"Loaded {len(rooms_list)} rooms: {len(it_rooms)} IT rooms, {len(regular_rooms)} regular rooms")
+        return rooms_list, it_rooms, regular_rooms, True
+        
+    except Exception as e:
+        st.error(f"Error loading rooms file: {e}")
+        return [], [], [], False
     """Load catalog data from the repository CSV file"""
     filename = CATALOG_FILES[catalog_year]
     
@@ -178,6 +203,11 @@ def how_to_use_section():
 def main_app():
     # Page setup
     st.set_page_config(page_title="📊 Semester Schedule Generator", layout="wide")
+    
+    # Load rooms data
+    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
+    if not rooms_loaded:
+        st.warning("Could not load rooms data. Room allocation will be disabled.")
     
     # Header with logout
     col1, col2 = st.columns([3, 1])
@@ -491,6 +521,141 @@ def main_app():
                     schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
         
         return schedule
+        """
+        Improved scheduling function that avoids clashes and distributes weekend classes better
+        For Bachelor's programs, can optionally disable weekend courses
+        """
+        section_occupied_slots = defaultdict(set)  # section -> {(day, time)}
+        course_slot_usage = defaultdict(lambda: defaultdict(int))  # course -> slot -> count
+        course_section_slots = defaultdict(set)  # course -> {(day, time)} used by any section
+        
+        schedule = []
+        program_name = df["program"].iloc[0].lower() if not df.empty else ""
+        is_mba = "mba" in program_name
+        
+        # Get all available slots
+        if is_mba:
+            # MBA programs always use their specific slots (no weekend restriction)
+            all_slots = []
+            for slot in mba_slots:
+                if slot == ("6:30 PM", "9:30 PM"):
+                    for day in weekday_days:
+                        all_slots.append((day, slot))
+                else:
+                    for day in weekend_days:
+                        all_slots.append((day, slot))
+        else:
+            # Bachelor's programs - can optionally exclude weekend slots
+            all_slots = []
+            for slot in weekday_slots:
+                for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
+                    all_slots.append((f"{day1} / {day2}", slot))
+            
+            # Add weekend slots only if allowed for Bachelor's programs
+            if allow_weekend_courses:
+                for slot in weekend_slots:
+                    for day in weekend_days:
+                        all_slots.append((day, slot))
+        
+        total_sections = df["required sections"].max() if not df.empty else 0
+        
+        if not is_mba:
+            weekend_preference = {}
+            for section in range(1, total_sections + 1):
+                weekend_preference[section] = random.random() < 0.3
+        
+        for _, row in df.iterrows():
+            course = row["course_title"]
+            course_code = row["course_code"]
+            sections = row["required sections"]
+            
+            for sec in range(1, sections + 1):
+                slot_assigned = False
+                
+                if is_mba:
+                    candidate_slots = all_slots.copy()
+                else:
+                    section_weekend_classes = sum(1 for (d, t) in section_occupied_slots[sec] 
+                                                if any(wd in str(d) for wd in weekend_days))
+                    section_weekday_classes = len(section_occupied_slots[sec]) - section_weekend_classes
+                    prefer_weekend = weekend_preference.get(sec, False) and allow_weekend_courses
+                    
+                    if not allow_weekend_courses or section_weekend_classes >= 2:
+                        # Prioritize weekday slots
+                        candidate_slots = [(d, s) for (d, s) in all_slots if "/" in str(d)]
+                        if allow_weekend_courses:
+                            candidate_slots += [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
+                    elif section_weekday_classes >= 6:
+                        weekend_slots_list = [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
+                        weekday_slots_list = [(d, s) for (d, s) in all_slots if "/" in str(d)]
+                        candidate_slots = weekend_slots_list + weekday_slots_list
+                    else:
+                        weekend_slots_list = [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
+                        weekday_slots_list = [(d, s) for (d, s) in all_slots if "/" in str(d)]
+                        candidate_slots = weekend_slots_list + weekday_slots_list if prefer_weekend else weekday_slots_list + weekend_slots_list
+                
+                candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
+                
+                # First pass: Try to avoid section clashes and course clashes
+                for slot_key in candidate_slots:
+                    day, slot = slot_key
+                    
+                    # Check for section clash (always avoid)
+                    if slot_key in section_occupied_slots[sec]:
+                        continue
+                    
+                    # Check for course clash (avoid if possible, but allow as last resort)
+                    if slot_key in course_section_slots[course]:
+                        continue
+                        
+                    # Handle weekend day consistency for non-MBA programs
+                    if not is_mba and any(wd in str(day) for wd in weekend_days):
+                        section_weekend_days = [d for (d, t) in section_occupied_slots[sec] 
+                                              if any(wd in str(d) for wd in weekend_days)]
+                        if section_weekend_days and day not in section_weekend_days:
+                            existing_weekend_day = next(iter([d for d in section_weekend_days if d in weekend_days]), None)
+                            if existing_weekend_day and (existing_weekend_day, slot) not in section_occupied_slots[sec]:
+                                day = existing_weekend_day
+                                slot_key = (day, slot)
+                            else:
+                                continue
+                    
+                    # Assign the slot
+                    section_occupied_slots[sec].add(slot_key)
+                    course_slot_usage[course][slot_key] += 1
+                    course_section_slots[course].add(slot_key)
+                    schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+                    slot_assigned = True
+                    break
+                
+                # Second pass: Allow course clashes if no other option (but still avoid section clashes)
+                if not slot_assigned:
+                    for slot_key in candidate_slots:
+                        day, slot = slot_key
+                        
+                        # Still avoid section clashes
+                        if slot_key in section_occupied_slots[sec]:
+                            continue
+                        
+                        # Allow course clashes as last resort
+                        section_occupied_slots[sec].add(slot_key)
+                        course_slot_usage[course][slot_key] += 1
+                        course_section_slots[course].add(slot_key)
+                        schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+                        slot_assigned = True
+                        break
+                
+                # Final fallback: Random assignment with warning
+                if not slot_assigned:
+                    st.warning(f"Could not find optimal slot for {course_code if course_code else 'Unknown Course'} Section {sec}. Using random assignment.")
+                    slot_key = random.choice(all_slots)
+                    day, slot = slot_key
+                    section_occupied_slots[sec].add(slot_key)
+                    course_slot_usage[course][slot_key] += 1
+                    course_section_slots[course].add(slot_key)
+                    schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+        
+        return schedule
 
     # Generate report
     if st.sidebar.button("Generate Report"):
@@ -537,7 +702,18 @@ def main_app():
                         
                         program_result_df = pd.DataFrame(expanded_df)
                         program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                        all_results.append(program_result_df)
+                        
+                        # Allocate rooms for this program
+                        if rooms_loaded and program_filter == "All Programs":
+                            # For "All Programs", we'll allocate rooms globally later
+                            all_results.append(program_result_df)
+                        else:
+                            # For individual programs or when rooms not loaded
+                            if rooms_loaded:
+                                program_result_df = allocate_rooms(program_result_df, all_rooms, it_rooms, regular_rooms)
+                            else:
+                                program_result_df['room'] = "Room Required"
+                            all_results.append(program_result_df)
                         
                         # Create summary for this program
                         for section in program_result_df["section"].unique():
@@ -555,13 +731,31 @@ def main_app():
                 if all_results:
                     # Combine all program results
                     final_df = pd.concat(all_results, ignore_index=True)
+                    
+                    # Allocate rooms globally for "All Programs" to avoid conflicts
+                    if rooms_loaded and program_filter == "All Programs":
+                        final_df = allocate_rooms(final_df, all_rooms, it_rooms, regular_rooms)
+                    elif not rooms_loaded:
+                        final_df['room'] = "Room Required"
+                    
                     final_df = final_df[[
                         "program", "section", "course_code", "course_title", "name", "ids", 
-                        "type name", "days", "time's", "failed/withdrawn students", 
+                        "type name", "days", "time's", "room", "failed/withdrawn students", 
                         "active students", "total student strength", "required sections"
                     ]]
                     
                     st.success("Report generated for all programs with improved timetable!")
+                    
+                    # Show room utilization summary
+                    if rooms_loaded:
+                        st.subheader("🏢 Room Utilization Summary")
+                        room_usage = final_df.groupby(['days', "time's"])['room'].apply(list).reset_index()
+                        room_usage['rooms_used'] = room_usage['room'].apply(lambda x: len([r for r in x if r != "Room Required"]))
+                        room_usage['rooms_needed'] = room_usage['room'].apply(lambda x: len([r for r in x if r == "Room Required"]))
+                        room_usage['total_classes'] = room_usage['room'].apply(len)
+                        
+                        summary_cols = ['days', "time's", 'total_classes', 'rooms_used', 'rooms_needed']
+                        st.dataframe(room_usage[summary_cols])
                     
                     # Show results by program
                     for program in programs_list:
@@ -619,14 +813,32 @@ def main_app():
                 
                 df = pd.DataFrame(expanded_df)
                 df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                
+                # Allocate rooms
+                if rooms_loaded:
+                    df = allocate_rooms(df, all_rooms, it_rooms, regular_rooms)
+                else:
+                    df['room'] = "Room Required"
+                
                 df = df[[
                     "program", "section", "course_code", "course_title", "name", "ids", 
-                    "type name", "days", "time's", "failed/withdrawn students", 
+                    "type name", "days", "time's", "room", "failed/withdrawn students", 
                     "active students", "total student strength", "required sections"
                 ]]
                 
                 st.success("Report generated with improved timetable!")
                 st.dataframe(df)
+                
+                # Show room utilization for single program
+                if rooms_loaded:
+                    st.subheader("🏢 Room Utilization Summary")
+                    room_usage = df.groupby(['days', "time's"])['room'].apply(list).reset_index()
+                    room_usage['rooms_used'] = room_usage['room'].apply(lambda x: len([r for r in x if r != "Room Required"]))
+                    room_usage['rooms_needed'] = room_usage['room'].apply(lambda x: len([r for r in x if r == "Room Required"]))
+                    room_usage['total_classes'] = room_usage['room'].apply(len)
+                    
+                    summary_cols = ['days', "time's", 'total_classes', 'rooms_used', 'rooms_needed']
+                    st.dataframe(room_usage[summary_cols])
                 
                 st.subheader("📋 Scheduling Summary")
                 summary_data = []
