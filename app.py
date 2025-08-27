@@ -31,10 +31,28 @@ CATALOG_FILES = {
 
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
+    filename = CATALOG_FILES[catalog_year]
+    
+    # Try different encodings to handle various file formats
+    encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
+    
+    for encoding in encodings_to_try:
+        try:
+            catalog_df = pd.read_csv(filename, encoding=encoding)
+            st.info(f"Successfully loaded {filename} using {encoding} encoding")
+            break
+        except UnicodeDecodeError:
+            continue
+        except Exception as e:
+            if encoding == encodings_to_try[-1]:  # Last encoding attempt
+                st.error(f"Error loading catalog file {filename}: {e}")
+                return None, False
+            continue
+    else:
+        st.error(f"Could not decode {filename} with any of the attempted encodings: {', '.join(encodings_to_try)}")
+        return None, False
+    
     try:
-        filename = CATALOG_FILES[catalog_year]
-        catalog_df = pd.read_csv(filename)
-        
         # Normalize column names - handle both old and new format
         catalog_df.columns = catalog_df.columns.str.lower().str.strip()
         
@@ -66,8 +84,9 @@ def load_catalog_data(catalog_year):
         catalog_df['semester'] = catalog_df['semester'].astype(str).str.lower().str.strip()
         
         return catalog_df, True
+        
     except Exception as e:
-        st.error(f"Error loading catalog file {filename}: {e}")
+        st.error(f"Error processing catalog file {filename}: {e}")
         return None, False
 
 def login_page():
@@ -219,7 +238,25 @@ def main_app():
         if uploaded_file:
             try:
                 if uploaded_file.name.endswith(".csv"):
-                    catalog_df = pd.read_csv(uploaded_file)
+                    # Try different encodings for CSV files
+                    encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
+                    
+                    for encoding in encodings_to_try:
+                        try:
+                            catalog_df = pd.read_csv(uploaded_file, encoding=encoding)
+                            st.info(f"Successfully loaded {uploaded_file.name} using {encoding} encoding")
+                            break
+                        except UnicodeDecodeError:
+                            uploaded_file.seek(0)  # Reset file pointer for next attempt
+                            continue
+                        except Exception as e:
+                            if encoding == encodings_to_try[-1]:
+                                raise e
+                            uploaded_file.seek(0)
+                            continue
+                    else:
+                        st.error(f"Could not decode {uploaded_file.name} with any of the attempted encodings")
+                        st.stop()
                 else:
                     catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
                 
