@@ -204,11 +204,6 @@ def main_app():
     # Page setup
     st.set_page_config(page_title="📊 Semester Schedule Generator", layout="wide")
     
-    # Load rooms data
-    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
-    if not rooms_loaded:
-        st.warning("Could not load rooms data. Room allocation will be disabled.")
-    
     # Header with logout
     col1, col2 = st.columns([3, 1])
     with col1:
@@ -219,6 +214,11 @@ def main_app():
             st.session_state.logged_in = False
             st.session_state.username = ""
             st.rerun()
+    
+    # Load rooms data
+    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
+    if not rooms_loaded:
+        st.warning("Could not load rooms data. Room allocation will be disabled.")
     
     # How to use section
     with st.expander("📖 How to Use This Application", expanded=False):
@@ -384,6 +384,61 @@ def main_app():
 
     weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
     weekend_days = ["Saturday", "Sunday"]
+
+    def allocate_rooms(schedule_df, all_rooms, it_rooms, regular_rooms):
+        """
+        Allocate rooms to scheduled classes efficiently
+        """
+        if not all_rooms:
+            schedule_df_copy = schedule_df.copy()
+            schedule_df_copy['room'] = "Room Required"
+            return schedule_df_copy
+        
+        # Create a copy to work with
+        df_with_rooms = schedule_df.copy()
+        
+        # Initialize room tracking per time slot
+        slot_room_usage = defaultdict(set)  # (day, time) -> {used_rooms}
+        
+        # Sort by time slot to process systematically
+        df_with_rooms = df_with_rooms.sort_values(['days', "time's", 'program', 'section'])
+        
+        room_assignments = []
+        
+        for idx, row in df_with_rooms.iterrows():
+            course_code = str(row['course_code']).strip().upper()
+            day = row['days']
+            time = row["time's"]
+            slot_key = (day, time)
+            
+            # Determine if this course needs IT room
+            needs_it_room = any(course_code.startswith(prefix) for prefix in ['CSC', 'MIS', 'BDS', 'SEC']) if course_code else False
+            
+            # Get available rooms for this slot
+            used_rooms_this_slot = slot_room_usage[slot_key]
+            
+            if needs_it_room:
+                available_rooms = [room for room in it_rooms if room not in used_rooms_this_slot]
+                if not available_rooms:
+                    # Fall back to regular rooms if IT rooms exhausted
+                    available_rooms = [room for room in regular_rooms if room not in used_rooms_this_slot]
+            else:
+                available_rooms = [room for room in regular_rooms if room not in used_rooms_this_slot]
+                if not available_rooms:
+                    # Fall back to IT rooms if regular rooms exhausted
+                    available_rooms = [room for room in it_rooms if room not in used_rooms_this_slot]
+            
+            if available_rooms:
+                # Assign the first available room
+                assigned_room = available_rooms[0]
+                slot_room_usage[slot_key].add(assigned_room)
+                room_assignments.append(assigned_room)
+            else:
+                # No rooms available for this slot
+                room_assignments.append("Room Required")
+        
+        df_with_rooms['room'] = room_assignments
+        return df_with_rooms
 
     def assign_schedule(df, allow_weekend_courses=True):
         """
