@@ -19,94 +19,16 @@ USERS = {
     "rabiyasabri": {"password": "iobm4", "display_name": "Rabiya Sabri"}
 }
 
-def load_catalog_data(selected_year):
-    """Load catalog data from the repository CSV files"""
+def load_catalog_data():
+    """Load catalog data from the repository CSV file"""
     try:
-        # Map display names to file names
-        catalog_files = {
-            "2025-2026 Catalog": "csvcatalog 2025-26 timetables.csv",
-            "2024-2025 Catalog": "2024-2025.csv",
-            "2023-2024 Catalog": "2023-2024.csv",
-            "2022-2023 Catalog": "2022-2023.csv",
-            "2021-2022 Catalog": "2021-2022.csv",
-            "2020-2021 Catalog": "2020-2021.csv"
-        }
-        
-        filename = catalog_files.get(selected_year)
-        if not filename:
-            st.error(f"Unknown catalog selection: {selected_year}")
-            return None, False
-            
         # Load the CSV file from the repository
-        catalog_df = pd.read_csv(filename)
-        
-        # Drop any columns that are entirely empty
-        catalog_df = catalog_df.dropna(axis=1, how='all')
-        
-        # Debug: Show original columns
-        st.sidebar.write(f"Debug - Original columns: {list(catalog_df.columns)}")
-
-        # Comprehensive column mapping to handle various naming conventions
-        column_mapping = {}
-        
-        # Map course code variations
-        course_code_variations = ['course_code', 'code', 'course code', 'coursecode', 'course_id', 'course id']
-        for col in catalog_df.columns:
-            if any(variation in col.lower().strip() for variation in course_code_variations):
-                column_mapping[col] = 'course_code'
-                break
-        
-        # Map course title variations
-        title_variations = ['course_title', 'course title', 'title', 'coursetitle', 'course_name', 'course name', 'name']
-        for col in catalog_df.columns:
-            if any(variation in col.lower().strip() for variation in title_variations):
-                column_mapping[col] = 'course_title'
-                break
-        
-        # Map semester variations
-        semester_variations = ['semester', 'sem', 'semester#', 'semester #', 'semester_no', 'semester no']
-        for col in catalog_df.columns:
-            if any(variation in col.lower().strip() for variation in semester_variations):
-                column_mapping[col] = 'semester'
-                break
-        
-        # Map program variations
-        program_variations = ['program', 'programme', 'degree', 'major', 'program name', 'programme name']
-        for col in catalog_df.columns:
-            if any(variation in col.lower().strip() for variation in program_variations):
-                column_mapping[col] = 'program'
-                break
-        
-        # Rename columns based on mapping
-        catalog_df = catalog_df.rename(columns=column_mapping)
-        
-        # Debug: Show mapped columns
-        st.sidebar.write(f"Debug - Mapped columns: {list(catalog_df.columns)}")
-        
-        # Check if we have the essential columns after mapping
-        essential_columns = ['course_code', 'course_title', 'semester', 'program']
-        missing_essential = [col for col in essential_columns if col not in catalog_df.columns]
-        
-        if missing_essential:
-            st.error(f"Could not identify required columns in {filename}. Missing: {missing_essential}")
-            st.error("Available columns after mapping: " + ", ".join(catalog_df.columns))
-            return None, False
-        
-        # Clean the data - remove rows where essential columns are NaN
-        for col in essential_columns:
-            catalog_df = catalog_df.dropna(subset=[col])
-        
-        # Convert columns to string and clean them
-        for col in essential_columns:
-            catalog_df[col] = catalog_df[col].astype(str).str.strip()
-        
-        # Fill missing 'semester' values with 'Elective' if any NaN remain
-        catalog_df['semester'] = catalog_df['semester'].fillna('Elective')
-        
+        catalog_df = pd.read_csv("csvcatalog 2025-26 timetables.csv")
+        # Normalize columns
+        catalog_df.columns = catalog_df.columns.str.lower()
         return catalog_df, True
     except Exception as e:
-        st.error(f"Error loading catalog file {filename}: {e}")
-        st.error(f"Exception details: {str(e)}")
+        st.error(f"Error loading catalog file: {e}")
         return None, False
 
 def login_page():
@@ -141,10 +63,9 @@ def how_to_use_section():
     
     st.markdown("### Step 1: Choose Your Data Source")
     st.markdown("""
-    **Option 1: Use Academic Year Catalogs** 📊
-    - Select "Academic Year Catalogs" in the sidebar
-    - Choose from available academic years (2020-2021 through 2025-2026)
-    - Uses institutional catalogs directly from the system
+    **Option 1: Use 2025-2026 Catalog** 📊
+    - Select "2025-2026 Catalog" in the sidebar
+    - Uses the institutional catalog directly from the system
     - No file upload needed
     
     **Option 2: Upload Your Own File** 📁
@@ -152,18 +73,7 @@ def how_to_use_section():
     - Upload your custom CSV with the required columns
     """)
     
-    st.markdown("### Step 2: Select Academic Year (if using catalogs)")
-    st.markdown("Choose from the available academic year catalogs:")
-    st.markdown("""
-    - **2025-2026 Catalog** (Latest)
-    - **2024-2025 Catalog** 
-    - **2023-2024 Catalog**
-    - **2022-2023 Catalog**
-    - **2021-2022 Catalog**
-    - **2020-2021 Catalog**
-    """)
-    
-    st.markdown("### Step 3: Required Fields for Custom Upload")
+    st.markdown("### Step 2: Required Fields for Custom Upload")
     st.markdown("If uploading your own file, ensure these **required columns** exist:")
     
     # Required fields info
@@ -180,24 +90,17 @@ def how_to_use_section():
     
     # Sample data in a nice table format
     sample_data = {
-        'course_code': ['ACS101', 'BCN101', 'MGT101', 'MAT102', 'SSC101', 'ECN101', 'CSP111', 'CSP111L', 'CSP121', 'CSP121L', 'PHY111', 'PHY111L', 'MAT110'],
+        'course_code': ['ACS101', 'BCN101', 'MGT101', 'MAT102', 'SSC101', 'ECN101'],
         'course_title': [
             'Introduction to Financial Accounting',
             'Academic English',
             'Principles of Management',
             'Business Mathematics and Statistics',
             'Introduction To Psychology',
-            'Principles of Microeconomics',
-            'Intro to Info. & Comm. Technology [GER]',
-            'Intro to Info. & Comm. Technology Lab',
-            'Programming Fundamentals [CC]',
-            'Programming Fundamentals Lab',
-            'Applied Physics [GER]',
-            'Applied Physics Lab',
-            'Calculus and Analytical Geometry [GER]'
+            'Principles of Microeconomics'
         ],
-        'semester': ['one'] * 6 + ['one'] * 7,
-        'program': ['BBA (Honors) 4Y'] * 6 + ['BS COMPUTER SCIENCE (BS CS)'] * 7
+        'semester': ['one', 'one', 'one', 'one', 'one', 'one'],
+        'program': ['BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y']
     }
     
     sample_df = pd.DataFrame(sample_data)
@@ -205,12 +108,11 @@ def how_to_use_section():
     
     st.markdown("### Step 4: Generate Schedule")
     st.markdown("""
-    1. Choose your data source (Academic Year Catalogs or Upload File)
-    2. If using catalogs, select the desired academic year
-    3. Select the Program and Semester from the dropdown menus
-    4. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
-    5. Click "Generate Report" to create the schedule
-    6. Download the generated timetable as CSV
+    1. Choose your data source (2025-2026 Catalog or Upload File)
+    2. Select the Program and Semester from the dropdown menus
+    3. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
+    4. Click "Generate Report" to create the schedule
+    5. Download the generated timetable as CSV
     """)
     
     st.markdown("---")
@@ -240,48 +142,24 @@ def main_app():
     # Data source selection
     data_source = st.sidebar.radio(
         "Choose Data Source:",
-        ["📊 Academic Year Catalogs", "📁 Upload Your Own File"],
+        ["📊 2025-2026 Catalog", "📁 Upload Your Own File"],
         index=0
     )
     
-    if data_source == "📊 Academic Year Catalogs":
-        # Catalog year selection
-        catalog_options = [
-            "2025-2026 Catalog",
-            "2024-2025 Catalog", 
-            "2023-2024 Catalog",
-            "2022-2023 Catalog",
-            "2021-2022 Catalog",
-            "2020-2021 Catalog"
-        ]
-        
-        selected_catalog = st.sidebar.selectbox(
-            "Select Academic Year:",
-            catalog_options,
-            index=0
-        )
-        
+    if data_source == "📊 2025-2026 Catalog":
         # Use catalog from repository
-        catalog_df, success = load_catalog_data(selected_catalog)
+        catalog_df, success = load_catalog_data()
         if not success:
-            st.error(f"Failed to load the {selected_catalog}. Please try uploading your own file.")
+            st.error("Failed to load the 2025-2026 catalog. Please try uploading your own file.")
             st.stop()
         
-        st.sidebar.success(f"✅ {selected_catalog} loaded ({len(catalog_df)} courses)")
+        st.sidebar.success(f"✅ 2025-2026 Catalog loaded ({len(catalog_df)} courses)")
         
-        # Show catalog info - with safe handling of unique values
+        # Show catalog info
         with st.sidebar.expander("📋 Catalog Info"):
-            st.write(f"**Selected Year:** {selected_catalog}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
-            
-            # Safe handling of unique programs
-            unique_programs = catalog_df['program'].dropna().unique()
-            st.write(f"**Programs:** {len(unique_programs)}")
-            
-            # Safe handling of unique semesters - filter out NaN and convert to string
-            unique_semesters = catalog_df['semester'].dropna().unique()
-            semester_strings = [str(sem) for sem in unique_semesters if str(sem) != 'nan']
-            st.write(f"**Semesters:** {', '.join(sorted(semester_strings))}")
+            st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
+            st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
             
     else:
         # Upload option
@@ -295,17 +173,6 @@ def main_app():
                 
                 # Normalize columns
                 catalog_df.columns = catalog_df.columns.str.lower()
-                
-                # Clean the data - remove rows where essential columns are NaN
-                essential_columns = ['course_code', 'course_title', 'semester', 'program']
-                for col in essential_columns:
-                    if col in catalog_df.columns:
-                        catalog_df = catalog_df.dropna(subset=[col])
-                
-                # Convert columns to string and clean them
-                for col in ['semester', 'program', 'course_code', 'course_title']:
-                    if col in catalog_df.columns:
-                        catalog_df[col] = catalog_df[col].astype(str).str.strip()
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
             except Exception as e:
@@ -324,18 +191,11 @@ def main_app():
             st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
             st.stop()
 
-    # Dropdowns - with safe handling of unique values
-    programs_list = sorted(catalog_df["program"].dropna().unique())
+    # Dropdowns
+    programs_list = sorted(catalog_df["program"].unique())
     programs_with_all = ["All Programs"] + programs_list
     program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
-    
-    # Safe handling of semester dropdown
-    semester_options = sorted(catalog_df["semester"].dropna().unique())
-    if not semester_options:
-        st.error("No valid semester data found in the catalog.")
-        st.stop()
-    
-    semester_filter = st.sidebar.selectbox("Select Semester", semester_options)
+    semester_filter = st.sidebar.selectbox("Select Semester", sorted(catalog_df["semester"].unique()))
     
     # Student count input - different behavior for "All Programs"
     if program_filter == "All Programs":
