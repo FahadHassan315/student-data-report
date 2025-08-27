@@ -19,16 +19,55 @@ USERS = {
     "rabiyasabri": {"password": "iobm4", "display_name": "Rabiya Sabri"}
 }
 
-def load_catalog_data():
+# Available catalog files
+CATALOG_FILES = {
+    "2020-2021": "2020-21.csv",
+    "2021-2022": "2021-22.csv", 
+    "2022-2023": "2022-23.csv",
+    "2023-2024": "2023-24.csv",
+    "2024-2025": "2024-2025.csv",
+    "2025-2026": "csvcatalog 2025-26 timetables.csv"
+}
+
+def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
     try:
-        # Load the CSV file from the repository
-        catalog_df = pd.read_csv("csvcatalog 2025-26 timetables.csv")
-        # Normalize columns
-        catalog_df.columns = catalog_df.columns.str.lower()
+        filename = CATALOG_FILES[catalog_year]
+        catalog_df = pd.read_csv(filename)
+        
+        # Normalize column names - handle both old and new format
+        catalog_df.columns = catalog_df.columns.str.lower().str.strip()
+        
+        # Map old column names to new standard names if needed
+        column_mapping = {
+            'semester': 'semester',
+            'program': 'program',
+            'course_code': 'course_code',
+            'course_title': 'course_title'
+        }
+        
+        # Rename columns to standard format
+        catalog_df = catalog_df.rename(columns=column_mapping)
+        
+        # Filter out rows where semester is missing (NaN or empty)
+        initial_count = len(catalog_df)
+        catalog_df = catalog_df.dropna(subset=['semester'])
+        catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
+        final_count = len(catalog_df)
+        
+        if initial_count != final_count:
+            st.info(f"Filtered out {initial_count - final_count} rows with missing semester data")
+        
+        # Handle missing course_code - fill with empty string instead of dropping
+        catalog_df['course_code'] = catalog_df['course_code'].fillna('')
+        catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
+        
+        # Convert semester values to lowercase for consistency
+        catalog_df['semester'] = catalog_df['semester'].astype(str).str.lower().str.strip()
+        
         return catalog_df, True
     except Exception as e:
-        st.error(f"Error loading catalog file: {e}")
+        st.error(f"Error loading catalog file {filename}: {e}")
         return None, False
 
 def login_page():
@@ -63,13 +102,13 @@ def how_to_use_section():
     
     st.markdown("### Step 1: Choose Your Data Source")
     st.markdown("""
-    **Option 1: Use 2025-2026 Catalog** 📊
-    - Select "2025-2026 Catalog" in the sidebar
+    **Option 1: Use Institutional Catalogs** 📊
+    - Select from available academic years (2020-21 to 2025-26)
     - Uses the institutional catalog directly from the system
     - No file upload needed
     
     **Option 2: Upload Your Own File** 📁
-    - Select "Upload Your Own File" in the sidebar
+    - Select "Upload Your Own File" 
     - Upload your custom CSV with the required columns
     """)
     
@@ -79,9 +118,9 @@ def how_to_use_section():
     # Required fields info
     st.markdown("""
     **Required Fields:**
-    - `course_code` - Course code (e.g., ACS101)
+    - `course_code` - Course code (e.g., ACS101) - can be blank
     - `course_title` - Course title (e.g., Introduction to Financial Accounting)
-    - `semester` - Semester (e.g., one, two, three, etc.)
+    - `semester` - Semester (e.g., one, two, three, etc.) - **must not be blank**
     - `program` - Program name (e.g., BBA (Honors) 4Y)
     """)
     
@@ -90,11 +129,11 @@ def how_to_use_section():
     
     # Sample data in a nice table format
     sample_data = {
-        'course_code': ['ACS101', 'BCN101', 'MGT101', 'MAT102', 'SSC101', 'ECN101'],
+        'course_code': ['ACS101', 'BCN101', '', 'MAT102', 'SSC101', 'ECN101'],
         'course_title': [
             'Introduction to Financial Accounting',
             'Academic English',
-            'Principles of Management',
+            'Special Topics in Management',
             'Business Mathematics and Statistics',
             'Introduction To Psychology',
             'Principles of Microeconomics'
@@ -108,7 +147,7 @@ def how_to_use_section():
     
     st.markdown("### Step 4: Generate Schedule")
     st.markdown("""
-    1. Choose your data source (2025-2026 Catalog or Upload File)
+    1. Choose your data source (Catalog Year or Upload File)
     2. Select the Program and Semester from the dropdown menus
     3. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
     4. Click "Generate Report" to create the schedule
@@ -142,24 +181,37 @@ def main_app():
     # Data source selection
     data_source = st.sidebar.radio(
         "Choose Data Source:",
-        ["📊 2025-2026 Catalog", "📁 Upload Your Own File"],
+        ["📊 Institutional Catalog", "📁 Upload Your Own File"],
         index=0
     )
     
-    if data_source == "📊 2025-2026 Catalog":
-        # Use catalog from repository
-        catalog_df, success = load_catalog_data()
+    if data_source == "📊 Institutional Catalog":
+        # Catalog year selection
+        catalog_year = st.sidebar.selectbox(
+            "Select Academic Year:",
+            list(CATALOG_FILES.keys()),
+            index=len(CATALOG_FILES)-1  # Default to latest year
+        )
+        
+        # Load selected catalog
+        catalog_df, success = load_catalog_data(catalog_year)
         if not success:
-            st.error("Failed to load the 2025-2026 catalog. Please try uploading your own file.")
+            st.error(f"Failed to load the {catalog_year} catalog. Please try uploading your own file.")
             st.stop()
         
-        st.sidebar.success(f"✅ 2025-2026 Catalog loaded ({len(catalog_df)} courses)")
+        st.sidebar.success(f"✅ {catalog_year} Catalog loaded ({len(catalog_df)} courses)")
         
         # Show catalog info
         with st.sidebar.expander("📋 Catalog Info"):
+            st.write(f"**Academic Year:** {catalog_year}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
             st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
             st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
+            
+            # Show courses without course codes
+            missing_codes = len(catalog_df[catalog_df['course_code'] == ''])
+            if missing_codes > 0:
+                st.write(f"**Courses without codes:** {missing_codes}")
             
     else:
         # Upload option
@@ -172,7 +224,20 @@ def main_app():
                     catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
                 
                 # Normalize columns
-                catalog_df.columns = catalog_df.columns.str.lower()
+                catalog_df.columns = catalog_df.columns.str.lower().str.strip()
+                
+                # Filter out rows where semester is missing
+                initial_count = len(catalog_df)
+                catalog_df = catalog_df.dropna(subset=['semester'])
+                catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
+                final_count = len(catalog_df)
+                
+                if initial_count != final_count:
+                    st.info(f"Filtered out {initial_count - final_count} rows with missing semester data")
+                
+                # Handle missing course_code
+                catalog_df['course_code'] = catalog_df['course_code'].fillna('')
+                catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
             except Exception as e:
@@ -195,7 +260,10 @@ def main_app():
     programs_list = sorted(catalog_df["program"].unique())
     programs_with_all = ["All Programs"] + programs_list
     program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
-    semester_filter = st.sidebar.selectbox("Select Semester", sorted(catalog_df["semester"].unique()))
+    
+    # Get available semesters and clean them up
+    available_semesters = sorted([s for s in catalog_df["semester"].unique() if s and str(s).strip()])
+    semester_filter = st.sidebar.selectbox("Select Semester", available_semesters)
     
     # Student count input - different behavior for "All Programs"
     if program_filter == "All Programs":
@@ -333,7 +401,7 @@ def main_app():
                             break
                 
                 if not slot_assigned:
-                    st.warning(f"Could not find optimal slot for {course_code} Section {sec}. Using random assignment.")
+                    st.warning(f"Could not find optimal slot for {course_code if course_code else 'Unknown Course'} Section {sec}. Using random assignment.")
                     slot_key = random.choice(all_slots)
                     day, slot = slot_key
                     section_occupied_slots[sec].add(slot_key)
