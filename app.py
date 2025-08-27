@@ -302,6 +302,23 @@ def main_app():
     available_semesters = sorted([s for s in catalog_df["semester"].unique() if s and str(s).strip()])
     semester_filter = st.sidebar.selectbox("Select Semester", available_semesters)
     
+    # Check if any selected programs are Bachelor's (not MBA)
+    selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
+    has_bachelor_programs = any("mba" not in prog.lower() for prog in selected_programs)
+    
+    # Weekend course option (only for Bachelor's programs)
+    include_weekend_courses = True  # Default for MBA programs
+    if has_bachelor_programs:
+        st.sidebar.markdown("### Weekend Course Settings")
+        include_weekend_courses = st.sidebar.checkbox(
+            "Include Weekend Courses",
+            value=True,
+            help="Uncheck to avoid weekend classes (may cause some course time clashes)"
+        )
+        
+        if not include_weekend_courses:
+            st.sidebar.warning("⚠️ Disabling weekend courses may result in time clashes for different sections of the same course")
+    
     # Student count input - different behavior for "All Programs"
     if program_filter == "All Programs":
         st.sidebar.markdown("### Student Count for Each Program")
@@ -338,12 +355,14 @@ def main_app():
     weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
     weekend_days = ["Saturday", "Sunday"]
 
-    def assign_schedule(df):
+    def assign_schedule(df, allow_weekend_courses=True):
         """
         Improved scheduling function that avoids clashes and distributes weekend classes better
+        For Bachelor's programs, can optionally disable weekend courses
         """
         section_occupied_slots = defaultdict(set)  # section -> {(day, time)}
         course_slot_usage = defaultdict(lambda: defaultdict(int))  # course -> slot -> count
+        course_section_slots = defaultdict(set)  # course -> {(day, time)} used by any section
         
         schedule = []
         program_name = df["program"].iloc[0].lower() if not df.empty else ""
@@ -351,6 +370,7 @@ def main_app():
         
         # Get all available slots
         if is_mba:
+            # MBA programs always use their specific slots (no weekend restriction)
             all_slots = []
             for slot in mba_slots:
                 if slot == ("6:30 PM", "9:30 PM"):
@@ -360,13 +380,17 @@ def main_app():
                     for day in weekend_days:
                         all_slots.append((day, slot))
         else:
+            # Bachelor's programs - can optionally exclude weekend slots
             all_slots = []
             for slot in weekday_slots:
                 for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
                     all_slots.append((f"{day1} / {day2}", slot))
-            for slot in weekend_slots:
-                for day in weekend_days:
-                    all_slots.append((day, slot))
+            
+            # Add weekend slots only if allowed for Bachelor's programs
+            if allow_weekend_courses:
+                for slot in weekend_slots:
+                    for day in weekend_days:
+                        all_slots.append((day, slot))
         
         total_sections = df["required sections"].max() if not df.empty else 0
         
@@ -389,10 +413,13 @@ def main_app():
                     section_weekend_classes = sum(1 for (d, t) in section_occupied_slots[sec] 
                                                 if any(wd in str(d) for wd in weekend_days))
                     section_weekday_classes = len(section_occupied_slots[sec]) - section_weekend_classes
-                    prefer_weekend = weekend_preference.get(sec, False)
+                    prefer_weekend = weekend_preference.get(sec, False) and allow_weekend_courses
                     
-                    if section_weekend_classes >= 2:
+                    if not allow_weekend_courses or section_weekend_classes >= 2:
+                        # Prioritize weekday slots
                         candidate_slots = [(d, s) for (d, s) in all_slots if "/" in str(d)]
+                        if allow_weekend_courses:
+                            candidate_slots += [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
                     elif section_weekday_classes >= 6:
                         weekend_slots_list = [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
                         weekday_slots_list = [(d, s) for (d, s) in all_slots if "/" in str(d)]
@@ -404,10 +431,19 @@ def main_app():
                 
                 candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
                 
+                # First pass: Try to avoid section clashes and course clashes
                 for slot_key in candidate_slots:
                     day, slot = slot_key
+                    
+                    # Check for section clash (always avoid)
                     if slot_key in section_occupied_slots[sec]:
                         continue
+                    
+                    # Check for course clash (avoid if possible, but allow as last resort)
+                    if slot_key in course_section_slots[course]:
+                        continue
+                        
+                    # Handle weekend day consistency for non-MBA programs
                     if not is_mba and any(wd in str(day) for wd in weekend_days):
                         section_weekend_days = [d for (d, t) in section_occupied_slots[sec] 
                                               if any(wd in str(d) for wd in weekend_days)]
@@ -418,31 +454,40 @@ def main_app():
                                 slot_key = (day, slot)
                             else:
                                 continue
-                    max_usage_allowed = max(1, (sections // len(all_slots)) + 1)
-                    if course_slot_usage[course][slot_key] >= max_usage_allowed:
-                        continue
+                    
+                    # Assign the slot
                     section_occupied_slots[sec].add(slot_key)
                     course_slot_usage[course][slot_key] += 1
+                    course_section_slots[course].add(slot_key)
                     schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
                     slot_assigned = True
                     break
                 
+                # Second pass: Allow course clashes if no other option (but still avoid section clashes)
                 if not slot_assigned:
                     for slot_key in candidate_slots:
                         day, slot = slot_key
-                        if slot_key not in section_occupied_slots[sec]:
-                            section_occupied_slots[sec].add(slot_key)
-                            course_slot_usage[course][slot_key] += 1
-                            schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-                            slot_assigned = True
-                            break
+                        
+                        # Still avoid section clashes
+                        if slot_key in section_occupied_slots[sec]:
+                            continue
+                        
+                        # Allow course clashes as last resort
+                        section_occupied_slots[sec].add(slot_key)
+                        course_slot_usage[course][slot_key] += 1
+                        course_section_slots[course].add(slot_key)
+                        schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+                        slot_assigned = True
+                        break
                 
+                # Final fallback: Random assignment with warning
                 if not slot_assigned:
                     st.warning(f"Could not find optimal slot for {course_code if course_code else 'Unknown Course'} Section {sec}. Using random assignment.")
                     slot_key = random.choice(all_slots)
                     day, slot = slot_key
                     section_occupied_slots[sec].add(slot_key)
                     course_slot_usage[course][slot_key] += 1
+                    course_section_slots[course].add(slot_key)
                     schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
         
         return schedule
@@ -476,7 +521,7 @@ def main_app():
                         program_df["ids"] = ""
                         program_df["type name"] = ""
                         
-                        schedule = assign_schedule(program_df)
+                        schedule = assign_schedule(program_df, include_weekend_courses)
                         
                         expanded_df = []
                         sched_idx = 0
@@ -558,7 +603,7 @@ def main_app():
                 df["ids"] = ""
                 df["type name"] = ""
                 
-                schedule = assign_schedule(df)
+                schedule = assign_schedule(df, include_weekend_courses)
                 
                 expanded_df = []
                 sched_idx = 0
