@@ -90,11 +90,11 @@ def load_catalog_data(catalog_year):
         return None, False
 
 def login_page():
-    st.set_page_config(page_title="🔐 Login - Semester Schedule Generator", layout="centered")
+    st.set_page_config(page_title="🔐 Login - Academic Creation", layout="centered")
     
     st.markdown("""
     <div style="text-align: center; padding: 2rem;">
-        <h1>🔐 Semester Schedule Generator</h1>
+        <h1>🔐 Academic Creation</h1>
         <h3>Please Login to Continue</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -177,12 +177,12 @@ def how_to_use_section():
 
 def main_app():
     # Page setup
-    st.set_page_config(page_title="📊 Semester Schedule Generator", layout="wide")
+    st.set_page_config(page_title="📊 Academic Creation", layout="wide")
     
     # Header with logout
     col1, col2 = st.columns([3, 1])
     with col1:
-        st.title("📊 Semester Schedule Generator")
+        st.title("📊 Academic Creation")
     with col2:
         st.markdown(f"**Welcome, {USERS[st.session_state.username]['display_name']}!**")
         if st.button("Logout"):
