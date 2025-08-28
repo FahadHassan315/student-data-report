@@ -29,51 +29,6 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
-def load_rooms_data():
-    """Load rooms data from the repository CSV file"""
-    try:
-        # Try different encodings for rooms.csv
-        encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
-        
-        for encoding in encodings_to_try:
-            try:
-                rooms_df = pd.read_csv("rooms.csv", encoding=encoding)
-                st.info(f"Successfully loaded rooms.csv using {encoding} encoding")
-                break
-            except UnicodeDecodeError:
-                continue
-            except Exception as e:
-                if encoding == encodings_to_try[-1]:
-                    st.error(f"Error loading rooms file: {e}")
-                    return [], [], [], False
-                continue
-        else:
-            st.error(f"Could not decode rooms.csv with any of the attempted encodings")
-            return [], [], [], False
-        
-        # Get all room columns (excluding 'Total Roms Numbers' if it exists)
-        room_columns = [col for col in rooms_df.columns if col != 'Total Roms Numbers']
-        
-        # Extract all room names from the dataframe
-        rooms_list = []
-        for col in room_columns:
-            rooms_in_col = rooms_df[col].dropna().astype(str).tolist()
-            rooms_list.extend([room for room in rooms_in_col if room and room.strip() and room != 'nan'])
-        
-        # Remove duplicates and sort
-        rooms_list = sorted(list(set(rooms_list)))
-        
-        # Separate IT labs/rooms from regular rooms
-        it_rooms = [room for room in rooms_list if room.upper().startswith(('IT LAB', 'ITROOM'))]
-        regular_rooms = [room for room in rooms_list if not room.upper().startswith(('IT LAB', 'ITROOM'))]
-        
-        st.info(f"Loaded {len(rooms_list)} rooms: {len(it_rooms)} IT rooms, {len(regular_rooms)} regular rooms")
-        return rooms_list, it_rooms, regular_rooms, True
-        
-    except Exception as e:
-        st.error(f"Error loading rooms file: {e}")
-        return [], [], [], False
-
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
     filename = CATALOG_FILES[catalog_year]
@@ -338,11 +293,6 @@ def main_app():
             st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
             st.stop()
 
-    # Load rooms data after catalog is successfully loaded
-    all_rooms, it_rooms, regular_rooms, rooms_loaded = load_rooms_data()
-    if not rooms_loaded:
-        st.warning("Could not load rooms data. Room allocation will be disabled.")
-
     # Dropdowns
     programs_list = sorted(catalog_df["program"].unique())
     programs_with_all = ["All Programs"] + programs_list
@@ -404,61 +354,6 @@ def main_app():
 
     weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
     weekend_days = ["Saturday", "Sunday"]
-
-    def allocate_rooms(schedule_df, all_rooms, it_rooms, regular_rooms):
-        """
-        Allocate rooms to scheduled classes efficiently
-        """
-        if not all_rooms:
-            schedule_df_copy = schedule_df.copy()
-            schedule_df_copy['room'] = "Room Required"
-            return schedule_df_copy
-        
-        # Create a copy to work with
-        df_with_rooms = schedule_df.copy()
-        
-        # Initialize room tracking per time slot
-        slot_room_usage = defaultdict(set)  # (day, time) -> {used_rooms}
-        
-        # Sort by time slot to process systematically
-        df_with_rooms = df_with_rooms.sort_values(['days', "time's", 'program', 'section'])
-        
-        room_assignments = []
-        
-        for idx, row in df_with_rooms.iterrows():
-            course_code = str(row['course_code']).strip().upper()
-            day = row['days']
-            time = row["time's"]
-            slot_key = (day, time)
-            
-            # Determine if this course needs IT room
-            needs_it_room = any(course_code.startswith(prefix) for prefix in ['CSC', 'MIS', 'BDS', 'SEC']) if course_code else False
-            
-            # Get available rooms for this slot
-            used_rooms_this_slot = slot_room_usage[slot_key]
-            
-            if needs_it_room:
-                available_rooms = [room for room in it_rooms if room not in used_rooms_this_slot]
-                if not available_rooms:
-                    # Fall back to regular rooms if IT rooms exhausted
-                    available_rooms = [room for room in regular_rooms if room not in used_rooms_this_slot]
-            else:
-                available_rooms = [room for room in regular_rooms if room not in used_rooms_this_slot]
-                if not available_rooms:
-                    # Fall back to IT rooms if regular rooms exhausted
-                    available_rooms = [room for room in it_rooms if room not in used_rooms_this_slot]
-            
-            if available_rooms:
-                # Assign the first available room
-                assigned_room = available_rooms[0]
-                slot_room_usage[slot_key].add(assigned_room)
-                room_assignments.append(assigned_room)
-            else:
-                # No rooms available for this slot
-                room_assignments.append("Room Required")
-        
-        df_with_rooms['room'] = room_assignments
-        return df_with_rooms
 
     def assign_schedule(df, allow_weekend_courses=True):
         """
@@ -642,17 +537,123 @@ def main_app():
                         
                         program_result_df = pd.DataFrame(expanded_df)
                         program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                        all_results.append(program_result_df)
                         
-                        # Allocate rooms for this program
-                        if rooms_loaded and program_filter == "All Programs":
-                            # For "All Programs", we'll allocate rooms globally later
-                            all_results.append(program_result_df)
-                        else:
-                            # For individual programs or when rooms not loaded
-                            if rooms_loaded:
-                                program_result_df = allocate_rooms(program_result_df, all_rooms, it_rooms, regular_rooms)
-                            else:
-                                program_result_df['room'] = "Room Required"
-                            all_results.append(program_result_df)
-                        
-                        # Create
+                        # Create summary for this program
+                        for section in program_result_df["section"].unique():
+                            section_data = program_result_df[program_result_df["section"] == section]
+                            weekend_count = sum(1 for day in section_data["days"] if any(wd in str(day) for wd in weekend_days))
+                            weekday_count = len(section_data) - weekend_count
+                            all_summaries.append({
+                                "Program": program,
+                                "Section": section,
+                                "Weekend Classes": weekend_count,
+                                "Weekday Classes": weekday_count,
+                                "Total Classes": len(section_data)
+                            })
+                
+                if all_results:
+                    # Combine all program results
+                    final_df = pd.concat(all_results, ignore_index=True)
+                    final_df = final_df[[
+                        "program", "section", "course_code", "course_title", "name", "ids", 
+                        "type name", "days", "time's", "failed/withdrawn students", 
+                        "active students", "total student strength", "required sections"
+                    ]]
+                    
+                    st.success("Report generated for all programs with improved timetable!")
+                    
+                    # Show results by program
+                    for program in programs_list:
+                        program_data = final_df[final_df["program"] == program]
+                        if not program_data.empty:
+                            st.subheader(f"📚 {program}")
+                            st.dataframe(program_data)
+                    
+                    st.subheader("📋 Overall Scheduling Summary")
+                    summary_df = pd.DataFrame(all_summaries)
+                    st.dataframe(summary_df)
+                    
+                    csv = final_df.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Download Complete Schedule CSV",
+                        data=csv,
+                        file_name=f"complete_timetable_all_programs_{semester_filter}.csv",
+                        mime="text/csv",
+                    )
+                else:
+                    st.warning("No data found for any programs in the selected semester.")
+        
+        else:
+            # Handle single program (original functionality)
+            df = catalog_df[
+                (catalog_df["program"] == program_filter) & 
+                (catalog_df["semester"] == semester_filter)
+            ][["program", "course_code", "course_title"]].copy()
+            
+            if df.empty:
+                st.warning("No courses found for the selected Program and Semester.")
+            else:
+                df["failed/withdrawn students"] = 0
+                df["active students"] = student_count
+                df["total student strength"] = student_count
+                df["required sections"] = df["total student strength"].apply(lambda x: math.ceil(x / 40))
+                df["section"] = ""
+                df["name"] = "Faculty Member"
+                df["ids"] = ""
+                df["type name"] = ""
+                
+                schedule = assign_schedule(df, include_weekend_courses)
+                
+                expanded_df = []
+                sched_idx = 0
+                
+                for _, row in df.iterrows():
+                    for sec in range(1, row["required sections"] + 1):
+                        new_row = row.copy()
+                        new_row["section"] = sec
+                        new_row["days"] = schedule[sched_idx][1]
+                        new_row["time's"] = schedule[sched_idx][2]
+                        expanded_df.append(new_row)
+                        sched_idx += 1
+                
+                df = pd.DataFrame(expanded_df)
+                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                df = df[[
+                    "program", "section", "course_code", "course_title", "name", "ids", 
+                    "type name", "days", "time's", "failed/withdrawn students", 
+                    "active students", "total student strength", "required sections"
+                ]]
+                
+                st.success("Report generated with improved timetable!")
+                st.dataframe(df)
+                
+                st.subheader("📋 Scheduling Summary")
+                summary_data = []
+                for section in df["section"].unique():
+                    section_data = df[df["section"] == section]
+                    weekend_count = sum(1 for day in section_data["days"] if any(wd in str(day) for wd in weekend_days))
+                    weekday_count = len(section_data) - weekend_count
+                    summary_data.append({
+                        "Section": section,
+                        "Weekend Classes": weekend_count,
+                        "Weekday Classes": weekday_count,
+                        "Total Classes": len(section_data)
+                    })
+                
+                summary_df = pd.DataFrame(summary_data)
+                st.dataframe(summary_df)
+                
+                csv = df.to_csv(index=False).encode('utf-8')
+                st.download_button(
+                    label="📥 Download CSV",
+                    data=csv,
+                    file_name=f"timetable_{program_filter}_{semester_filter}.csv",
+                    mime="text/csv",
+                )
+
+# Main application logic
+if not st.session_state.logged_in:
+    login_page()
+else:
+    main_app()
