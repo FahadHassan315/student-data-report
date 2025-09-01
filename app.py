@@ -3,8 +3,6 @@ import math
 import random
 import pandas as pd
 import streamlit as st
-import plotly.express as px
-import plotly.graph_objects as go
 from collections import defaultdict
 
 # Initialize session state
@@ -120,55 +118,55 @@ def get_semester_order():
     return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
-    """Create insightful charts from catalog data"""
+    """Create insightful charts from catalog data using Streamlit's built-in charts"""
     
     st.subheader(f"📊 Catalog Insights - {selected_catalog_year}")
     
     col1, col2 = st.columns(2)
     
     with col1:
+        st.markdown("#### 📚 Courses per Semester by Program")
+        
         # Chart 1: Courses per Semester by Program
         semester_program_counts = catalog_df.groupby(['program', 'semester']).size().reset_index(name='course_count')
         
         # Normalize semester names for better ordering
         semester_program_counts['semester_normalized'] = semester_program_counts['semester'].apply(normalize_semester_name)
         
-        # Create ordered categories for semesters
-        semester_order = get_semester_order()
-        available_semesters = sorted(set(semester_program_counts['semester_normalized']), 
-                                   key=lambda x: semester_order.index(x) if x in semester_order else 999)
+        # Create pivot table for better visualization
+        pivot_df = semester_program_counts.pivot(index='semester_normalized', columns='program', values='course_count')
+        pivot_df = pivot_df.fillna(0)
         
-        fig1 = px.bar(
-            semester_program_counts, 
-            x='semester_normalized', 
-            y='course_count',
-            color='program',
-            title='📚 Courses per Semester by Program',
-            labels={'semester_normalized': 'Semester', 'course_count': 'Number of Courses'},
-            category_orders={'semester_normalized': available_semesters}
-        )
-        fig1.update_layout(
-            xaxis_title="Semester",
-            yaxis_title="Number of Courses",
-            legend_title="Program",
-            height=400
-        )
-        st.plotly_chart(fig1, use_container_width=True)
+        # Order semesters properly
+        semester_order = get_semester_order()
+        available_semesters = [sem for sem in semester_order if sem in pivot_df.index]
+        pivot_df = pivot_df.reindex(available_semesters)
+        
+        # Display as bar chart
+        st.bar_chart(pivot_df)
+        
+        # Show data table below chart
+        with st.expander("📋 View Data Table"):
+            st.dataframe(pivot_df)
     
     with col2:
-        # Chart 2: Program-wise Course Distribution (Pie Chart)
-        program_counts = catalog_df['program'].value_counts().reset_index()
-        program_counts.columns = ['program', 'course_count']
+        st.markdown("#### 🎯 Course Distribution by Program")
         
-        fig2 = px.pie(
-            program_counts, 
-            values='course_count', 
-            names='program',
-            title='🎯 Course Distribution by Program'
-        )
-        fig2.update_traces(textposition='inside', textinfo='percent+label')
-        fig2.update_layout(height=400)
-        st.plotly_chart(fig2, use_container_width=True)
+        # Chart 2: Program-wise Course Distribution
+        program_counts = catalog_df['program'].value_counts()
+        
+        # Display as bar chart (horizontal for better readability)
+        st.bar_chart(program_counts)
+        
+        # Show percentage breakdown
+        with st.expander("📊 Percentage Breakdown"):
+            total_courses = program_counts.sum()
+            percentage_df = pd.DataFrame({
+                'Program': program_counts.index,
+                'Courses': program_counts.values,
+                'Percentage': (program_counts.values / total_courses * 100).round(1)
+            })
+            st.dataframe(percentage_df)
 
 def login_page():
     st.set_page_config(page_title="🔐 Login - Hafali Smart Solutions", layout="centered")
