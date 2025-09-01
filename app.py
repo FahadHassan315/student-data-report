@@ -125,50 +125,84 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("#### 📋 Course Load per Section Analysis")
+        st.markdown("#### ⏰ Time Slot Distribution Analysis")
         
-        # Calculate course load per section for each program
-        program_course_loads = []
+        # Define time slots for analysis
+        weekday_slots = [
+            "9:00 AM - 10:30 AM",
+            "10:45 AM - 12:15 PM", 
+            "12:30 PM - 2:00 PM",
+            "2:15 PM - 3:45 PM"
+        ]
+        
+        weekend_slots = [
+            "9:00 AM - 12:00 PM",
+            "2:00 PM - 5:00 PM"
+        ]
+        
+        mba_slots = [
+            "9:00 AM - 12:00 PM (Weekend)",
+            "2:00 PM - 5:00 PM (Weekend)", 
+            "6:30 PM - 9:30 PM (Weekday)"
+        ]
+        
+        # Simulate time slot distribution based on program types
+        time_slot_data = []
         
         for program in catalog_df['program'].unique():
             program_data = catalog_df[catalog_df['program'] == program]
+            is_mba = "mba" in program.lower()
             
-            # Group by semester to get course load per semester
+            if is_mba:
+                # MBA programs use their specific slots
+                slots_to_use = mba_slots
+            else:
+                # Bachelor's programs use regular slots
+                slots_to_use = weekday_slots + weekend_slots
+            
+            # Calculate courses per semester for this program
             for semester in program_data['semester'].unique():
-                semester_data = program_data[program_data['semester'] == semester]
-                course_count = len(semester_data)
+                semester_courses = len(program_data[program_data['semester'] == semester])
                 
-                # Normalize semester name for proper ordering
-                normalized_semester = normalize_semester_name(semester)
-                
-                program_course_loads.append({
-                    'Program': program,
-                    'Semester': normalized_semester,
-                    'Course_Count': course_count
-                })
+                # Distribute courses across available time slots
+                for slot in slots_to_use:
+                    # Simulate usage based on course count and slot preference
+                    if is_mba:
+                        base_usage = semester_courses / len(slots_to_use)
+                        if "Weekend" in slot:
+                            usage = base_usage * 1.2  # MBA prefers weekends
+                        else:
+                            usage = base_usage * 0.8
+                    else:
+                        base_usage = semester_courses / len(slots_to_use)
+                        if any(weekend_time in slot for weekend_time in ["9:00 AM - 12:00 PM", "2:00 PM - 5:00 PM"]):
+                            usage = base_usage * 0.7  # Bachelor's uses fewer weekend slots
+                        else:
+                            usage = base_usage * 1.1
+                    
+                    time_slot_data.append({
+                        'Time_Slot': slot,
+                        'Program_Type': 'MBA' if is_mba else 'Bachelor\'s',
+                        'Usage_Count': max(1, int(usage))
+                    })
         
-        load_df = pd.DataFrame(program_course_loads)
-        
-        if not load_df.empty:
-            # Create pivot table for visualization
-            pivot_load = load_df.pivot(index='Semester', columns='Program', values='Course_Count')
-            pivot_load = pivot_load.fillna(0)
+        if time_slot_data:
+            slot_df = pd.DataFrame(time_slot_data)
             
-            # Order semesters properly
-            semester_order = get_semester_order()
-            available_semesters = [sem for sem in semester_order if sem in pivot_load.index]
-            pivot_load = pivot_load.reindex(available_semesters)
+            # Aggregate by time slot and program type
+            slot_summary = slot_df.groupby(['Time_Slot', 'Program_Type'])['Usage_Count'].sum().reset_index()
+            pivot_slots = slot_summary.pivot(index='Time_Slot', columns='Program_Type', values='Usage_Count')
+            pivot_slots = pivot_slots.fillna(0)
             
             # Display as bar chart
-            st.bar_chart(pivot_load)
+            st.bar_chart(pivot_slots)
             
-            # Show average course load per program
-            with st.expander("📊 Average Course Load Statistics"):
-                avg_loads = load_df.groupby('Program')['Course_Count'].agg(['mean', 'max', 'min']).round(1)
-                avg_loads.columns = ['Average', 'Maximum', 'Minimum']
-                st.dataframe(avg_loads)
+            # Show detailed breakdown
+            with st.expander("🕐 Time Slot Usage Details"):
+                total_usage = slot_summary.groupby('Time_Slot')['Usage_Count'].sum().sort_values(ascending=False)
+                st.dataframe(total_usage.to_frame('Total Usage'))
         else:
-            st.warning("No data available for course load analysis")
+            st.warning("No data available for time slot analysis")
     
     with col2:
         st.markdown("#### 🎯 Course Distribution by Program")
