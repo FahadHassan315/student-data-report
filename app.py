@@ -125,29 +125,50 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("#### 📚 Courses per Semester by Program")
+        st.markdown("#### 📋 Course Load per Section Analysis")
         
-        # Chart 1: Courses per Semester by Program
-        semester_program_counts = catalog_df.groupby(['program', 'semester']).size().reset_index(name='course_count')
+        # Calculate course load per section for each program
+        program_course_loads = []
         
-        # Normalize semester names for better ordering
-        semester_program_counts['semester_normalized'] = semester_program_counts['semester'].apply(normalize_semester_name)
+        for program in catalog_df['program'].unique():
+            program_data = catalog_df[catalog_df['program'] == program]
+            
+            # Group by semester to get course load per semester
+            for semester in program_data['semester'].unique():
+                semester_data = program_data[program_data['semester'] == semester]
+                course_count = len(semester_data)
+                
+                # Normalize semester name for proper ordering
+                normalized_semester = normalize_semester_name(semester)
+                
+                program_course_loads.append({
+                    'Program': program,
+                    'Semester': normalized_semester,
+                    'Course_Count': course_count
+                })
         
-        # Create pivot table for better visualization
-        pivot_df = semester_program_counts.pivot(index='semester_normalized', columns='program', values='course_count')
-        pivot_df = pivot_df.fillna(0)
+        load_df = pd.DataFrame(program_course_loads)
         
-        # Order semesters properly
-        semester_order = get_semester_order()
-        available_semesters = [sem for sem in semester_order if sem in pivot_df.index]
-        pivot_df = pivot_df.reindex(available_semesters)
-        
-        # Display as bar chart
-        st.bar_chart(pivot_df)
-        
-        # Show data table below chart
-        with st.expander("📋 View Data Table"):
-            st.dataframe(pivot_df)
+        if not load_df.empty:
+            # Create pivot table for visualization
+            pivot_load = load_df.pivot(index='Semester', columns='Program', values='Course_Count')
+            pivot_load = pivot_load.fillna(0)
+            
+            # Order semesters properly
+            semester_order = get_semester_order()
+            available_semesters = [sem for sem in semester_order if sem in pivot_load.index]
+            pivot_load = pivot_load.reindex(available_semesters)
+            
+            # Display as bar chart
+            st.bar_chart(pivot_load)
+            
+            # Show average course load per program
+            with st.expander("📊 Average Course Load Statistics"):
+                avg_loads = load_df.groupby('Program')['Course_Count'].agg(['mean', 'max', 'min']).round(1)
+                avg_loads.columns = ['Average', 'Maximum', 'Minimum']
+                st.dataframe(avg_loads)
+        else:
+            st.warning("No data available for course load analysis")
     
     with col2:
         st.markdown("#### 🎯 Course Distribution by Program")
