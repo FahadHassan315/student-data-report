@@ -126,83 +126,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col1:
         st.markdown("#### ⏰ Time Slot Distribution Analysis")
-        
-        # Define time slots for analysis
-        weekday_slots = [
-            "9:00 AM - 10:30 AM",
-            "10:45 AM - 12:15 PM", 
-            "12:30 PM - 2:00 PM",
-            "2:15 PM - 3:45 PM"
-        ]
-        
-        weekend_slots = [
-            "9:00 AM - 12:00 PM",
-            "2:00 PM - 5:00 PM"
-        ]
-        
-        mba_slots = [
-            "9:00 AM - 12:00 PM (Weekend)",
-            "2:00 PM - 5:00 PM (Weekend)", 
-            "6:30 PM - 9:30 PM (Weekday)"
-        ]
-        
-        # Simulate time slot distribution based on program types
-        time_slot_data = []
-        
-        for program in catalog_df['program'].unique():
-            program_data = catalog_df[catalog_df['program'] == program]
-            is_mba = "mba" in program.lower()
-            
-            if is_mba:
-                # MBA programs use their specific slots
-                slots_to_use = mba_slots
-            else:
-                # Bachelor's programs use regular slots
-                slots_to_use = weekday_slots + weekend_slots
-            
-            # Calculate courses per semester for this program
-            for semester in program_data['semester'].unique():
-                semester_courses = len(program_data[program_data['semester'] == semester])
-                
-                # Distribute courses across available time slots
-                for slot in slots_to_use:
-                    # Simulate usage based on course count and slot preference
-                    if is_mba:
-                        base_usage = semester_courses / len(slots_to_use)
-                        if "Weekend" in slot:
-                            usage = base_usage * 1.2  # MBA prefers weekends
-                        else:
-                            usage = base_usage * 0.8
-                    else:
-                        base_usage = semester_courses / len(slots_to_use)
-                        if any(weekend_time in slot for weekend_time in ["9:00 AM - 12:00 PM", "2:00 PM - 5:00 PM"]):
-                            usage = base_usage * 0.7  # Bachelor's uses fewer weekend slots
-                        else:
-                            usage = base_usage * 1.1
-                    
-                    time_slot_data.append({
-                        'Time_Slot': slot,
-                        'Program_Type': 'MBA' if is_mba else 'Bachelor\'s',
-                        'Usage_Count': max(1, int(usage))
-                    })
-        
-        if time_slot_data:
-            slot_df = pd.DataFrame(time_slot_data)
-            
-            # Aggregate by time slot and program type
-            slot_summary = slot_df.groupby(['Time_Slot', 'Program_Type'])['Usage_Count'].sum().reset_index()
-            pivot_slots = slot_summary.pivot(index='Time_Slot', columns='Program_Type', values='Usage_Count')
-            pivot_slots = pivot_slots.fillna(0)
-            
-            # Display as bar chart
-            st.bar_chart(pivot_slots)
-            
-            # Show detailed breakdown
-            with st.expander("🕐 Time Slot Usage Details"):
-                total_usage = slot_summary.groupby('Time_Slot')['Usage_Count'].sum().sort_values(ascending=False)
-                st.dataframe(total_usage.to_frame('Total Usage'))
-        else:
-            st.warning("No data available for time slot analysis")
+        st.info("📋 Chart will update after generating a timetable report")
     
     with col2:
         st.markdown("#### 🎯 Course Distribution by Program")
@@ -664,6 +588,9 @@ def main_app():
                     
                     st.success("Report generated for all programs with improved timetable!")
                     
+                    # Display dynamic time slot chart based on actual schedule
+                    display_time_slot_chart(all_results)
+                    
                     # Show results by program
                     for program in programs_list:
                         program_data = final_df[final_df["program"] == program]
@@ -736,6 +663,10 @@ def main_app():
                 ]]
                 
                 st.success("Report generated with improved timetable!")
+                
+                # Display dynamic time slot chart based on actual schedule
+                display_time_slot_chart([df])
+                
                 st.dataframe(df)
                 
                 st.subheader("📋 Scheduling Summary")
