@@ -3,6 +3,8 @@ import math
 import random
 import pandas as pd
 import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
 from collections import defaultdict
 
 # Initialize session state
@@ -89,6 +91,85 @@ def load_catalog_data(catalog_year):
         st.error(f"Error processing catalog file {filename}: {e}")
         return None, False
 
+def normalize_semester_name(semester):
+    """Normalize semester names for consistent ordering"""
+    semester_str = str(semester).lower().strip()
+    
+    # Handle various formats
+    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
+        return 'one'
+    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
+        return 'two'
+    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
+        return 'three'
+    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
+        return 'four'
+    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
+        return 'five'
+    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
+        return 'six'
+    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
+        return 'seven'
+    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
+        return 'eight'
+    else:
+        return semester_str
+
+def get_semester_order():
+    """Return the proper order for semesters"""
+    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
+
+def create_catalog_charts(catalog_df, selected_catalog_year):
+    """Create insightful charts from catalog data"""
+    
+    st.subheader(f"📊 Catalog Insights - {selected_catalog_year}")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # Chart 1: Courses per Semester by Program
+        semester_program_counts = catalog_df.groupby(['program', 'semester']).size().reset_index(name='course_count')
+        
+        # Normalize semester names for better ordering
+        semester_program_counts['semester_normalized'] = semester_program_counts['semester'].apply(normalize_semester_name)
+        
+        # Create ordered categories for semesters
+        semester_order = get_semester_order()
+        available_semesters = sorted(set(semester_program_counts['semester_normalized']), 
+                                   key=lambda x: semester_order.index(x) if x in semester_order else 999)
+        
+        fig1 = px.bar(
+            semester_program_counts, 
+            x='semester_normalized', 
+            y='course_count',
+            color='program',
+            title='📚 Courses per Semester by Program',
+            labels={'semester_normalized': 'Semester', 'course_count': 'Number of Courses'},
+            category_orders={'semester_normalized': available_semesters}
+        )
+        fig1.update_layout(
+            xaxis_title="Semester",
+            yaxis_title="Number of Courses",
+            legend_title="Program",
+            height=400
+        )
+        st.plotly_chart(fig1, use_container_width=True)
+    
+    with col2:
+        # Chart 2: Program-wise Course Distribution (Pie Chart)
+        program_counts = catalog_df['program'].value_counts().reset_index()
+        program_counts.columns = ['program', 'course_count']
+        
+        fig2 = px.pie(
+            program_counts, 
+            values='course_count', 
+            names='program',
+            title='🎯 Course Distribution by Program'
+        )
+        fig2.update_traces(textposition='inside', textinfo='percent+label')
+        fig2.update_layout(height=400)
+        st.plotly_chart(fig2, use_container_width=True)
+
 def login_page():
     st.set_page_config(page_title="🔐 Login - Hafali Smart Solutions", layout="centered")
     
@@ -116,65 +197,6 @@ def login_page():
                 else:
                     st.error("Invalid username or password!")
 
-def how_to_use_section():
-    st.markdown("## 📖 How to Use This Application")
-    
-    st.markdown("### Step 1: Choose Your Data Source")
-    st.markdown("""
-    **Option 1: Use Institutional Catalogs** 📊
-    - Select from available academic years (2020-21 to 2025-26)
-    - Uses the institutional catalog directly from the system
-    - No file upload needed
-    
-    **Option 2: Upload Your Own File** 📁
-    - Select "Upload Your Own File" 
-    - Upload your custom CSV with the required columns
-    """)
-    
-    st.markdown("### Step 2: Required Fields for Custom Upload")
-    st.markdown("If uploading your own file, ensure these **required columns** exist:")
-    
-    # Required fields info
-    st.markdown("""
-    **Required Fields:**
-    - `course_code` - Course code (e.g., ACS101) - can be blank
-    - `course_title` - Course title (e.g., Introduction to Financial Accounting)
-    - `semester` - Semester (e.g., one, two, three, etc.) - **must not be blank**
-    - `program` - Program name (e.g., BBA (Honors) 4Y)
-    """)
-    
-    st.markdown("### Step 3: Sample Data Format")
-    st.markdown("Your CSV should look like this:")
-    
-    # Sample data in a nice table format
-    sample_data = {
-        'course_code': ['ACS101', 'BCN101', '', 'MAT102', 'SSC101', 'ECN101'],
-        'course_title': [
-            'Introduction to Financial Accounting',
-            'Academic English',
-            'Special Topics in Management',
-            'Business Mathematics and Statistics',
-            'Introduction To Psychology',
-            'Principles of Microeconomics'
-        ],
-        'semester': ['one', 'one', 'one', 'one', 'one', 'one'],
-        'program': ['BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y', 'BBA (Honors) 4Y']
-    }
-    
-    sample_df = pd.DataFrame(sample_data)
-    st.dataframe(sample_df, use_container_width=True)
-    
-    st.markdown("### Step 4: Generate Schedule")
-    st.markdown("""
-    1. Choose your data source (Catalog Year or Upload File)
-    2. Select the Program and Semester from the dropdown menus
-    3. Enter the number of students (for individual programs) or student counts for each program (for "All Programs")
-    4. Click "Generate Report" to create the schedule
-    5. Download the generated timetable as CSV
-    """)
-    
-    st.markdown("---")
-
 def main_app():
     # Page setup
     st.set_page_config(page_title="📊 Hafali Smart Solutions", layout="wide")
@@ -190,10 +212,6 @@ def main_app():
             st.session_state.username = ""
             st.rerun()
     
-    # How to use section
-    with st.expander("📖 How to Use This Application", expanded=False):
-        how_to_use_section()
-    
     # Sidebar
     st.sidebar.header("Input Parameters")
 
@@ -204,25 +222,27 @@ def main_app():
         index=0
     )
     
+    selected_catalog_year = None
+    
     if data_source == "📊 Institutional Catalog":
         # Catalog year selection
-        catalog_year = st.sidebar.selectbox(
+        selected_catalog_year = st.sidebar.selectbox(
             "Select Academic Year:",
             list(CATALOG_FILES.keys()),
             index=len(CATALOG_FILES)-1  # Default to latest year
         )
         
         # Load selected catalog
-        catalog_df, success = load_catalog_data(catalog_year)
+        catalog_df, success = load_catalog_data(selected_catalog_year)
         if not success:
-            st.error(f"Failed to load the {catalog_year} catalog. Please try uploading your own file.")
+            st.error(f"Failed to load the {selected_catalog_year} catalog. Please try uploading your own file.")
             st.stop()
         
-        st.sidebar.success(f"✅ {catalog_year} Catalog loaded ({len(catalog_df)} courses)")
+        st.sidebar.success(f"✅ {selected_catalog_year} Catalog loaded ({len(catalog_df)} courses)")
         
         # Show catalog info
         with st.sidebar.expander("📋 Catalog Info"):
-            st.write(f"**Academic Year:** {catalog_year}")
+            st.write(f"**Academic Year:** {selected_catalog_year}")
             st.write(f"**Total Courses:** {len(catalog_df)}")
             st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
             st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
@@ -231,6 +251,9 @@ def main_app():
             missing_codes = len(catalog_df[catalog_df['course_code'] == ''])
             if missing_codes > 0:
                 st.write(f"**Courses without codes:** {missing_codes}")
+        
+        # Show catalog charts
+        create_catalog_charts(catalog_df, selected_catalog_year)
             
     else:
         # Upload option
@@ -277,6 +300,11 @@ def main_app():
                 catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
                 
                 st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
+                
+                # Show charts for uploaded file too
+                selected_catalog_year = "Custom Upload"
+                create_catalog_charts(catalog_df, selected_catalog_year)
+                
             except Exception as e:
                 st.error(f"Error reading file: {e}")
                 st.stop()
@@ -298,9 +326,22 @@ def main_app():
     programs_with_all = ["All Programs"] + programs_list
     program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
     
-    # Get available semesters and clean them up
-    available_semesters = sorted([s for s in catalog_df["semester"].unique() if s and str(s).strip()])
-    semester_filter = st.sidebar.selectbox("Select Semester", available_semesters)
+    # Get available semesters, normalize them, and sort them properly
+    raw_semesters = catalog_df["semester"].unique()
+    normalized_semesters = []
+    
+    for sem in raw_semesters:
+        if sem and str(sem).strip():
+            normalized = normalize_semester_name(sem)
+            normalized_semesters.append((normalized, sem))  # (normalized, original)
+    
+    # Sort by the normalized order
+    semester_order = get_semester_order()
+    normalized_semesters.sort(key=lambda x: semester_order.index(x[0]) if x[0] in semester_order else 999)
+    
+    # Create display list and mapping
+    semester_display_list = [original for normalized, original in normalized_semesters]
+    semester_filter = st.sidebar.selectbox("Select Semester", semester_display_list)
     
     # Check if any selected programs are Bachelor's (not MBA)
     selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
@@ -494,6 +535,9 @@ def main_app():
 
     # Generate report
     if st.sidebar.button("Generate Report"):
+        # Determine catalog name for display
+        catalog_name = selected_catalog_year if selected_catalog_year else "Custom_Upload"
+        
         if program_filter == "All Programs":
             # Handle all programs at once
             all_programs_df = catalog_df[
@@ -520,6 +564,9 @@ def main_app():
                         program_df["name"] = "Faculty Member"
                         program_df["ids"] = ""
                         program_df["type name"] = ""
+                        # Add new columns
+                        program_df["semester_selected"] = semester_filter
+                        program_df["catalog_year"] = catalog_name
                         
                         schedule = assign_schedule(program_df, include_weekend_courses)
                         
@@ -558,7 +605,8 @@ def main_app():
                     final_df = final_df[[
                         "program", "section", "course_code", "course_title", "name", "ids", 
                         "type name", "days", "time's", "failed/withdrawn students", 
-                        "active students", "total student strength", "required sections"
+                        "active students", "total student strength", "required sections",
+                        "semester_selected", "catalog_year"
                     ]]
                     
                     st.success("Report generated for all programs with improved timetable!")
@@ -574,11 +622,16 @@ def main_app():
                     summary_df = pd.DataFrame(all_summaries)
                     st.dataframe(summary_df)
                     
+                    # Enhanced filename for all programs
+                    clean_semester = semester_filter.replace(" ", "_").replace("/", "_")
+                    clean_catalog = catalog_name.replace(" ", "_").replace("-", "_")
+                    filename = f"timetable_AllPrograms_{clean_semester}_{clean_catalog}.csv"
+                    
                     csv = final_df.to_csv(index=False).encode('utf-8')
                     st.download_button(
                         label="📥 Download Complete Schedule CSV",
                         data=csv,
-                        file_name=f"complete_timetable_all_programs_{semester_filter}.csv",
+                        file_name=filename,
                         mime="text/csv",
                     )
                 else:
@@ -602,6 +655,9 @@ def main_app():
                 df["name"] = "Faculty Member"
                 df["ids"] = ""
                 df["type name"] = ""
+                # Add new columns
+                df["semester_selected"] = semester_filter
+                df["catalog_year"] = catalog_name
                 
                 schedule = assign_schedule(df, include_weekend_courses)
                 
@@ -622,7 +678,8 @@ def main_app():
                 df = df[[
                     "program", "section", "course_code", "course_title", "name", "ids", 
                     "type name", "days", "time's", "failed/withdrawn students", 
-                    "active students", "total student strength", "required sections"
+                    "active students", "total student strength", "required sections",
+                    "semester_selected", "catalog_year"
                 ]]
                 
                 st.success("Report generated with improved timetable!")
@@ -644,11 +701,17 @@ def main_app():
                 summary_df = pd.DataFrame(summary_data)
                 st.dataframe(summary_df)
                 
+                # Enhanced filename for single program
+                clean_program = program_filter.replace(" ", "_").replace("(", "").replace(")", "").replace("/", "_")
+                clean_semester = semester_filter.replace(" ", "_").replace("/", "_")
+                clean_catalog = catalog_name.replace(" ", "_").replace("-", "_")
+                filename = f"timetable_{clean_program}_{clean_semester}_{clean_catalog}.csv"
+                
                 csv = df.to_csv(index=False).encode('utf-8')
                 st.download_button(
                     label="📥 Download CSV",
                     data=csv,
-                    file_name=f"timetable_{program_filter}_{semester_filter}.csv",
+                    file_name=filename,
                     mime="text/csv",
                 )
 
