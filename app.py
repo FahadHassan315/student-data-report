@@ -708,11 +708,8 @@ def main_app():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
-            st.markdown("""
-            <meta http-equiv="refresh" content="0; url=https://iobm-room-allocation-system.streamlit.app/">
-            """, unsafe_allow_html=True)
-            st.info("Redirecting to Room Allocation System...")
-            st.markdown("[Click here if you're not redirected automatically](https://iobm-room-allocation-system.streamlit.app/)")
+            st.info("Opening Room Allocation System...")
+            st.markdown("[🏫 **Click here to access Room Allocation System**](https://iobm-room-allocation-system.streamlit.app/)")
 
 # Main application logic
 if not st.session_state.logged_in:
