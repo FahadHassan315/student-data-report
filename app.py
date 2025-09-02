@@ -122,51 +122,38 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     st.subheader(f"📊 Catalog Insights - {selected_catalog_year}")
     
-    col1, col2 = st.columns(2)
+    # Single column layout for better visibility
+    st.markdown("#### 🎯 Course Distribution by Program")
     
-    with col1:
-        st.markdown("#### 📚 Courses per Semester by Program")
-        
-        # Chart 1: Courses per Semester by Program
-        semester_program_counts = catalog_df.groupby(['program', 'semester']).size().reset_index(name='course_count')
-        
-        # Normalize semester names for better ordering
-        semester_program_counts['semester_normalized'] = semester_program_counts['semester'].apply(normalize_semester_name)
-        
-        # Create pivot table for better visualization
-        pivot_df = semester_program_counts.pivot(index='semester_normalized', columns='program', values='course_count')
-        pivot_df = pivot_df.fillna(0)
-        
-        # Order semesters properly
-        semester_order = get_semester_order()
-        available_semesters = [sem for sem in semester_order if sem in pivot_df.index]
-        pivot_df = pivot_df.reindex(available_semesters)
-        
-        # Display as bar chart
-        st.bar_chart(pivot_df)
-        
-        # Show data table below chart
-        with st.expander("📋 View Data Table"):
-            st.dataframe(pivot_df)
+    # Chart: Program-wise Course Distribution (bigger and more readable)
+    program_counts = catalog_df['program'].value_counts()
     
-    with col2:
-        st.markdown("#### 🎯 Course Distribution by Program")
+    # Create a more readable dataframe for the chart
+    chart_df = pd.DataFrame({
+        'Program': program_counts.index,
+        'Number of Courses': program_counts.values
+    })
+    
+    # Display as bar chart with better formatting
+    st.bar_chart(chart_df.set_index('Program')['Number of Courses'], height=500)
+    
+    # Show percentage breakdown in an expanded section
+    with st.expander("📊 Detailed Program Statistics"):
+        col1, col2 = st.columns(2)
         
-        # Chart 2: Program-wise Course Distribution
-        program_counts = catalog_df['program'].value_counts()
-        
-        # Display as bar chart (horizontal for better readability)
-        st.bar_chart(program_counts)
-        
-        # Show percentage breakdown
-        with st.expander("📊 Percentage Breakdown"):
+        with col1:
             total_courses = program_counts.sum()
             percentage_df = pd.DataFrame({
                 'Program': program_counts.index,
                 'Courses': program_counts.values,
                 'Percentage': (program_counts.values / total_courses * 100).round(1)
             })
-            st.dataframe(percentage_df)
+            st.dataframe(percentage_df, use_container_width=True)
+        
+        with col2:
+            st.metric("Total Programs", len(program_counts))
+            st.metric("Total Courses", total_courses)
+            st.metric("Average Courses per Program", round(total_courses / len(program_counts), 1))
 
 def login_page():
     st.set_page_config(page_title="🔐 Login - Hafali Smart Solutions", layout="centered")
@@ -223,11 +210,12 @@ def main_app():
     selected_catalog_year = None
     
     if data_source == "📊 Institutional Catalog":
-        # Catalog year selection
+        # Catalog year selection - default to 2024-2025
+        default_index = list(CATALOG_FILES.keys()).index("2024-2025")
         selected_catalog_year = st.sidebar.selectbox(
             "Select Academic Year:",
             list(CATALOG_FILES.keys()),
-            index=len(CATALOG_FILES)-1  # Default to latest year
+            index=default_index
         )
         
         # Load selected catalog
@@ -712,6 +700,19 @@ def main_app():
                     file_name=filename,
                     mime="text/csv",
                 )
+
+    # Add Room Allocation System button at the bottom
+    st.markdown("---")
+    st.subheader("🏢 Additional Tools")
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
+            st.markdown("""
+            <meta http-equiv="refresh" content="0; url=https://iobm-room-allocation-system.streamlit.app/">
+            """, unsafe_allow_html=True)
+            st.info("Redirecting to Room Allocation System...")
+            st.markdown("[Click here if you're not redirected automatically](https://iobm-room-allocation-system.streamlit.app/)")
 
 # Main application logic
 if not st.session_state.logged_in:
