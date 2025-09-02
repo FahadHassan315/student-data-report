@@ -125,8 +125,29 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("#### ⏰ Time Slot Distribution Analysis")
-        st.info("📋 Chart will update after generating a timetable report")
+        st.markdown("#### 📚 Courses per Semester by Program")
+        
+        # Chart 1: Courses per Semester by Program
+        semester_program_counts = catalog_df.groupby(['program', 'semester']).size().reset_index(name='course_count')
+        
+        # Normalize semester names for better ordering
+        semester_program_counts['semester_normalized'] = semester_program_counts['semester'].apply(normalize_semester_name)
+        
+        # Create pivot table for better visualization
+        pivot_df = semester_program_counts.pivot(index='semester_normalized', columns='program', values='course_count')
+        pivot_df = pivot_df.fillna(0)
+        
+        # Order semesters properly
+        semester_order = get_semester_order()
+        available_semesters = [sem for sem in semester_order if sem in pivot_df.index]
+        pivot_df = pivot_df.reindex(available_semesters)
+        
+        # Display as bar chart
+        st.bar_chart(pivot_df)
+        
+        # Show data table below chart
+        with st.expander("📋 View Data Table"):
+            st.dataframe(pivot_df)
     
     with col2:
         st.markdown("#### 🎯 Course Distribution by Program")
@@ -588,9 +609,6 @@ def main_app():
                     
                     st.success("Report generated for all programs with improved timetable!")
                     
-                    # Display dynamic time slot chart based on actual schedule
-                    display_time_slot_chart(all_results)
-                    
                     # Show results by program
                     for program in programs_list:
                         program_data = final_df[final_df["program"] == program]
@@ -663,10 +681,6 @@ def main_app():
                 ]]
                 
                 st.success("Report generated with improved timetable!")
-                
-                # Display dynamic time slot chart based on actual schedule
-                display_time_slot_chart([df])
-                
                 st.dataframe(df)
                 
                 st.subheader("📋 Scheduling Summary")
