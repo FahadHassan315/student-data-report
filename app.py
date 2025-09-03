@@ -39,11 +39,13 @@ CATALOG_FILES = {
 def display_logo():
     """Display IOBM logo if available"""
     try:
-        # Try to display the logo with proper sizing
-        st.image("iobm.png", width=150)
+        # Try to display the logo with proper sizing and centering
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            st.image("iobm.png", width=150)
     except:
-        # Fallback to text if logo is not found
-        st.markdown("**IOBM**")
+        # Fallback to centered text if logo is not found
+        st.markdown("<div style='text-align: center;'><h2>IOBM</h2></div>", unsafe_allow_html=True)
 
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
