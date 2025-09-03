@@ -4,7 +4,6 @@ import random
 import pandas as pd
 import streamlit as st
 from collections import defaultdict
-import altair as alt
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
@@ -12,21 +11,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-def create_catalog_charts(catalog_df, selected_catalog_year):
-    program_counts = catalog_df['program'].value_counts().reset_index()
-    program_counts.columns = ['Program', 'Count']
-    
-    # Create a donut chart using Altair
-    chart = alt.Chart(program_counts).mark_arc(innerRadius=50).encode(
-        theta=alt.Theta(field="Count", type="quantitative"),
-        color=alt.Color(field="Program", type="nominal"),
-        tooltip=['Program', 'Count']
-    ).resolve_scale(
-        color='independent'
-    )
-    
-    st.altair_chart(chart, use_container_width=True)
 
 # Initialize session state
 if 'logged_in' not in st.session_state:
