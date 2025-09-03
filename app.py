@@ -538,15 +538,9 @@ def main_app():
     
     # Student count input - improved UI for "All Programs"
     if program_filter == "All Programs":
-        st.sidebar.markdown("### Student Count Configuration")
-        
         # Initialize session state for student counts if not exists
         if 'student_counts' not in st.session_state:
             st.session_state.student_counts = {program: 1 for program in programs_list}
-        
-        # Show current totals
-        total_students = sum(st.session_state.student_counts.values())
-        st.sidebar.info(f"Total Students: {total_students}")
         
         # Expandable section for student counts
         with st.sidebar.expander("👥 Program-wise Student Counts", expanded=False):
