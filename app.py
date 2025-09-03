@@ -36,16 +36,25 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
-def display_logo():
-    """Display IOBM logo if available"""
+def display_logo_login():
+    """Display IOBM logo for login page - centered and smaller"""
     try:
-        # Try to display the logo with proper sizing and centering
+        # Centered logo for login page
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             st.image("iobm.png", width=150)
     except:
         # Fallback to centered text if logo is not found
         st.markdown("<div style='text-align: center;'><h2>IOBM</h2></div>", unsafe_allow_html=True)
+
+def display_logo_main():
+    """Display IOBM logo for main app - larger size for header"""
+    try:
+        # Larger logo for main app header
+        st.image("iobm.png", width=200)
+    except:
+        # Fallback text if logo is not found
+        st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
 
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
@@ -179,9 +188,9 @@ def login_page():
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # Display logo
+        # Display centered logo for login page
         st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-        display_logo()
+        display_logo_login()
         st.markdown("</div>", unsafe_allow_html=True)
         
         st.markdown("""
@@ -372,15 +381,16 @@ def assign_schedule(df, allow_weekend_courses=True):
 def main_app():
     """Main application interface"""
     
-    # Header with logo and logout
-    col1, col2, col3 = st.columns([1, 3, 1])
+    # Header with logo and logout - Left aligned logo with title
+    col1, col2, col3 = st.columns([2, 4, 2])
     
     with col1:
-        display_logo()
+        # Logo and title together on the left
+        display_logo_main()
     
     with col2:
         st.markdown("""
-        <div style="text-align: center; padding-top: 20px;">
+        <div style="padding-top: 40px;">
             <h1>IOBM ACMS</h1>
             <h3>Timetable Scheduler</h3>
         </div>
