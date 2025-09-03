@@ -20,10 +20,10 @@ if 'username' not in st.session_state:
 
 # User credentials and display names
 USERS = {
-    "fahadhassan": {"password": "iobm1", "display_name": "Fahad Hassan"},
-    "alihasnain": {"password": "iobm2", "display_name": "Ali Hasnain"},
-    "habibullah": {"password": "iobm3", "display_name": "Habibullah"},
-    "rabiyasabri": {"password": "iobm4", "display_name": "Rabiya Sabri"}
+    "fahadhassan": {"password": "Iobm1", "display_name": "Fahad Hassan"},
+    "alihasnain": {"password": "Iobm2", "display_name": "Ali Hasnain"},
+    "habibullah": {"password": "Iobm3", "display_name": "Habibullah"},
+    "rabiyasabri": {"password": "Iobm4", "display_name": "Rabiya Sabri"}
 }
 
 # Available catalog files
