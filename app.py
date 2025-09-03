@@ -152,84 +152,57 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     # Single column layout for better visibility
     st.markdown("#### 🎯 Course Distribution by Program")
     
-    # Chart: Program-wise Course Distribution as visual representation
+    # Chart: Program-wise Course Distribution
     program_counts = catalog_df['program'].value_counts()
-    total_courses = program_counts.sum()
     
-    # Create a visual pie chart using HTML/CSS
+    # Create a simple visual representation using progress bars and colors
     st.markdown("**Program-wise Course Distribution**")
     
-    # Generate colors for each program
+    total_courses = program_counts.sum()
+    
+    # Generate colors for visual representation
     colors = [
         "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FECA57", 
         "#FF9FF3", "#54A0FF", "#5F27CD", "#00D2D3", "#FF9F43",
         "#10AC84", "#EE5A6F", "#C44569", "#F8B500", "#6C5CE7"
     ]
     
-    # Create pie chart visualization using HTML and CSS
-    pie_html = """
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; margin: 20px 0;">
-        <div style="position: relative; width: 300px; height: 300px; margin: 20px;">
-            <svg width="300" height="300" style="transform: rotate(-90deg);">
-    """
-    
-    # Calculate angles for pie slices
-    current_angle = 0
+    # Create a visual bar representation with percentages
     for i, (program, count) in enumerate(program_counts.items()):
-        percentage = count / total_courses
-        angle = percentage * 360
+        percentage = (count / total_courses) * 100
         color = colors[i % len(colors)]
         
-        # Create SVG path for pie slice
-        if percentage == 1.0:  # Full circle
-            pie_html += f"""
-                <circle cx="150" cy="150" r="120" fill="{color}" stroke="white" stroke-width="2"/>
-            """
-        else:
-            # Calculate coordinates for arc
-            x1 = 150 + 120 * (1 if current_angle == 0 else round(math.cos(math.radians(current_angle)), 3))
-            y1 = 150 + 120 * (0 if current_angle == 0 else round(math.sin(math.radians(current_angle)), 3))
-            
-            end_angle = current_angle + angle
-            x2 = 150 + 120 * round(math.cos(math.radians(end_angle)), 3)
-            y2 = 150 + 120 * round(math.sin(math.radians(end_angle)), 3)
-            
-            large_arc = 1 if angle > 180 else 0
-            
-            pie_html += f"""
-                <path d="M 150 150 L {x1} {y1} A 120 120 0 {large_arc} 1 {x2} {y2} Z" 
-                      fill="{color}" stroke="white" stroke-width="2"/>
-            """
-        
-        current_angle += angle
-    
-    pie_html += """
-            </svg>
-        </div>
-        <div style="margin-left: 30px;">
-    """
-    
-    # Add legend
-    for i, (program, count) in enumerate(program_counts.items()):
-        percentage = (count / total_courses * 100)
-        color = colors[i % len(colors)]
-        pie_html += f"""
-            <div style="display: flex; align-items: center; margin: 8px 0;">
-                <div style="width: 20px; height: 20px; background-color: {color}; 
-                           margin-right: 10px; border-radius: 3px;"></div>
-                <span style="font-size: 14px;">
-                    <strong>{program}</strong>: {count} courses ({percentage:.1f}%)
+        # Create a progress bar style visualization
+        st.markdown(f"""
+        <div style="margin: 8px 0; padding: 5px; background-color: #f0f2f6; border-radius: 5px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+                <span style="font-size: 14px; font-weight: bold; color: #262730;">
+                    {program}
+                </span>
+                <span style="font-size: 12px; color: #666;">
+                    {count} courses ({percentage:.1f}%)
                 </span>
             </div>
-        """
-    
-    pie_html += """
+            <div style="width: 100%; background-color: #e0e0e0; border-radius: 10px; height: 8px;">
+                <div style="width: {percentage}%; background-color: {color}; height: 8px; border-radius: 10px;"></div>
+            </div>
         </div>
-    </div>
-    """
+        """, unsafe_allow_html=True)
     
-    # Display the custom pie chart
-    st.markdown(pie_html, unsafe_allow_html=True)
+    # Alternative: Simple data visualization using Streamlit's built-in chart
+    st.markdown("---")
+    st.markdown("**Alternative View: Data Table**")
+    
+    # Create a clean dataframe for display
+    chart_data = pd.DataFrame({
+        'Program': program_counts.index,
+        'Course Count': program_counts.values,
+        'Percentage': [(count/total_courses)*100 for count in program_counts.values]
+    })
+    chart_data['Percentage'] = chart_data['Percentage'].round(1)
+    
+    # Display as a nice table
+    st.dataframe(chart_data, use_container_width=True)
     
     # Show percentage breakdown in an expanded section
     with st.expander("📊 Detailed Program Statistics"):
