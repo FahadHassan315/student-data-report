@@ -152,17 +152,29 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     # Single column layout for better visibility
     st.markdown("#### 🎯 Course Distribution by Program")
     
-    # Chart: Program-wise Course Distribution (bigger and more readable)
+    # Chart: Program-wise Course Distribution as pie chart
     program_counts = catalog_df['program'].value_counts()
     
-    # Create a more readable dataframe for the chart
-    chart_df = pd.DataFrame({
-        'Program': program_counts.index,
-        'Number of Courses': program_counts.values
-    })
-    
-    # Display as bar chart with better formatting
-    st.bar_chart(chart_df.set_index('Program')['Number of Courses'], height=500)
+    # Create a pie chart using Streamlit's native chart
+    st.plotly_chart(
+        {
+            "data": [{
+                "type": "pie",
+                "labels": program_counts.index.tolist(),
+                "values": program_counts.values.tolist(),
+                "textinfo": "label+percent",
+                "textposition": "auto",
+                "hole": 0.3,  # Creates a donut chart
+            }],
+            "layout": {
+                "title": "Program-wise Course Distribution",
+                "height": 500,
+                "showlegend": True,
+                "legend": {"orientation": "v", "x": 1.02, "y": 0.5}
+            }
+        },
+        use_container_width=True
+    )
     
     # Show percentage breakdown in an expanded section
     with st.expander("📊 Detailed Program Statistics"):
