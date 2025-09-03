@@ -66,7 +66,6 @@ def load_catalog_data(catalog_year):
     for encoding in encodings_to_try:
         try:
             catalog_df = pd.read_csv(filename, encoding=encoding)
-            st.info(f"Successfully loaded {filename} using {encoding} encoding")
             break
         except UnicodeDecodeError:
             continue
@@ -99,9 +98,6 @@ def load_catalog_data(catalog_year):
         catalog_df = catalog_df.dropna(subset=['semester'])
         catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
         final_count = len(catalog_df)
-        
-        if initial_count != final_count:
-            st.info(f"Filtered out {initial_count - final_count} rows with missing semester data")
         
         # Handle missing course_code - fill with empty string instead of dropping
         catalog_df['course_code'] = catalog_df['course_code'].fillna('')
@@ -145,82 +141,44 @@ def get_semester_order():
     return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
-    """Create insightful charts from catalog data using Streamlit's built-in charts"""
+    """Create insightful bar chart from catalog data"""
     
     st.subheader(f"📊 Catalog Insights - {selected_catalog_year}")
-    
-    # Single column layout for better visibility
-    st.markdown("#### 🎯 Course Distribution by Program")
     
     # Chart: Program-wise Course Distribution
     program_counts = catalog_df['program'].value_counts()
     
-    # Create a simple visual representation using progress bars and colors
-    st.markdown("**Program-wise Course Distribution**")
-    
-    total_courses = program_counts.sum()
-    
-    # Generate colors for visual representation
-    colors = [
-        "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FECA57", 
-        "#FF9FF3", "#54A0FF", "#5F27CD", "#00D2D3", "#FF9F43",
-        "#10AC84", "#EE5A6F", "#C44569", "#F8B500", "#6C5CE7"
-    ]
-    
-    # Create a visual bar representation with percentages
-    for i, (program, count) in enumerate(program_counts.items()):
-        percentage = (count / total_courses) * 100
-        color = colors[i % len(colors)]
-        
-        # Create a progress bar style visualization
-        st.markdown(f"""
-        <div style="margin: 8px 0; padding: 5px; background-color: #f0f2f6; border-radius: 5px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
-                <span style="font-size: 14px; font-weight: bold; color: #262730;">
-                    {program}
-                </span>
-                <span style="font-size: 12px; color: #666;">
-                    {count} courses ({percentage:.1f}%)
-                </span>
-            </div>
-            <div style="width: 100%; background-color: #e0e0e0; border-radius: 10px; height: 8px;">
-                <div style="width: {percentage}%; background-color: {color}; height: 8px; border-radius: 10px;"></div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Alternative: Simple data visualization using Streamlit's built-in chart
-    st.markdown("---")
-    st.markdown("**Alternative View: Data Table**")
-    
-    # Create a clean dataframe for display
+    # Create a DataFrame for the bar chart
     chart_data = pd.DataFrame({
         'Program': program_counts.index,
-        'Course Count': program_counts.values,
-        'Percentage': [(count/total_courses)*100 for count in program_counts.values]
+        'Course Count': program_counts.values
     })
-    chart_data['Percentage'] = chart_data['Percentage'].round(1)
     
-    # Display as a nice table
-    st.dataframe(chart_data, use_container_width=True)
+    # Display the bar chart using Streamlit's built-in chart
+    st.markdown("#### 🎯 Course Distribution by Program")
+    st.bar_chart(chart_data.set_index('Program'))
     
-    # Show percentage breakdown in an expanded section
+    # Summary statistics
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("Total Programs", len(program_counts))
+    
+    with col2:
+        st.metric("Total Courses", program_counts.sum())
+    
+    with col3:
+        st.metric("Avg Courses/Program", round(program_counts.sum() / len(program_counts), 1))
+    
+    # Show detailed breakdown in an expandable section
     with st.expander("📊 Detailed Program Statistics"):
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            total_courses = program_counts.sum()
-            percentage_df = pd.DataFrame({
-                'Program': program_counts.index,
-                'Courses': program_counts.values,
-                'Percentage': (program_counts.values / total_courses * 100).round(1)
-            })
-            st.dataframe(percentage_df, use_container_width=True)
-        
-        with col2:
-            st.metric("Total Programs", len(program_counts))
-            st.metric("Total Courses", total_courses)
-            st.metric("Average Courses per Program", round(total_courses / len(program_counts), 1))
+        total_courses = program_counts.sum()
+        detailed_data = pd.DataFrame({
+            'Program': program_counts.index,
+            'Courses': program_counts.values,
+            'Percentage': (program_counts.values / total_courses * 100).round(1)
+        })
+        st.dataframe(detailed_data, use_container_width=True)
 
 def login_page():
     """Display login page"""
@@ -471,20 +429,6 @@ def main_app():
             st.error(f"Failed to load the {selected_catalog_year} catalog. Please try uploading your own file.")
             st.stop()
         
-        st.sidebar.success(f"✅ {selected_catalog_year} Catalog loaded ({len(catalog_df)} courses)")
-        
-        # Show catalog info
-        with st.sidebar.expander("📋 Catalog Info"):
-            st.write(f"**Academic Year:** {selected_catalog_year}")
-            st.write(f"**Total Courses:** {len(catalog_df)}")
-            st.write(f"**Programs:** {len(catalog_df['program'].unique())}")
-            st.write(f"**Semesters:** {', '.join(sorted(catalog_df['semester'].unique()))}")
-            
-            # Show courses without course codes
-            missing_codes = len(catalog_df[catalog_df['course_code'] == ''])
-            if missing_codes > 0:
-                st.write(f"**Courses without codes:** {missing_codes}")
-        
         # Show catalog charts
         create_catalog_charts(catalog_df, selected_catalog_year)
             
@@ -500,7 +444,6 @@ def main_app():
                     for encoding in encodings_to_try:
                         try:
                             catalog_df = pd.read_csv(uploaded_file, encoding=encoding)
-                            st.info(f"Successfully loaded {uploaded_file.name} using {encoding} encoding")
                             break
                         except UnicodeDecodeError:
                             uploaded_file.seek(0)  # Reset file pointer for next attempt
@@ -525,14 +468,9 @@ def main_app():
                 catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
                 final_count = len(catalog_df)
                 
-                if initial_count != final_count:
-                    st.info(f"Filtered out {initial_count - final_count} rows with missing semester data")
-                
                 # Handle missing course_code
                 catalog_df['course_code'] = catalog_df['course_code'].fillna('')
                 catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
-                
-                st.sidebar.success(f"✅ File uploaded ({len(catalog_df)} courses)")
                 
                 # Show charts for uploaded file too
                 selected_catalog_year = "Custom Upload"
@@ -606,15 +544,12 @@ def main_app():
         if 'student_counts' not in st.session_state:
             st.session_state.student_counts = {program: 1 for program in programs_list}
         
-        # Toggle button to show/hide the student count inputs
-        show_student_inputs = st.sidebar.button("📊 Configure Student Counts for All Programs")
-        
         # Show current totals
         total_students = sum(st.session_state.student_counts.values())
-        st.sidebar.info(f"Total Students Across All Programs: {total_students}")
+        st.sidebar.info(f"Total Students: {total_students}")
         
         # Expandable section for student counts
-        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=show_student_inputs):
+        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=False):
             st.markdown("**Enter number of students for each program:**")
             for i, program in enumerate(programs_list):
                 st.session_state.student_counts[program] = st.number_input(
