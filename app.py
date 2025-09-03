@@ -29,6 +29,15 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
+def display_logo():
+    """Display IOBM logo if available"""
+    try:
+        # Try to display the logo with proper sizing
+        st.image("iobm.png", width=150)
+    except:
+        # Fallback to text if logo is not found
+        st.markdown("**IOBM**")
+
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
     filename = CATALOG_FILES[catalog_year]
@@ -156,18 +165,25 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             st.metric("Average Courses per Program", round(total_courses / len(program_counts), 1))
 
 def login_page():
-    st.set_page_config(page_title="🔐 Login - Hafali Smart Solutions", layout="centered")
+    st.set_page_config(page_title="IOBM ACMS - Login", layout="centered")
     
-    st.markdown("""
-    <div style="text-align: center; padding: 2rem;">
-        <h1>🔐 Hafali Smart Solutions</h1>
-        <h3>Please Login to Continue</h3>
-    </div>
-    """, unsafe_allow_html=True)
-    
+    # Center the logo and login form
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
+        # Display logo
+        st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+        display_logo()
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem;">
+            <h1>IOBM ACMS</h1>
+            <h3>Timetable Scheduler</h3>
+            <p>Please Login to Continue</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
         with st.container():
             st.markdown("### Login")
             username = st.text_input("Username", placeholder="Enter your username").lower()
@@ -184,13 +200,23 @@ def login_page():
 
 def main_app():
     # Page setup
-    st.set_page_config(page_title="📊 Hafali Smart Solutions", layout="wide")
+    st.set_page_config(page_title="IOBM ACMS - Timetable Scheduler", layout="wide")
     
-    # Header with logout
-    col1, col2 = st.columns([3, 1])
+    # Header with logo and logout
+    col1, col2, col3 = st.columns([1, 3, 1])
+    
     with col1:
-        st.title("📊 Hafali Smart Solutions")
+        display_logo()
+    
     with col2:
+        st.markdown("""
+        <div style="text-align: center; padding-top: 20px;">
+            <h1>IOBM ACMS</h1>
+            <h3>Timetable Scheduler</h3>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
         st.markdown(f"**Welcome, {USERS[st.session_state.username]['display_name']}!**")
         if st.button("Logout"):
             st.session_state.logged_in = False
@@ -346,17 +372,35 @@ def main_app():
         if not include_weekend_courses:
             st.sidebar.warning("⚠️ Disabling weekend courses may result in time clashes for different sections of the same course")
     
-    # Student count input - different behavior for "All Programs"
+    # Student count input - improved UI for "All Programs"
     if program_filter == "All Programs":
-        st.sidebar.markdown("### Student Count for Each Program")
-        student_counts = {}
-        for program in programs_list:
-            student_counts[program] = st.sidebar.number_input(
-                f"Students for {program}", 
-                min_value=1, 
-                step=1, 
-                key=f"students_{program.replace(' ', '_').replace('(', '').replace(')', '')}"
-            )
+        st.sidebar.markdown("### Student Count Configuration")
+        
+        # Initialize session state for student counts if not exists
+        if 'student_counts' not in st.session_state:
+            st.session_state.student_counts = {program: 1 for program in programs_list}
+        
+        # Toggle button to show/hide the student count inputs
+        show_student_inputs = st.sidebar.button("📊 Configure Student Counts for All Programs")
+        
+        # Show current totals
+        total_students = sum(st.session_state.student_counts.values())
+        st.sidebar.info(f"Total Students Across All Programs: {total_students}")
+        
+        # Expandable section for student counts
+        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=show_student_inputs):
+            st.markdown("**Enter number of students for each program:**")
+            for i, program in enumerate(programs_list):
+                st.session_state.student_counts[program] = st.number_input(
+                    f"{program}",
+                    min_value=1,
+                    value=st.session_state.student_counts.get(program, 1),
+                    step=1,
+                    key=f"students_{i}_{program.replace(' ', '_').replace('(', '').replace(')', '')}"
+                )
+        
+        student_counts = st.session_state.student_counts
+        
     else:
         student_count = st.sidebar.number_input("Enter Number of Students", min_value=1, step=1)
 
@@ -620,99 +664,3 @@ def main_app():
                         file_name=filename,
                         mime="text/csv",
                     )
-                else:
-                    st.warning("No data found for any programs in the selected semester.")
-        
-        else:
-            # Handle single program (original functionality)
-            df = catalog_df[
-                (catalog_df["program"] == program_filter) & 
-                (catalog_df["semester"] == semester_filter)
-            ][["program", "course_code", "course_title"]].copy()
-            
-            if df.empty:
-                st.warning("No courses found for the selected Program and Semester.")
-            else:
-                df["failed/withdrawn students"] = 0
-                df["active students"] = student_count
-                df["total student strength"] = student_count
-                df["required sections"] = df["total student strength"].apply(lambda x: math.ceil(x / 40))
-                df["section"] = ""
-                df["name"] = "Faculty Member"
-                df["ids"] = ""
-                df["type name"] = ""
-                # Add new columns
-                df["semester_selected"] = semester_filter
-                df["catalog_year"] = catalog_name
-                
-                schedule = assign_schedule(df, include_weekend_courses)
-                
-                expanded_df = []
-                sched_idx = 0
-                
-                for _, row in df.iterrows():
-                    for sec in range(1, row["required sections"] + 1):
-                        new_row = row.copy()
-                        new_row["section"] = sec
-                        new_row["days"] = schedule[sched_idx][1]
-                        new_row["time's"] = schedule[sched_idx][2]
-                        expanded_df.append(new_row)
-                        sched_idx += 1
-                
-                df = pd.DataFrame(expanded_df)
-                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                df = df[[
-                    "program", "section", "course_code", "course_title", "name", "ids", 
-                    "type name", "days", "time's", "failed/withdrawn students", 
-                    "active students", "total student strength", "required sections",
-                    "semester_selected", "catalog_year"
-                ]]
-                
-                st.success("Report generated with improved timetable!")
-                st.dataframe(df)
-                
-                st.subheader("📋 Scheduling Summary")
-                summary_data = []
-                for section in df["section"].unique():
-                    section_data = df[df["section"] == section]
-                    weekend_count = sum(1 for day in section_data["days"] if any(wd in str(day) for wd in weekend_days))
-                    weekday_count = len(section_data) - weekend_count
-                    summary_data.append({
-                        "Section": section,
-                        "Weekend Classes": weekend_count,
-                        "Weekday Classes": weekday_count,
-                        "Total Classes": len(section_data)
-                    })
-                
-                summary_df = pd.DataFrame(summary_data)
-                st.dataframe(summary_df)
-                
-                # Enhanced filename for single program
-                clean_program = program_filter.replace(" ", "_").replace("(", "").replace(")", "").replace("/", "_")
-                clean_semester = semester_filter.replace(" ", "_").replace("/", "_")
-                clean_catalog = catalog_name.replace(" ", "_").replace("-", "_")
-                filename = f"timetable_{clean_program}_{clean_semester}_{clean_catalog}.csv"
-                
-                csv = df.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="📥 Download CSV",
-                    data=csv,
-                    file_name=filename,
-                    mime="text/csv",
-                )
-
-    # Add Room Allocation System button at the bottom
-    st.markdown("---")
-    st.subheader("🏢 Additional Tools")
-    
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
-            st.info("Opening Room Allocation System...")
-            st.markdown("[🏫 **Click here to access Room Allocation System**](https://iobm-room-allocation-system.streamlit.app/)")
-
-# Main application logic
-if not st.session_state.logged_in:
-    login_page()
-else:
-    main_app()
