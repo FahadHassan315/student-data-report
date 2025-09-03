@@ -7,7 +7,7 @@ from collections import defaultdict
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
-    page_title="IOBM ACMS - Timetable Scheduler", 
+    page_title="IOBM ACMS", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -194,7 +194,6 @@ def login_page():
         st.markdown("""
         <div style="text-align: center; padding: 1rem;">
             <h1>IOBM ACMS</h1>
-            <h3>Timetable Scheduler</h3>
             <p>Please Login to Continue</p>
         </div>
         """, unsafe_allow_html=True)
@@ -390,7 +389,6 @@ def main_app():
         st.markdown("""
         <div style="padding-top: 40px;">
             <h1>IOBM ACMS</h1>
-            <h3>Timetable Scheduler</h3>
         </div>
         """, unsafe_allow_html=True)
     
