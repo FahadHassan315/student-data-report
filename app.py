@@ -752,30 +752,16 @@ def main_app():
             st.info("Opening Room Allocation System...")
             st.markdown("[🏫 **Click here to access Room Allocation System**](https://iobm-room-allocation-system.streamlit.app/)")
 
-    # Credits section
+    # Footer
     st.markdown("---")
-    st.markdown("### 👨‍💻 Development Team")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        **Developers:**
-        - Fahad Hassan (Data Science Batch 2026)
-        - Ali Hasnain Abro (Data Science Batch 2027)
-        """)
-    
-    with col2:
-        st.markdown("""
-        **Project Supervisor:**
-        - Dr. Rabiya Sabri
-        """)
-    
-    with col3:
-        st.markdown("""
-        **Project Designer:**
-        - Habibullah Rajpar
-        """)
+    st.markdown(
+        """
+        <div style='text-align: center; color: #666; font-size: 12px; margin-top: 30px;'>
+            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
 # Main application logic
 def main():
