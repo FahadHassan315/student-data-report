@@ -7,7 +7,7 @@ from collections import defaultdict
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
-    page_title="IOBM ACMS", 
+    page_title="SSK ACMS", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -193,7 +193,7 @@ def login_page():
         
         st.markdown("""
         <div style="text-align: center; padding: 1rem;">
-            <h1>IOBM ACMS</h1>
+            <h1>SSK ACMS</h1>
             <p>Please Login to Continue</p>
         </div>
         """, unsafe_allow_html=True)
@@ -388,7 +388,7 @@ def main_app():
     with col2:
         st.markdown("""
         <div style="padding-top: 40px;">
-            <h1>IOBM ACMS</h1>
+            <h1>SSK ACMS</h1>
         </div>
         """, unsafe_allow_html=True)
     
