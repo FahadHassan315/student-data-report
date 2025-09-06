@@ -147,6 +147,11 @@ def login_page():
     # Add custom CSS for full height layout and styling
     st.markdown("""
     <style>
+    /* Hide the default Streamlit header and menu */
+    .stApp > header {
+        background-color: transparent;
+    }
+    
     .main-container {
         height: 100vh;
         display: flex;
@@ -167,9 +172,10 @@ def login_page():
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         text-align: center;
-        padding: 40px;
+        padding: 20px;
+        margin-top: -100px;
     }
     .login-section {
         flex: 1;
@@ -177,9 +183,7 @@ def login_page():
         flex-direction: column;
         justify-content: center;
         padding: 40px;
-        background: #f8f9fa;
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: -50px;
     }
     .credits-section {
         text-align: center;
@@ -202,7 +206,7 @@ def login_page():
         font-size: 1.8rem;
         color: #333;
         margin-bottom: 30px;
-        text-align: center;
+        text-align: left;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -233,8 +237,8 @@ def login_page():
         st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
         
         # Login form
-        username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
-        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
+        username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input", label_visibility="collapsed")
+        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input", label_visibility="collapsed")
         
         # Add some spacing
         st.markdown("<br>", unsafe_allow_html=True)
