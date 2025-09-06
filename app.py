@@ -45,26 +45,21 @@ CATALOG_FILES = {
 def display_logo_login():
     """Display IOBM logo for login page - centered and smaller"""
     try:
-        # Centered logo for login page
         st.image("iobm.png", width=200)
     except:
-        # Fallback to centered text if logo is not found
         st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
 
 def display_logo_main():
     """Display IOBM logo for main app - larger size for header"""
     try:
-        # Larger logo for main app header
         st.image("iobm.png", width=200)
     except:
-        # Fallback text if logo is not found
         st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
 
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
     filename = CATALOG_FILES[catalog_year]
     
-    # Try different encodings to handle various file formats
     encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
     
     for encoding in encodings_to_try:
@@ -74,39 +69,24 @@ def load_catalog_data(catalog_year):
         except UnicodeDecodeError:
             continue
         except Exception as e:
-            if encoding == encodings_to_try[-1]:  # Last encoding attempt
+            if encoding == encodings_to_try[-1]:
                 st.error(f"Error loading catalog file {filename}: {e}")
                 return None, False
             continue
     else:
-        st.error(f"Could not decode {filename} with any of the attempted encodings: {', '.join(encodings_to_try)}")
+        st.error(f"Could not decode {filename} with any of the attempted encodings")
         return None, False
     
     try:
-        # Normalize column names - handle both old and new format
+        # Normalize column names
         catalog_df.columns = catalog_df.columns.str.lower().str.strip()
         
-        # Map old column names to new standard names if needed
-        column_mapping = {
-            'semester': 'semester',
-            'program': 'program',
-            'course_code': 'course_code',
-            'course_title': 'course_title',
-            'college': 'college'  # Add college mapping
-        }
-        
-        # Rename columns to standard format
-        catalog_df = catalog_df.rename(columns=column_mapping)
-        
-        # Filter out rows where semester is missing (NaN or empty)
-        initial_count = len(catalog_df)
+        # Handle missing values
         catalog_df = catalog_df.dropna(subset=['semester'])
         catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
-        final_count = len(catalog_df)
-        
-        # Handle missing course_code - fill with empty string instead of dropping
         catalog_df['course_code'] = catalog_df['course_code'].fillna('')
         catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
+        catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
         catalog_df['college'] = catalog_df['college'].fillna('Unknown College')
         
         # Convert semester values to lowercase for consistency
@@ -117,34 +97,6 @@ def load_catalog_data(catalog_year):
     except Exception as e:
         st.error(f"Error processing catalog file {filename}: {e}")
         return None, False
-
-def normalize_semester_name(semester):
-    """Normalize semester names for consistent ordering"""
-    semester_str = str(semester).lower().strip()
-    
-    # Handle various formats
-    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
-        return 'one'
-    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
-        return 'two'
-    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
-        return 'three'
-    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
-        return 'four'
-    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
-        return 'five'
-    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
-        return 'six'
-    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
-        return 'seven'
-    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
-        return 'eight'
-    else:
-        return semester_str
-
-def get_semester_order():
-    """Return the proper order for semesters"""
-    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
     """Create dynamic pie charts from catalog data with college information"""
@@ -173,20 +125,17 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         )
         fig_college.update_layout(height=400, showlegend=True)
         
-        # Use plotly_chart with on_select for interactivity
-        college_selection = st.plotly_chart(fig_college, use_container_width=True, key="college_chart")
+        st.plotly_chart(fig_college, use_container_width=True)
     
     with col2:
         st.markdown("#### 🎓 Program Distribution")
         
-        # Check if a college is selected (you'll need to implement selection logic)
+        # Check if a college is selected
         if st.session_state.selected_college and st.session_state.selected_college in catalog_df['college'].values:
-            # Filter programs by selected college
             college_programs = catalog_df[catalog_df['college'] == st.session_state.selected_college]
             program_counts = college_programs['program'].value_counts()
             title = f"Programs in {st.session_state.selected_college}"
         else:
-            # Show all programs
             program_counts = catalog_df['program'].value_counts()
             title = "All Programs"
         
@@ -202,13 +151,12 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         )
         fig_program.update_layout(height=400, showlegend=True)
         
-        program_selection = st.plotly_chart(fig_program, use_container_width=True, key="program_chart")
+        st.plotly_chart(fig_program, use_container_width=True)
     
     with col3:
         st.markdown("#### 📚 Program Details")
         
         if st.session_state.selected_program and st.session_state.selected_program in catalog_df['program'].values:
-            # Show detailed course count for selected program
             program_data = catalog_df[catalog_df['program'] == st.session_state.selected_program]
             total_courses = len(program_data)
             college_name = program_data['college'].iloc[0] if not program_data.empty else "Unknown"
@@ -241,19 +189,18 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             st.plotly_chart(fig_semester, use_container_width=True)
             
             # Download option for specific program
-            if st.button(f"📥 Download {st.session_state.selected_program} Catalog", use_container_width=True):
-                program_csv = program_data.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="📥 Download Program Catalog",
-                    data=program_csv,
-                    file_name=f"{st.session_state.selected_program}_{selected_catalog_year}_catalog.csv",
-                    mime="text/csv",
-                    key="program_download"
-                )
+            program_csv = program_data.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label=f"📥 Download {st.session_state.selected_program} Catalog",
+                data=program_csv,
+                file_name=f"{st.session_state.selected_program}_{selected_catalog_year}_catalog.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
         else:
-            st.info("Click on a program in the pie chart to view detailed information")
+            st.info("Select a program below to view detailed information")
     
-    # Interactive selection buttons (since plotly selection events are limited in Streamlit)
+    # Interactive selection
     st.markdown("---")
     st.markdown("#### 🔄 Interactive Selection")
     
@@ -263,8 +210,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         colleges = sorted(catalog_df['college'].unique())
         selected_college = st.selectbox(
             "Select College:",
-            ["All Colleges"] + colleges,
-            key="college_selector"
+            ["All Colleges"] + colleges
         )
         
         if selected_college != "All Colleges":
@@ -281,8 +227,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         selected_program = st.selectbox(
             "Select Program:",
-            ["All Programs"] + list(programs),
-            key="program_selector"
+            ["All Programs"] + list(programs)
         )
         
         if selected_program != "All Programs":
@@ -312,106 +257,95 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     with col4:
         avg_courses = len(catalog_df) / len(catalog_df['program'].unique())
         st.metric("Avg Courses/Program", f"{avg_courses:.1f}")
-    
-    # Show detailed breakdown in an expandable section
-    with st.expander("📊 Detailed Statistics"):
-        # Create a comprehensive breakdown
-        detailed_stats = []
-        for college in catalog_df['college'].unique():
-            college_data = catalog_df[catalog_df['college'] == college]
-            for program in college_data['program'].unique():
-                program_data = college_data[college_data['program'] == program]
-                detailed_stats.append({
-                    'College': college,
-                    'Program': program,
-                    'Total Courses': len(program_data),
-                    'Semesters': len(program_data['semester'].unique())
-                })
-        
-        detailed_df = pd.DataFrame(detailed_stats)
-        detailed_df = detailed_df.sort_values(['College', 'Program'])
-        st.dataframe(detailed_df, use_container_width=True)
 
 def login_page():
-    """Display login page with improved layout"""
-    # Create a container for better control
-    with st.container():
-        # Create columns for centering - adjusted ratios
-        col1, col2, col3 = st.columns([1, 3, 1])
+    """Display login page with improved layout - no scrolling needed"""
+    # Compact layout to fit everything on screen
+    st.markdown("""
+    <div style='text-align: center; margin-bottom: 30px;'>
+    """, unsafe_allow_html=True)
+    
+    display_logo_login()
+    
+    st.markdown("""
+    <h1 style='margin: 10px 0; color: #1f77b4;'>SSK ACMS</h1>
+    <p style='margin-bottom: 30px; color: #666; font-size: 18px;'>Academic Course Management System</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Centered login form
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
+    with col2:
+        with st.container():
+            st.markdown("### 🔐 Login")
+            
+            username = st.text_input("👤 Username", placeholder="Enter your username")
+            password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
+            
+            if st.button("🚀 Login", use_container_width=True, type="primary"):
+                username_lower = username.lower()
+                password_lower = password.lower()
+                
+                if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username_lower
+                    st.success("✅ Login successful!")
+                    st.rerun()
+                else:
+                    st.error("❌ Invalid username or password!")
         
-        with col2:
-            # Logo and title section - compact
-            st.markdown("<div style='text-align: center; margin-bottom: 20px;'>", unsafe_allow_html=True)
-            display_logo_login()
-            st.markdown("""
-            <h1 style='margin-top: 10px; margin-bottom: 5px;'>SSK ACMS</h1>
-            <p style='margin-bottom: 20px; color: #666;'>Academic Course Management System</p>
+        # Compact feature highlights
+        st.markdown("""
+        <div style='text-align: center; margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #e3f2fd, #f3e5f5); border-radius: 10px;'>
+            <h4 style='margin-bottom: 10px; color: #1976d2;'>✨ Features</h4>
+            <div style='display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;'>
+                <span>📊 Dynamic Charts</span>
+                <span>🏛️ College Analytics</span>
+                <span>📅 Smart Scheduling</span>
+                <span>📱 Responsive Design</span>
             </div>
-            """, unsafe_allow_html=True)
-            
-            # Login form in a styled container
-            with st.container():
-                st.markdown("""
-                <div style='background-color: #f8f9fa; padding: 30px; border-radius: 10px; border: 1px solid #e9ecef; margin-bottom: 20px;'>
-                """, unsafe_allow_html=True)
-                
-                st.markdown("### 🔐 Please Login to Continue")
-                
-                # Form inputs
-                username = st.text_input("👤 Username", placeholder="Enter your username")
-                password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
-                
-                # Login button
-                if st.button("🚀 Login", use_container_width=True, type="primary"):
-                    # Convert to lowercase for comparison
-                    username_lower = username.lower()
-                    password_lower = password.lower()
-                    
-                    if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
-                        st.session_state.logged_in = True
-                        st.session_state.username = username_lower
-                        st.success("✅ Login successful! Redirecting...")
-                        st.rerun()
-                    else:
-                        st.error("❌ Invalid username or password!")
-                
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            # System info section - compact
-            st.markdown("""
-            <div style='text-align: center; margin-top: 30px; padding: 15px; background-color: #e3f2fd; border-radius: 8px;'>
-                <h4 style='color: #1976d2; margin-bottom: 10px;'>🎓 System Features</h4>
-                <div style='display: flex; justify-content: space-around; flex-wrap: wrap;'>
-                    <span style='margin: 5px;'>📊 Dynamic Charts</span>
-                    <span style='margin: 5px;'>🏛️ College Analytics</span>
-                    <span style='margin: 5px;'>📅 Smart Scheduling</span>
-                    <span style='margin: 5px;'>📱 Responsive Design</span>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # Development team info - compact
-            st.markdown("""
-            <div style='text-align: center; color: #666; font-size: 12px; margin-top: 20px; padding: 10px;'>
-                <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro</p>
-                <p><strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
-            </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
+
+def normalize_semester_name(semester):
+    """Normalize semester names for consistent ordering"""
+    semester_str = str(semester).lower().strip()
+    
+    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
+        return 'one'
+    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
+        return 'two'
+    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
+        return 'three'
+    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
+        return 'four'
+    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
+        return 'five'
+    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
+        return 'six'
+    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
+        return 'seven'
+    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
+        return 'eight'
+    else:
+        return semester_str
+
+def get_semester_order():
+    """Return the proper order for semesters"""
+    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
 
 def assign_schedule(df, allow_weekend_courses=True):
-    """
-    Improved scheduling function that avoids clashes and distributes weekend classes better
-    For Bachelor's programs, can optionally disable weekend courses
-    """
-    section_occupied_slots = defaultdict(set)  # section -> {(day, time)}
-    course_slot_usage = defaultdict(lambda: defaultdict(int))  # course -> slot -> count
-    course_section_slots = defaultdict(set)  # course -> {(day, time)} used by any section
+    """Improved scheduling function"""
+    section_occupied_slots = defaultdict(set)
+    course_slot_usage = defaultdict(lambda: defaultdict(int))
+    course_section_slots = defaultdict(set)
     
     schedule = []
     program_name = df["program"].iloc[0].lower() if not df.empty else ""
     is_mba = "mba" in program_name
     
-    # Time slots (AM/PM format)
+    # Time slots
     weekday_slots = [
         ("9:00 AM", "10:30 AM"),
         ("10:45 AM", "12:15 PM"),
@@ -425,9 +359,9 @@ def assign_schedule(df, allow_weekend_courses=True):
     ]
 
     mba_slots = [
-        ("9:00 AM", "12:00 PM"),  # Weekend morning
-        ("2:00 PM", "5:00 PM"),   # Weekend afternoon
-        ("6:30 PM", "9:30 PM")    # Weekday evening
+        ("9:00 AM", "12:00 PM"),
+        ("2:00 PM", "5:00 PM"),
+        ("6:30 PM", "9:30 PM")
     ]
 
     weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
@@ -435,7 +369,6 @@ def assign_schedule(df, allow_weekend_courses=True):
     
     # Get all available slots
     if is_mba:
-        # MBA programs always use their specific slots (no weekend restriction)
         all_slots = []
         for slot in mba_slots:
             if slot == ("6:30 PM", "9:30 PM"):
@@ -445,24 +378,17 @@ def assign_schedule(df, allow_weekend_courses=True):
                 for day in weekend_days:
                     all_slots.append((day, slot))
     else:
-        # Bachelor's programs - can optionally exclude weekend slots
         all_slots = []
         for slot in weekday_slots:
             for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
                 all_slots.append((f"{day1} / {day2}", slot))
         
-        # Add weekend slots only if allowed for Bachelor's programs
         if allow_weekend_courses:
             for slot in weekend_slots:
                 for day in weekend_days:
                     all_slots.append((day, slot))
     
     total_sections = df["required sections"].max() if not df.empty else 0
-    
-    if not is_mba:
-        weekend_preference = {}
-        for section in range(1, total_sections + 1):
-            weekend_preference[section] = random.random() < 0.3
     
     for _, row in df.iterrows():
         course = row["course_title"]
@@ -471,56 +397,18 @@ def assign_schedule(df, allow_weekend_courses=True):
         
         for sec in range(1, sections + 1):
             slot_assigned = False
-            
-            if is_mba:
-                candidate_slots = all_slots.copy()
-            else:
-                section_weekend_classes = sum(1 for (d, t) in section_occupied_slots[sec] 
-                                            if any(wd in str(d) for wd in weekend_days))
-                section_weekday_classes = len(section_occupied_slots[sec]) - section_weekend_classes
-                prefer_weekend = weekend_preference.get(sec, False) and allow_weekend_courses
-                
-                if not allow_weekend_courses or section_weekend_classes >= 2:
-                    # Prioritize weekday slots
-                    candidate_slots = [(d, s) for (d, s) in all_slots if "/" in str(d)]
-                    if allow_weekend_courses:
-                        candidate_slots += [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
-                elif section_weekday_classes >= 6:
-                    weekend_slots_list = [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
-                    weekday_slots_list = [(d, s) for (d, s) in all_slots if "/" in str(d)]
-                    candidate_slots = weekend_slots_list + weekday_slots_list
-                else:
-                    weekend_slots_list = [(d, s) for (d, s) in all_slots if any(wd in str(d) for wd in weekend_days)]
-                    weekday_slots_list = [(d, s) for (d, s) in all_slots if "/" in str(d)]
-                    candidate_slots = weekend_slots_list + weekday_slots_list if prefer_weekend else weekday_slots_list + weekend_slots_list
-            
+            candidate_slots = all_slots.copy()
             candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
             
-            # First pass: Try to avoid section clashes and course clashes
             for slot_key in candidate_slots:
                 day, slot = slot_key
                 
-                # Check for section clash (always avoid)
                 if slot_key in section_occupied_slots[sec]:
                     continue
                 
-                # Check for course clash (avoid if possible, but allow as last resort)
                 if slot_key in course_section_slots[course]:
                     continue
-                    
-                # Handle weekend day consistency for non-MBA programs
-                if not is_mba and any(wd in str(day) for wd in weekend_days):
-                    section_weekend_days = [d for (d, t) in section_occupied_slots[sec] 
-                                          if any(wd in str(d) for wd in weekend_days)]
-                    if section_weekend_days and day not in section_weekend_days:
-                        existing_weekend_day = next(iter([d for d in section_weekend_days if d in weekend_days]), None)
-                        if existing_weekend_day and (existing_weekend_day, slot) not in section_occupied_slots[sec]:
-                            day = existing_weekend_day
-                            slot_key = (day, slot)
-                        else:
-                            continue
                 
-                # Assign the slot
                 section_occupied_slots[sec].add(slot_key)
                 course_slot_usage[course][slot_key] += 1
                 course_section_slots[course].add(slot_key)
@@ -528,16 +416,13 @@ def assign_schedule(df, allow_weekend_courses=True):
                 slot_assigned = True
                 break
             
-            # Second pass: Allow course clashes if no other option (but still avoid section clashes)
             if not slot_assigned:
                 for slot_key in candidate_slots:
                     day, slot = slot_key
                     
-                    # Still avoid section clashes
                     if slot_key in section_occupied_slots[sec]:
                         continue
                     
-                    # Allow course clashes as last resort
                     section_occupied_slots[sec].add(slot_key)
                     course_slot_usage[course][slot_key] += 1
                     course_section_slots[course].add(slot_key)
@@ -545,9 +430,7 @@ def assign_schedule(df, allow_weekend_courses=True):
                     slot_assigned = True
                     break
             
-            # Final fallback: Random assignment with warning
             if not slot_assigned:
-                st.warning(f"Could not find optimal slot for {course_code if course_code else 'Unknown Course'} Section {sec}. Using random assignment.")
                 slot_key = random.choice(all_slots)
                 day, slot = slot_key
                 section_occupied_slots[sec].add(slot_key)
@@ -560,11 +443,10 @@ def assign_schedule(df, allow_weekend_courses=True):
 def main_app():
     """Main application interface"""
     
-    # Header with logo and logout - Left aligned logo with title
+    # Header
     col1, col2, col3 = st.columns([2, 4, 2])
     
     with col1:
-        # Logo and title together on the left
         display_logo_main()
     
     with col2:
@@ -586,7 +468,6 @@ def main_app():
     # Sidebar
     st.sidebar.header("Input Parameters")
 
-    # Data source selection
     data_source = st.sidebar.radio(
         "Choose Data Source:",
         ["📊 Institutional Catalog", "📁 Upload Your Own File"],
@@ -597,7 +478,6 @@ def main_app():
     selected_catalog_year = None
     
     if data_source == "📊 Institutional Catalog":
-        # Catalog year selection - default to 2024-2025
         default_index = list(CATALOG_FILES.keys()).index("2024-2025")
         selected_catalog_year = st.sidebar.selectbox(
             "Select Academic Year:",
@@ -605,57 +485,28 @@ def main_app():
             index=default_index
         )
         
-        # Load selected catalog
         catalog_df, success = load_catalog_data(selected_catalog_year)
         if not success:
-            st.error(f"Failed to load the {selected_catalog_year} catalog. Please try uploading your own file.")
+            st.error(f"Failed to load the {selected_catalog_year} catalog.")
             st.stop()
         
-        # Show catalog charts
         create_catalog_charts(catalog_df, selected_catalog_year)
             
     else:
-        # Upload option
         uploaded_file = st.sidebar.file_uploader("Upload Catalog File", type=["csv", "xlsx"])
         if uploaded_file:
             try:
                 if uploaded_file.name.endswith(".csv"):
-                    # Try different encodings for CSV files
-                    encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
-                    
-                    for encoding in encodings_to_try:
-                        try:
-                            catalog_df = pd.read_csv(uploaded_file, encoding=encoding)
-                            break
-                        except UnicodeDecodeError:
-                            uploaded_file.seek(0)  # Reset file pointer for next attempt
-                            continue
-                        except Exception as e:
-                            if encoding == encodings_to_try[-1]:
-                                raise e
-                            uploaded_file.seek(0)
-                            continue
-                    else:
-                        st.error(f"Could not decode {uploaded_file.name} with any of the attempted encodings")
-                        st.stop()
+                    catalog_df = pd.read_csv(uploaded_file)
                 else:
-                    catalog_df = pd.read_excel(uploaded_file, engine="openpyxl")
+                    catalog_df = pd.read_excel(uploaded_file)
                 
-                # Normalize columns
                 catalog_df.columns = catalog_df.columns.str.lower().str.strip()
-                
-                # Filter out rows where semester is missing
-                initial_count = len(catalog_df)
                 catalog_df = catalog_df.dropna(subset=['semester'])
-                catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
-                final_count = len(catalog_df)
-                
-                # Handle missing course_code and college
                 catalog_df['course_code'] = catalog_df['course_code'].fillna('')
                 catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
-                catalog_df['college'] = catalog_df['college'].fillna('Unknown College')
+                catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
                 
-                # Show charts for uploaded file too
                 selected_catalog_year = "Custom Upload"
                 create_catalog_charts(catalog_df, selected_catalog_year)
                 
@@ -666,20 +517,213 @@ def main_app():
             st.warning("Please upload a file to continue.")
             st.stop()
 
-    # Check if catalog_df is loaded
     if catalog_df is None:
-        st.error("No data loaded. Please select a catalog or upload a file.")
+        st.error("No data loaded.")
         st.stop()
 
-    # Required columns check (only for uploaded files)
-    if data_source == "📁 Upload Your Own File":
-        required_columns = ["program", "semester", "course_code", "course_title", "college"]
-        missing_columns = [col for col in required_columns if col not in catalog_df.columns]
-
-        if missing_columns:
-            st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
-            st.stop()
-
-    # Dropdowns
+    # Rest of the main functionality continues here...
     programs_list = sorted(catalog_df["program"].unique())
-    programs_
+    programs_with_all = ["All Programs"] + programs_list
+    program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
+    
+    # Get semesters
+    raw_semesters = catalog_df["semester"].unique()
+    normalized_semesters = []
+    
+    for sem in raw_semesters:
+        if sem and str(sem).strip():
+            normalized = normalize_semester_name(sem)
+            normalized_semesters.append((normalized, sem))
+    
+    semester_order = get_semester_order()
+    normalized_semesters.sort(key=lambda x: semester_order.index(x[0]) if x[0] in semester_order else 999)
+    
+    semester_display_list = [original for normalized, original in normalized_semesters]
+    semester_filter = st.sidebar.selectbox("Select Semester", semester_display_list)
+    
+    selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
+    has_bachelor_programs = any("mba" not in prog.lower() for prog in selected_programs)
+    
+    include_weekend_courses = True
+    if has_bachelor_programs:
+        st.sidebar.markdown("### Weekend Course Settings")
+        include_weekend_courses = st.sidebar.checkbox(
+            "Include Weekend Courses",
+            value=True,
+            help="Uncheck to avoid weekend classes"
+        )
+    
+    # Student count input
+    if program_filter == "All Programs":
+        if 'student_counts' not in st.session_state:
+            st.session_state.student_counts = {program: 1 for program in programs_list}
+        
+        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=False):
+            st.markdown("**Enter number of students for each program:**")
+            for program in programs_list:
+                st.session_state.student_counts[program] = st.number_input(
+                    f"{program}",
+                    min_value=1,
+                    value=st.session_state.student_counts.get(program, 1),
+                    step=1,
+                    key=f"students_{program}"
+                )
+        
+        student_counts = st.session_state.student_counts
+        
+    else:
+        student_count = st.sidebar.number_input("Enter Number of Students", min_value=1, step=1)
+
+    # Generate report
+    if st.sidebar.button("Generate Report"):
+        catalog_name = selected_catalog_year if selected_catalog_year else "Custom_Upload"
+        
+        if program_filter == "All Programs":
+            all_programs_df = catalog_df[
+                catalog_df["semester"] == semester_filter
+            ][["program", "course_code", "course_title", "college"]].copy()
+            
+            if all_programs_df.empty:
+                st.warning("No courses found for the selected Semester.")
+            else:
+                all_results = []
+                
+                for program in programs_list:
+                    program_df = all_programs_df[all_programs_df["program"] == program].copy()
+                    
+                    if not program_df.empty:
+                        current_student_count = student_counts[program]
+                        
+                        program_df["failed/withdrawn students"] = 0
+                        program_df["active students"] = current_student_count
+                        program_df["total student strength"] = current_student_count
+                        program_df["required sections"] = program_df["total student strength"].apply(lambda x: math.ceil(x / 40))
+                        program_df["section"] = ""
+                        program_df["name"] = "Faculty Member"
+                        program_df["ids"] = ""
+                        program_df["type name"] = ""
+                        program_df["semester_selected"] = semester_filter
+                        program_df["catalog_year"] = catalog_name
+                        
+                        schedule = assign_schedule(program_df, include_weekend_courses)
+                        
+                        expanded_df = []
+                        sched_idx = 0
+                        
+                        for _, row in program_df.iterrows():
+                            for sec in range(1, row["required sections"] + 1):
+                                new_row = row.copy()
+                                new_row["section"] = sec
+                                new_row["days"] = schedule[sched_idx][1]
+                                new_row["time's"] = schedule[sched_idx][2]
+                                expanded_df.append(new_row)
+                                sched_idx += 1
+                        
+                        program_result_df = pd.DataFrame(expanded_df)
+                        program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                        all_results.append(program_result_df)
+                
+                if all_results:
+                    final_df = pd.concat(all_results, ignore_index=True)
+                    final_df = final_df[[
+                        "program", "college", "section", "course_code", "course_title", "name", "ids", 
+                        "type name", "days", "time's", "failed/withdrawn students", 
+                        "active students", "total student strength", "required sections",
+                        "semester_selected", "catalog_year"
+                    ]]
+                    
+                    st.success("Report generated for all programs!")
+                    
+                    for program in programs_list:
+                        program_data = final_df[final_df["program"] == program]
+                        if not program_data.empty:
+                            st.subheader(f"📚 {program}")
+                            st.dataframe(program_data)
+                    
+                    csv = final_df.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Download Complete Schedule CSV",
+                        data=csv,
+                        file_name=f"timetable_AllPrograms_{semester_filter}_{catalog_name}.csv",
+                        mime="text/csv",
+                    )
+                else:
+                    st.warning("No data found for any programs in the selected semester.")
+        
+        else:
+            # Single program logic
+            df = catalog_df[
+                (catalog_df["program"] == program_filter) & 
+                (catalog_df["semester"] == semester_filter)
+            ][["program", "course_code", "course_title", "college"]].copy()
+            
+            if df.empty:
+                st.warning("No courses found for the selected Program and Semester.")
+            else:
+                df["failed/withdrawn students"] = 0
+                df["active students"] = student_count
+                df["total student strength"] = student_count
+                df["required sections"] = df["total student strength"].apply(lambda x: math.ceil(x / 40))
+                df["section"] = ""
+                df["name"] = "Faculty Member"
+                df["ids"] = ""
+                df["type name"] = ""
+                df["semester_selected"] = semester_filter
+                df["catalog_year"] = catalog_name
+                
+                schedule = assign_schedule(df, include_weekend_courses)
+                
+                expanded_df = []
+                sched_idx = 0
+                
+                for _, row in df.iterrows():
+                    for sec in range(1, row["required sections"] + 1):
+                        new_row = row.copy()
+                        new_row["section"] = sec
+                        new_row["days"] = schedule[sched_idx][1]
+                        new_row["time's"] = schedule[sched_idx][2]
+                        expanded_df.append(new_row)
+                        sched_idx += 1
+                
+                df = pd.DataFrame(expanded_df)
+                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                df = df[[
+                    "program", "college", "section", "course_code", "course_title", "name", "ids", 
+                    "type name", "days", "time's", "failed/withdrawn students", 
+                    "active students", "total student strength", "required sections",
+                    "semester_selected", "catalog_year"
+                ]]
+                
+                st.success("Report generated!")
+                st.dataframe(df)
+                
+                csv = df.to_csv(index=False).encode('utf-8')
+                st.download_button(
+                    label="📥 Download CSV",
+                    data=csv,
+                    file_name=f"timetable_{program_filter}_{semester_filter}_{catalog_name}.csv",
+                    mime="text/csv",
+                )
+
+    # Footer
+    st.markdown("---")
+    st.markdown(
+        """
+        <div style='text-align: center; color: #666; font-size: 12px; margin-top: 30px;'>
+            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+
+# Main application logic
+def main():
+    """Main function to run the application"""
+    if not st.session_state.logged_in:
+        login_page()
+    else:
+        main_app()
+
+# Run the application
+if __name__ == "__main__":
+    main()
