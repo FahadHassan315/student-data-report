@@ -670,6 +670,16 @@ def main_app():
                     mime="text/csv",
                 )
 
+    # Add Room Allocation System button at the bottom
+    st.markdown("---")
+    st.subheader("🏢 Additional Tools")
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
+            st.info("Opening Room Allocation System...")
+            st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
+    
     # Footer
     st.markdown("---")
     st.markdown(
