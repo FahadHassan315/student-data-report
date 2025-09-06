@@ -99,147 +99,44 @@ def load_catalog_data(catalog_year):
         return None, False
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
-    """Create dynamic pie charts from catalog data with college information"""
+    """Create single pie chart showing college distribution by number of programs"""
     
     st.subheader(f"📊 Catalog Insights - {selected_catalog_year}")
     
-    # Create college-wise course distribution
-    college_counts = catalog_df['college'].value_counts()
+    # Create college-wise program distribution (count unique programs per college)
+    college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
+    college_program_counts.columns = ['college', 'program_count']
+    college_program_counts = college_program_counts.sort_values('program_count', ascending=False)
     
-    # Create three columns for the charts
-    col1, col2, col3 = st.columns([1, 1, 1])
+    # Create a detailed hover text showing all programs in each college
+    hover_text = []
+    for college in college_program_counts['college']:
+        programs_in_college = catalog_df[catalog_df['college'] == college]['program'].unique()
+        programs_list = "<br>• ".join(sorted(programs_in_college))
+        hover_text.append(f"<b>{college}</b><br>Programs: {len(programs_in_college)}<br><br>• {programs_list}")
     
-    with col1:
-        st.markdown("#### 🏛️ College Distribution")
-        
-        # College pie chart
-        fig_college = px.pie(
-            values=college_counts.values,
-            names=college_counts.index,
-            title="Courses by College",
-            color_discrete_sequence=px.colors.qualitative.Set3
-        )
-        fig_college.update_traces(
-            hovertemplate="<b>%{label}</b><br>Courses: %{value}<br>Percentage: %{percent}<extra></extra>",
-            textinfo="label+percent"
-        )
-        fig_college.update_layout(height=400, showlegend=True)
-        
-        st.plotly_chart(fig_college, use_container_width=True)
+    # Center the pie chart
+    col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        st.markdown("#### 🎓 Program Distribution")
+        st.markdown("#### 🏛️ College Distribution by Programs")
         
-        # Check if a college is selected
-        if st.session_state.selected_college and st.session_state.selected_college in catalog_df['college'].values:
-            college_programs = catalog_df[catalog_df['college'] == st.session_state.selected_college]
-            program_counts = college_programs['program'].value_counts()
-            title = f"Programs in {st.session_state.selected_college}"
-        else:
-            program_counts = catalog_df['program'].value_counts()
-            title = "All Programs"
-        
-        fig_program = px.pie(
-            values=program_counts.values,
-            names=program_counts.index,
-            title=title,
-            color_discrete_sequence=px.colors.qualitative.Pastel
+        # College pie chart based on number of programs
+        fig_college = px.pie(
+            values=college_program_counts['program_count'],
+            names=college_program_counts['college'],
+            title="Distribution by Number of Programs per College",
+            color_discrete_sequence=px.colors.qualitative.Set3
         )
-        fig_program.update_traces(
-            hovertemplate="<b>%{label}</b><br>Courses: %{value}<br>Percentage: %{percent}<extra></extra>",
+        
+        # Update hover template to show programs
+        fig_college.update_traces(
+            hovertemplate=hover_text,
             textinfo="label+percent"
         )
-        fig_program.update_layout(height=400, showlegend=True)
+        fig_college.update_layout(height=500, showlegend=True)
         
-        st.plotly_chart(fig_program, use_container_width=True)
-    
-    with col3:
-        st.markdown("#### 📚 Program Details")
-        
-        if st.session_state.selected_program and st.session_state.selected_program in catalog_df['program'].values:
-            program_data = catalog_df[catalog_df['program'] == st.session_state.selected_program]
-            total_courses = len(program_data)
-            college_name = program_data['college'].iloc[0] if not program_data.empty else "Unknown"
-            
-            st.metric(
-                label=f"📊 {st.session_state.selected_program}",
-                value=f"{total_courses} Courses",
-                delta=f"College: {college_name}"
-            )
-            
-            # Show semester breakdown
-            semester_counts = program_data['semester'].value_counts()
-            
-            fig_semester = go.Figure(data=[
-                go.Bar(
-                    x=semester_counts.index,
-                    y=semester_counts.values,
-                    text=semester_counts.values,
-                    textposition='auto',
-                    marker_color='lightblue'
-                )
-            ])
-            fig_semester.update_layout(
-                title=f"Semester-wise Course Distribution",
-                xaxis_title="Semester",
-                yaxis_title="Number of Courses",
-                height=300
-            )
-            
-            st.plotly_chart(fig_semester, use_container_width=True)
-            
-            # Download option for specific program
-            program_csv = program_data.to_csv(index=False).encode('utf-8')
-            st.download_button(
-                label=f"📥 Download {st.session_state.selected_program} Catalog",
-                data=program_csv,
-                file_name=f"{st.session_state.selected_program}_{selected_catalog_year}_catalog.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
-        else:
-            st.info("Select a program below to view detailed information")
-    
-    # Interactive selection
-    st.markdown("---")
-    st.markdown("#### 🔄 Interactive Selection")
-    
-    col_select1, col_select2, col_select3 = st.columns([1, 1, 1])
-    
-    with col_select1:
-        colleges = sorted(catalog_df['college'].unique())
-        selected_college = st.selectbox(
-            "Select College:",
-            ["All Colleges"] + colleges
-        )
-        
-        if selected_college != "All Colleges":
-            st.session_state.selected_college = selected_college
-        else:
-            st.session_state.selected_college = None
-    
-    with col_select2:
-        if st.session_state.selected_college:
-            college_programs = catalog_df[catalog_df['college'] == st.session_state.selected_college]['program'].unique()
-            programs = sorted(college_programs)
-        else:
-            programs = sorted(catalog_df['program'].unique())
-        
-        selected_program = st.selectbox(
-            "Select Program:",
-            ["All Programs"] + list(programs)
-        )
-        
-        if selected_program != "All Programs":
-            st.session_state.selected_program = selected_program
-        else:
-            st.session_state.selected_program = None
-    
-    with col_select3:
-        if st.button("🔄 Reset Selection", use_container_width=True):
-            st.session_state.selected_college = None
-            st.session_state.selected_program = None
-            st.rerun()
+        st.plotly_chart(fig_college, use_container_width=True)
     
     # Summary statistics
     st.markdown("---")
@@ -255,28 +152,32 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         st.metric("Total Courses", len(catalog_df))
     
     with col4:
-        avg_courses = len(catalog_df) / len(catalog_df['program'].unique())
-        st.metric("Avg Courses/Program", f"{avg_courses:.1f}")
+        avg_programs = len(catalog_df['program'].unique()) / len(catalog_df['college'].unique())
+        st.metric("Avg Programs/College", f"{avg_programs:.1f}")
 
 def login_page():
     """Display login page with improved layout - no scrolling needed"""
-    # Compact layout to fit everything on screen
+    # Centered layout
     st.markdown("""
     <div style='text-align: center; margin-bottom: 30px;'>
     """, unsafe_allow_html=True)
     
-    display_logo_login()
-    
-    st.markdown("""
-    <h1 style='margin: 10px 0; color: #1f77b4;'>SSK ACMS</h1>
-    <p style='margin-bottom: 30px; color: #666; font-size: 18px;'>Academic Course Management System</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Centered login form
+    # Center everything using columns
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
+        # Center the logo and title
+        st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+        display_logo_login()
+        
+        st.markdown("""
+        <h1 style='margin: 10px 0; color: #1f77b4; text-align: center;'>SSK ACMS</h1>
+        <p style='margin-bottom: 30px; color: #666; font-size: 18px; text-align: center;'>Academic Course Management System</p>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        # Login form
         with st.container():
             st.markdown("### 🔐 Login")
             
@@ -294,19 +195,6 @@ def login_page():
                     st.rerun()
                 else:
                     st.error("❌ Invalid username or password!")
-        
-        # Compact feature highlights
-        st.markdown("""
-        <div style='text-align: center; margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #e3f2fd, #f3e5f5); border-radius: 10px;'>
-            <h4 style='margin-bottom: 10px; color: #1976d2;'>✨ Features</h4>
-            <div style='display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;'>
-                <span>📊 Dynamic Charts</span>
-                <span>🏛️ College Analytics</span>
-                <span>📅 Smart Scheduling</span>
-                <span>📱 Responsive Design</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
 
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
