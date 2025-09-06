@@ -119,13 +119,10 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        st.markdown("#### 🏛️ College Distribution by Programs")
-        
         # College pie chart based on number of programs
         fig_college = px.pie(
             values=college_program_counts['program_count'],
             names=college_program_counts['college'],
-            title="Distribution by Number of Programs per College",
             color_discrete_sequence=px.colors.qualitative.Set3
         )
         
@@ -140,7 +137,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     # Summary statistics
     st.markdown("---")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     
     with col1:
         st.metric("Total Colleges", len(catalog_df['college'].unique()))
@@ -150,10 +147,6 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col3:
         st.metric("Total Courses", len(catalog_df))
-    
-    with col4:
-        avg_programs = len(catalog_df['program'].unique()) / len(catalog_df['college'].unique())
-        st.metric("Avg Programs/College", f"{avg_programs:.1f}")
 
 def login_page():
     """Display login page with improved layout - no scrolling needed"""
