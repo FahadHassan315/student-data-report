@@ -9,9 +9,9 @@ from collections import defaultdict
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
-    page_title="SSK ACMS", 
-    layout="wide",
-    initial_sidebar_state="expanded"
+    page_title="SSK ACMS - IOBM",
+    page_icon="https://raw.githubusercontent.com/FahadHassan315/room-allocation-system/main/iobm.png",
+    layout="wide"
 )
 
 # Initialize session state
