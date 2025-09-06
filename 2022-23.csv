@@ -1,0 +1,1639 @@
+course_code,course_title,Semester,Term,Program,Pre-Req,Elective,College
+       SSC101,Introduction to Psychology,one,Fall-2022,BBA,,,CBM
+      ECO101,Principles of Micro Economics,one,Fall-2022,BBA,,,CBM
+     MTH102,Business Mathematics,one,Fall-2022,BBA,,,CBM
+      REL101,Islamic Studies,one,Fall-2022,BBA,,,CBM
+     COM107,Academic English,one,Fall-2022,BBA,,,CBM
+     MAN101,Principles of Management,one,Fall-2022,BBA,,,CBM
+     SSC301,History of Ideas,two,Spring-2023,BBA,,,CBM
+     ECO102,Principles of Macro Economics,two,Spring-2023,BBA,,,CBM
+     STA104,Quantitative Techniques in Business,two,Spring-2023,BBA,,,CBM
+     LAN 10*,Foreign Language I,two,Spring-2023,BBA,,,CBM
+     COM205,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BBA,,,CBM
+     ACC101,Introduction to Financial Accounting,two,Spring-2023,BBA,,,CBM
+      ENT201,Entrepreneurial Society & Social Impact,three,Fall-2023,BBA,,,CBM
+      MKT201,Marketing Management (Level 1),three,Fall-2023,BBA,,,CBM
+     LAN 20**,Foreign Language II,three,Fall-2023,BBA,,,CBM
+      PSC301,Pakistan Studies,three,Fall-2023,BBA,,,CBM
+     COM202,Business & Professional Speech,three,Fall-2023,BBA,,,CBM
+     ACC201,Intermediate Financial Accounting,three,Fall-2023,BBA,,,CBM
+     MAN302,Organizational Behavior,four,Spring-2024,BBA,,,CBM
+     ENT202,Entrepreneurial Business Operations,four,Spring-2024,BBA,,,CBM
+     SCM501,Supply Chain Management,four,Spring-2024,BBA,,,CBM
+MIS402,Computer Concepts & Applications,four,Spring-2024,BBA,,,CBM
+      ISF101,Introduction to Islamic Banking & Finance,four,Spring-2024,BBA,,,CBM
+     FIN201,Introduction to Business Finance,four,Spring-2024,BBA,,,CBM
+     HRM301,Human Resource Management,Fifth,Fall-2024,BBA,,,CBM
+     MKT404,Methods in Business Research,Fifth,Fall-2024,BBA,,,CBM
+    SCM400,Introduction to ERP,Fifth,Fall-2024,BBA,,,CBM
+    BDS101,Introduction to Data Sciences,Fifth,Fall-2024,BBA,,,CBM
+     ISF201,Islamic Financial Accounting,Fifth,Fall-2024,BBA,,,CBM
+     FIN202,Financial Management,Fifth,Fall-2024,BBA,,,CBM
+    MAN309,Leadership Journey,Sixth,Spring-2025,BBA,,,CBM
+,Major 1 (compulsory elective),Sixth,Spring-2025,BBA,,,CBM
+,Major II (compulsory elctive),Sixth,Spring-2025,BBA,,,CBM
+,Major III,Sixth,Spring-2025,BBA,,,CBM
+,Major IV,Sixth,Spring-2025,BBA,,,CBM
+,Major V,Sixth,Spring-2025,BBA,,,CBM
+     ECO402,Pakistan Economic Policy,Seventh,Fall-2025,BBA,,,CBM
+,Major VI,Seventh,Fall-2025,BBA,,,CBM
+,Major VII,Seventh,Fall-2025,BBA,,,CBM
+,Minor I (compulsory elective),Seventh,Fall-2025,BBA,,,CBM
+,Minor II (compulsory elective),Seventh,Fall-2025,BBA,,,CBM
+     SSC401,Business Ethics,Seventh,Fall-2025,BBA,,,CBM
+,Major VIII,Eights,Spring-2027,BBA,,,CBM
+,Major IX,Eights,Spring-2027,BBA,,,CBM
+,Major X,Eights,Spring-2027,BBA,,,CBM
+,Major XI (Capstone),Eights,Spring-2027,BBA,,,CBM
+    MAN405,Strategic Management,Eights,Spring-2027,BBA,,,CBM
+    LAW409,Corporate & Business Law,Eights,Spring-2027,BBA,,,CBM
+ACC302,Accounting and Financial Information Systems,,,BBA,,Accounting,CBM
+ACC350,Cost & Mgmt. Accounting (Compulsory elective),,,BBA,,Accounting,CBM
+ACC405,Internal Audit & EDP Accounting,,,BBA,,Accounting,CBM
+ACC501,Advanced Financial Accounting,,,BBA,,Accounting,CBM
+ACC503,Taxation (Compulsory Elective),,,BBA,,Accounting,CBM
+ACC505,Auditing,,,BBA,,Accounting,CBM
+ACC520,Managerial Analysis & Decision Making,,,BBA,,Accounting,CBM
+ACC521,International Financial Reporting Standards,,,BBA,,Accounting,CBM
+ACC524,Corporate Governance & Reporting,,,BBA,,Accounting,CBM
+ACC533,Accounting for Specialized Businesses,,,BBA,,Accounting,CBM
+ACC534,International Financial Reporting Standards II,,,BBA,,Accounting,CBM
+ACC535,Sustainable Accounting Practices,,,BBA,,Accounting,CBM
+ACC546,Budgeting & Performance Reporting,,,BBA,,Accounting,CBM
+ACC591,Capstone Project,,,BBA,,Accounting,CBM
+LAW202,Banking Laws in Pakistan,,,BBA,,Accounting,CBM
+LAW203,Insurance Laws in Pakistan,,,BBA,,Accounting,CBM
+BDS150,Programming Fundamentals (Compulsory elective),,,BBA,,Data Sciences,CBM
+CSC217,Introduction to Database (Compulsory elective),,,BBA,,Data Sciences,CBM
+BDS301,Data Mining,,,BBA,,Data Sciences,CBM
+BDS401,Data Visualization,,,BBA,,Data Sciences,CBM
+BDS403,Big Data and Analytics,,,BBA,,Data Sciences,CBM
+BDS404,Machine Learning,,,BBA,,Data Sciences,CBM
+BDS411,Time Series Analysis & Forecasting,,,BBA,,Data Sciences,CBM
+BDS412,Business Analytics,,,BBA,,Data Sciences,CBM
+BDS414,Game Theory,,,BBA,,Data Sciences,CBM
+BDS416,Introduction to Data Warehousing,,,BBA,,Data Sciences,CBM
+BDS417,Artificial Intelligence,,,BBA,,Data Sciences,CBM
+MIS591,Capstone Project,,,BBA,,Data Sciences,CBM
+FIN301,Financial Institutions (Compulsory elective),,,BBA,,Finance & Banking,CBM
+FIN503,Corporate Finance (Compulsory elective),,,BBA,,Finance & Banking,CBM
+FIN504,International Finance,,,BBA,,Finance & Banking,CBM
+FIN505,Treasury & Fund Management,,,BBA,,Finance & Banking,CBM
+FIN507,Portfolio Management,,,BBA,,Finance & Banking,CBM
+FIN509,Financial Derivatives,,,BBA,,Finance & Banking,CBM
+FIN511,Analysis of Financial Statements,,,BBA,,Finance & Banking,CBM
+FIN513,Project Appraisal,,,BBA,,Finance & Banking,CBM
+FIN520,Financial Risk Management,,,BBA,,Finance & Banking,CBM
+FIN530,Commercial & Corporate Banking,,,BBA,,Finance & Banking,CBM
+FIN534,Retail & Consumer Banking,,,BBA,,Finance & Banking,CBM
+FIN541,Technical Analysis,,,BBA,,Finance & Banking,CBM
+FIN542,Financial Forecasting & Planning,,,BBA,,Finance & Banking,CBM
+FIN544,FINTECH & Digital Finance,,,BBA,,Finance & Banking,CBM
+FIN546,Budgeting & Performance Reporting,,,BBA,,Finance & Banking,CBM
+FIN591,Capstone Project,,,BBA,,Finance & Banking,CBM
+HRM501,Recruitment & Selection (Compulsory elective),,,BBA,,Human Resource Management,CBM
+HRM503,Employee Training & Development,,,BBA,,Human Resource Management,CBM
+HRM504,Negotiation Skills,,,BBA,,Human Resource Management,CBM
+HRM505,Organization Change & Development,,,BBA,,Human Resource Management,CBM
+HRM508,Salary & Compensation,,,BBA,,Human Resource Management,CBM
+HRM511,Performance Appraisal &Management,,,BBA,,Human Resource Management,CBM
+HRM513,HR Automation (Compulsory elective),,,BBA,,Human Resource Management,CBM
+HRM514,Occupational Health & Safety,,,BBA,,Human Resource Management,CBM
+HRM515,Employee Engagement & Wellbeing,,,BBA,,Human Resource Management,CBM
+HRM516,Career Planning & Management,,,BBA,,Human Resource Management,CBM
+HRM517,Digital Recruitment & Gamification,,,BBA,,Human Resource Management,CBM
+HRM518,HR for Startups & SMEs,,,BBA,,Human Resource Management,CBM
+HRM519,E Learning Instructional Design,,,BBA,,Human Resource Management,CBM
+HRM521,Workforce Planning& Analytics,,,BBA,,Human Resource Management,CBM
+HRM522,Employment & Industrial Law,,,BBA,,Human Resource Management,CBM
+HRM523,Internal Communication & Employer Branding,,,BBA,,Human Resource Management,CBM
+HRM591,Capstone Project,,,BBA,,Human Resource Management,CBM
+ISF501,Economics for Islamic Finance,,,BBA,,Islamic Banking and Finance,CBM
+ISF502,Shariah Foundations of Business and Finance,,,BBA,,Islamic Banking and Finance,CBM
+(Comp,ulsory elective),,,BBA,,Islamic Banking and Finance,CBM
+ISF503,Islamic Banking Deposit Products & Treasury Op.,,,BBA,,Islamic Banking and Finance,CBM
+ISF504,Islamic Banking Financing Products,,,BBA,,Islamic Banking and Finance,CBM
+ISF505,Islamic Business Ethics,,,BBA,,Islamic Banking and Finance,CBM
+ISF506,Shariah Standards,,,BBA,,Islamic Banking and Finance,CBM
+ISF507,Pool Management in Islamic Banking,,,BBA,,Islamic Banking and Finance,CBM
+(Compu,lsory elective),,,BBA,,Islamic Banking and Finance,CBM
+ISF508,Islamic Financial Institutions & Markets,,,BBA,,Islamic Banking and Finance,CBM
+ISF509,Islamic Law of Sales & Contract,,,BBA,,Islamic Banking and Finance,CBM
+ISF510,Takaful Practices in Islamic Finance,,,BBA,,Islamic Banking and Finance,CBM
+ISF511,Islamic Wealth Planning & Management,,,BBA,,Islamic Banking and Finance,CBM
+ISF591,Capstone Project,,,BBA,,Islamic Banking and Finance,CBM
+SCM505,Storage and Warehouse Techniques (Compulsory),,,BBA,,Logistics and Supply Chain Management,CBM
+SCM506,Transportation Techniques and Management,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM523,Import Export Management,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM524,Supply Chain Design,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM525,Supply Chain Analytics,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM526,Supply Chain Finance and Costing,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM527,Supply Chain I4.0 & Data Sciences,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM529,"Supply Chain Technology, Systems and Innovation",,,BBA,,Logistics and Supply Chain Management,CBM
+SCM532,Operational Research and Simulation,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM533,Procurement Management,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM551,Quantitative Methods in Production and Logistics,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM553,Packaging Design and Environmental Aspects,,,BBA,,Logistics and Supply Chain Management,CBM
+SCM591,Capstone Project,,,BBA,,Logistics and Supply Chain Management,CBM
+INM203,Introduction to Production Management (Compulsory),,,BBA,,Logistics and Supply Chain Management,CBM
+INM304,Introduction to Project Management,,,BBA,,Logistics and Supply Chain Management,CBM
+     SSC101,Introduction to Psychology,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+     REL101,Islamic Studies,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+     MTH102,Business Mathematics,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+    SSC401,Business Ethics,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+    COM107,Academic English,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+    ECO101,Principles of Micro Economics,one,Fall-2022,BS Join Honor Economics & Finan,,,CBM
+    ECO102,Principles of Macro Economics,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+     LAN 10*,Foreign Language I,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+    STA203,Probability Theory & Statistics,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+    LAW409,Corporate & Business Law,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+    COM205,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+    ACC101,Introduction to Financial Accounting,two,Spring-2023,BS Join Honor Economics & Finan,,,CBM
+    SSC301,History of Ideas,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+,Model & Inferences,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+    LAN 20**,Foreign Language II,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+    PSC301,Pakistan Studies,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+    COM202,Business & Professional Speech,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+    ACC201,Intermediate Financial Accounting,three,Fall-2023,BS Join Honor Economics & Finan,,,CBM
+     MIS402,Computer Concepts and Application,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+     ECO316,Macroeconomic Analysis,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+,Principles of Management & Organizational Behavior,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+    ECO301,Managerial Economics,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+    ECO304,Introduction to Econometrics,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+    FIN201,Introduction to Business Finance,four,Spring-2024,BS Join Honor Economics & Finan,,,CBM
+    ECO303,Financial Economics,Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+     ISF508,Financial Institutions,Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective I,Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective II,Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+    MKT201,Marketing Management (Level 1),Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+     FIN202,Financial Management,Fifth,Fall-2024,BS Join Honor Economics & Finan,,,CBM
+    MAN309,Leadership Journey,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective III,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective IV,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective V,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+ISF101,Introduction to Islamic Banking and Finance,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+    FIN503,Corporate Finance,Sixth,Spring-2025,BS Join Honor Economics & Finan,,,CBM
+    ECO402,Pakistan Economic Policy,Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+     FIN613,Financial Modeling for Decision Making,Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective I,Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+,Economics Elective VI,Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+ECO506,Business Research Project (Economics),Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective II,Seventh,Fall-2025,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective III,Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective IV,Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective V,Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+,Finance Elective VI,Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+    MAN405,Strategic Management,Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+FIN537,Business Research Project (Finance),Eights,Spring-2027,BS Join Honor Economics & Finan,,,CBM
+ECO206,Mathematical Economics,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO207,Game Theory,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO208,Development Economics,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO302,International Trade & Globalization,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO307,Monetary Theory & Policy,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO311,General Welfare & Equilibrium,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO322,Applied Econometrics,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO407,Analysis of Pakistani Industries,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO411,Islamic Economics,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+ECO412,Public Finance,,,BS Join Honor Economics & Finan,,Economics Major Electives 6,CBM
+FIN504,International Finance,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN505,Treasury & Fund Management,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN507,Portfolio Management,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN509,Financial Derivatives,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN511,Analysis of Financial Statements,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN513,Project Appraisal,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN520,Financial Risk Management,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN530,Commercial & Corporate Banking,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN534,Retail & Consumer Banking,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN541,Technical Analysis,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN542,Financial Forecasting & Planning,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN544,FINTEH & Digital Finance,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+FIN546,Budgeting & Performance Reporting,,,BS Join Honor Economics & Finan,,Finance Major Electives 6,CBM
+SSC101,Introduction to Psychology,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+REL101,Islamic Studies,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+MTH102,Business Mathematics,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+SSC401,Business Ethics,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+COM107,Academic English,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ECO101,Principles of Micro Economics,one,Fall-2022,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+SSC301,History of Ideas,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+LAN 10*,Foreign Language I,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+STA203,Probability Theory & Statistics,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+LAW409,Corporate & Business Law,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+COM205,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC101,Introduction to Financial Accounting,two,Spring-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ECO102,Principles of Macro Economics,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+MIS402,Computer Concepts and Application,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+LAN 20**,Foreign Language II,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+PSC301,Pakistan Studies,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+COM202,Business & Professional Speech,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC201,Intermediate Financial Accounting,three,Fall-2023,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Principles of Management & Organizational Behavior,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC350,Cost and Management Accounting,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC503,Taxation,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC530,Financial Regulation and Reporting,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+STA301,Model & Inferences,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN201,Introduction to Business Finance,four,Spring-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+MKT201,Marketing Management (Level 1),Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN301,Financial Institutions,Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective I,Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective II,Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective III,Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN202,Financial Management,Fifth,Fall-2024,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+MAN309,Leadership Journey,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective IV,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective V,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Accounting Elective VI,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ISF101,Introduction to Islamic Banking and Finance,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN503,Corporate Finance,Sixth,Spring-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ECO402,Pakistan Economic Policy,Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN613,Financial Modeling for Decision Making,Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective I,Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ISF201,Islamic Financial Accounting,Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC531,Business Research Project (Accounting),Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective II,Seventh,Fall-2025,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective III,Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective IV,Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective V,Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+,Finance Elective VI,Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+MAN405,Strategic Management,Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+FIN537,Business Research Project (Finance),Eights,Spring-2027,BS (JOINT) HONORS IN ACCOUNTING,,,CBM
+ACC302,Accounting and Financial Information Systems,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC405,Internal Audit and EDP Accounting,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC501,Advanced Financial Accounting,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC505,Auditing,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC520,Managerial Analysis and Decision Making,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC521,International Financial Reporting Standards,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC524,Corporate Governance and Reporting,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC533,Accounting for Specialized Businesses,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC534,International Financial Reporting Standards II,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+ACC535,Sustainable Accounting Practices,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+LAW202,Banking Laws in Pakistan,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+LAW203,Insurance Laws in Pakistan,,,BS (JOINT) HONORS IN ACCOUNTING,,Accounting Major Electives 6,CBM
+FIN504,International Finance,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN505,Treasury & Fund Management,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN507,Portfolio Management,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN509,Financial Derivatives,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN511,Analysis of Financial Statements,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN513,Project Appraisal,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN520,Financial Risk Management,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN530,Commercial & Corporate Banking,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN534,Retail & Consumer Banking,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN541,Technical Analysis,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN542,Financial Forecasting & Planning,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN544,FINTECH & Digital Finance,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+FIN546,Budgeting & Performance Reporting,,,BS (JOINT) HONORS IN ACCOUNTING,,Finance Major Electives 6,CBM
+COM107,Academic English,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+MTH102,Business Mathematics,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+REL101,Islamic Studies,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+ECO101,Principles of Microeconomics,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+SSC301,History of Ideas,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+ENP116,Introduction to Entrepreneurship,one,Fall-2022,BS ENTREPRENEURSHIP,,,CBM
+COM205,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+STA104,Quantitative Techniques in Business,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+MAN101,Principles of Management,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+PSC301,Pakistan Studies,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+ECO102,Principles of Macroeconomics,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+ENP113,Effectuation Methods and Attributes Analysis,two,Spring-2023,BS ENTREPRENEURSHIP,,,CBM
+COM202,Business and Professional Speech,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+HRM301,Human Resource Management,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+SSC101,Introduction to Psychology,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+LAN 10*,Foreign Language I,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+ACC101,Fundamentals of Accounting,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+ENP114,Startup Garage I: Business Model Generation,three,Fall-2023,BS ENTREPRENEURSHIP,,,CBM
+LAN 20**,Foreign Language II,four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+FIN201,Fundamentals of Finance,four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+MKT201,Marketing Management (Level 1),four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+ENP103,"System, Disruptive and Exponential Thinking",four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+,Introduction to Sociology,four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+ENP112,Startup Garage II: Affordable Startup Design,four,Spring-2024,BS ENTREPRENEURSHIP,,,CBM
+SEL415,Social Advocacy and Change,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+SEL415,Process Optimization,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+MAN405,Strategic Management,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+,Elective I,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+MKT201,Elective II,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+ENP206,Startup Garage III: Business Idea Prototyping,Fifth,Fall-2024,BS ENTREPRENEURSHIP,,,CBM
+SSC401,Business Ethics,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+SCM501,Supply Chain Management,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective III,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective IV,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective V,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+ENP212,Lean Launchpad I: Startup Launch,Sixth,Spring-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective VI,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective VII,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective VIII,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+ENP308,Legal Structures of Startups,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+MKT404,Business Research Methods,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+ENP306,Lean Launch Pad II: Startup Risk Mitigation,Seventh,Fall-2025,BS ENTREPRENEURSHIP,,,CBM
+,Elective IX,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+,Elective X,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+,Elective XI,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+,Elective XII,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+SEL413,Visual Storytelling,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+,Capstone: Startup Acceleration & Co-creation,Eights,Spring-2027,BS ENTREPRENEURSHIP,,,CBM
+ENP207,Lean Marketing for Startups,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP211,Digital Development for Startups,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP301,Customer Acquisition for Startups,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP210,Gig Economy and Strategy,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP307,Growth Hacking Strategies for startups,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP407,Advanced Entrepreneurial Strategy,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+SEL213,Philosophy of Development,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+SEL313,Social Transformation,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+SEL314,Creativity & Aesthetics,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+SEL414,"Human Centricism, Environmental & Surrounding Concerns",,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP304,Sustainable Family Business,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+ENP404,Modes of Exchange,,,BS ENTREPRENEURSHIP,,Entrepreneurship Major Electives,CBM
+COM107,Academic English,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+SSC101,Introduction to Psychology,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+REL101,Islamic Studies,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM101,Production Processes,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM105,Introduction to industrial management,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM104,Fundamentals of Quality,one,Fall-2022,BS INDUSTRIAL MANAGEMENT,,,CBM
+SSC301,History of Ideas,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+MTH103,Calculus for Business Decisions,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+COM202,Business & Professional Speech,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+LAN 10*,Foreign Language I,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM106,Foundations of Industrial Design Thinking,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM306,Social and Ethical Aspects in Industrialization,two,Spring-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+PSC301,Pakistan Studies,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+STA204,Industrial Applications of Statistics,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+LAN 20**,Foreign Language II,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+COM205,Persuasive & Analytical Writing for Business Communication,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM201,Methods Analysis and Time Study,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM103,Industrial Economics,three,Fall-2023,BS INDUSTRIAL MANAGEMENT,,,CBM
+MAN306,Principles of Management and OB,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+SSC202,Environmental Studies,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+SSC401,Business Ethics,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM203,Introduction to Production & Operation Management,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM204,Ergonomics,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM102,Industrial Safety & Health,four,Spring-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+MKT201,Marketing Management (Level 1),Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+FIN201,Fundamentals of Finance,Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+MIS104,Computer Programming & Graphics,Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+MAN309,Leadership Journey,Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM202,Energy Management,Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM301,Introduction to Facility Planning and Layout,Fifth,Fall-2024,BS INDUSTRIAL MANAGEMENT,,,CBM
+MAN405,Strategic Management,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 308,Industrial Transformation and Technical Changes,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 305,Inventory Management and Lean Six Sigma,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+ACC101,Fundamentals of accounting,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM304,Introduction to Project Management,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 303,Introduction to Planning and Scheduling,Sixth,Spring-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 307,Business Forecasting & Risk Analysis,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 401,Industrial Supply Chain Management,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+HRM591,Project I,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective I,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective II,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective III,Seventh,Fall-2025,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 402,Industrial Quality Practices and Management,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM 404,Managing Research and Innovation,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM502,Project II,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective IV,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective V,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+,Elective VI,Eights,Spring-2027,BS INDUSTRIAL MANAGEMENT,,,CBM
+INM404,Introduction to Enterprise Life Cycle Mgmt.,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM405,Technology Management,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM406,Operation Research,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM407,Enterprise Risk Management,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM408,Procurement Management,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM409,Production Planning & Control,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM412,Integrated Manufacturing Systems,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM413,Manufacturing Processes,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+INM414,E-Commerce for Manufacturing Industries,,,BS INDUSTRIAL MANAGEMENT,,Industrial Management Electives- (6 Courses),CBM
+SSC101,Introduction to Psychology,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+REL101,Islamic Studies,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MTH102,Business Mathematics,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SSC401,Business Ethics,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+COM107,Academic English,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+ECO409,Business Economics,one,Fall-2022,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SSC301,History of Ideas,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LAN 10*,Foreign Language I,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+STA203,Probability Theory & Statistics,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LAW409,Corporate & Business Law,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+COM205,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM700,Essentials of Supply Chain Management,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+ACC101,Fundamentals of Accounting,two,Spring-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MIS402,Computer Concepts and Application,three,Fall-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LAN 20**,Foreign Language II,three,Fall-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+PSC301,Pakistan Studies,three,Fall-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+COM202,Business & Professional Speech,three,Fall-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LOG700,Logistics and Operations Management,three,Fall-2023,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MAN306,Principles of Mgmt. & Org. Behavior,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM701,Introduction to ERP Systems,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM524,Supply Chain Design,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+FIN201,Transportation Techniques and Mgmt.,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+FIN310,Fundamentals of Finance,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LOG702,Fundamentals in Logistics Research,four,Spring-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MKT201,Marketing Management (Level 1),Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM505,Storage and Warehouse Techniques,Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM525,Supply Chain Analytics,Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective I,Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective II,Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective III,Fifth,Fall-2024,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MAN309,Leadership Journey,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM533,Procurement Management,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM705,Supply Chain Project Management,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective IV,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective V,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Supply Chain Elective VI,Sixth,Spring-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+ECO402,Pakistan Economic Policy,Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM551,Quantitative Methods in Production & Logistics,Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM501,Distribution Management in Logistics & Supply Chain,Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective I,Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM706,Business Research Project (Supply Chain),Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective II,Seventh,Fall-2025,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective III,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective IV,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective V,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+,Logistics Elective VI,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+MAN405,Strategic Management,Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+LOG706,Business Research Project (Logistics),Eights,Spring-2027,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,,CBM
+SCM751,Supply Chain Finance and Costing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM752,"Supply Chain Technology, Systems and Innovation",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM753,Globalization and Outsourcing Strategies,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM754,Packaging Design and Environmental Aspects,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM755,E-business Strategies in SCM,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM756,Operational Research and Simulation,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM757,Managing Sustainable Supply Chain,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+SCM758,Supply Chain i4.0 & Data Sciences,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Supply Chain Major Electives – 6,CBM
+LOG751,Import Export Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG752,Lean Six Sigma and Lean Manufacturing,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG753,"Shipping, Ocean Freights and Port Operations",,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG754,Humanitarian Logistics Supply Chain Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG755,Reverse Logistics and Supply Chain Sustainability,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG756,Retail Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG757,Dock Mgmt. Systems & IT Applications in Logistics,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+LOG758,Inventory Management,,,BS (JOINT) HONORS LOGISTICS AND SUPPLY CHAIN,,Logistics Major Electives – 6,CBM
+ACC419,Financial Accounting ,one,Fall-2022,MBA,,,CBM
+COM402,Business Communication,one,Fall-2022,MBA,,,CBM
+ECO409,Business Economics ,one,Fall-2022,MBA,,,CBM
+MKT402,Marketing Management,one,Fall-2022,MBA,,,CBM
+HRM410,Managing Human Capital,one,Fall-2022,MBA,,,CBM
+MAN418,Management and Organizational Dynamics,one,Fall-2022,MBA,,,CBM
+STA411,Quantitative Analysis for Decision Making,two,Spring-2023,MBA,,,CBM
+MKT509,Consumer Behavior1,two,Spring-2023,MBA,,,CBM
+MKT404,Methods in Business Research2,two,Spring-2023,MBA,,,CBM
+ENT403,Entrepreneurial and Small Business Management3,two,Spring-2023,MBA,,,CBM
+FIN408,Theory and Practice of Financial Management,two,Spring-2023,MBA,,,CBM
+LAW409,Corporate and Business Law4,two,Spring-2023,MBA,,,CBM
+MAN606,Business Analytics for Decision Making5,three,Fall-2023,MBA,,,CBM
+FIN601,Strategic Financial Analysis and Design6,three,Fall-2023,MBA,,,CBM
+MKT610,Marketing Strategies and Value Innovation15,three,Fall-2023,MBA,,,CBM
+,Elective 1**,three,Fall-2023,MBA,,,CBM
+,Elective 27,three,Fall-2023,MBA,,,CBM
+,Capstone I8,three,Fall-2023,MBA,,,CBM
+MAN612,Strategic Management9,four,Spring-2024,MBA,,,CBM
+MAN608,Technology Operations and Innovation10,four,Spring-2024,MBA,,,CBM
+HRM606,"Leadership, Ethics and Change11",four,Spring-2024,MBA,,,CBM
+,Elective 312,four,Spring-2024,MBA,,,CBM
+,Elective 413,four,Spring-2024,MBA,,,CBM
+,Capstone II14,four,Spring-2024,MBA,,,CBM
+,Emerging Organizational Models for Dynamic Change,one,Fall-2022,MBA,,,CBM
+MKT610,Marketing Strategies and Value Innovation,one,Fall-2022,MBA,,,CBM
+,Elective I,one,Fall-2022,MBA,,,CBM
+,Elective II,one,Fall-2022,MBA,,,CBM
+,"Technology, Operations and Innovation Strategic Financial",two,Spring-2023,MBA,,,CBM
+FIN601,Analysis and Design,two,Spring-2023,MBA,,,CBM
+,Elective III,two,Spring-2023,MBA,,,CBM
+,Elective IV,two,Spring-2023,MBA,,,CBM
+MAN606,Business Analytics for Decision Making,three,Fall-2023,MBA,,,CBM
+,"Leadership, Ethics and Change",three,Fall-2023,MBA,,,CBM
+,Capstone Project I,three,Fall-2023,MBA,,,CBM
+,Capstone Project II,four,Spring-2024,MBA,,,CBM
+ACC602,Advanced Managerial Accounting,,,MBA,,Majors in Accounting,CBM
+ACC605,Financial Legal Framework,,,MBA,,Majors in Accounting,CBM
+ACC607,Introduction to Forensic Accounting,,,MBA,,Majors in Accounting,CBM
+ACC608,"Audit, Taxation and Accounting Policy",,,MBA,,Majors in Accounting,CBM
+ACC609,Cases in Corporate Reporting,,,MBA,,Majors in Accounting,CBM
+MKT501,Strategic Marketing and Planning,,,MBA,,Majors in Marketing,CBM
+MKT602,Marketing Analytics,,,MBA,,Majors in Marketing,CBM
+MKT605,Pricing Models and Strategies,,,MBA,,Majors in Marketing,CBM
+MKT611,Integrated Marketing Communications,,,MBA,,Majors in Marketing,CBM
+MKT613,Marketing of Financial Services,,,MBA,,Majors in Marketing,CBM
+MKT615,Brand Management,,,MBA,,Majors in Marketing,CBM
+MKT618,Advertising Management and Strategy,,,MBA,,Majors in Marketing,CBM
+MKT621,Marketing Strategies for Emerging Economies,,,MBA,,Majors in Marketing,CBM
+MKT622,Marketing Strategies for Bottom of the Pyramid (BOP),,,MBA,,Majors in Marketing,CBM
+MKT623,Pharmaceutical Marketing & Quality Assurance,,,MBA,,Majors in Marketing,CBM
+MKT625,Business to Business Marketing,,,MBA,,Majors in Marketing,CBM
+MKT626,Marketing for Social Impact,,,MBA,,Majors in Marketing,CBM
+MKT627,Future Marketing Technologies,,,MBA,,Majors in Marketing,CBM
+MKT628,Competitive Strategies,,,MBA,,Majors in Marketing,CBM
+MKT629,B2B Sales by Simulation/Gamification,,,MBA,,Majors in Marketing,CBM
+MKT630,Growth Marketing,,,MBA,,Majors in Marketing,CBM
+FIN506,* Investment Banking and Security Analysis,,,MBA,,Majors in Finance and Banking,CBM
+FIN514,* Asset and Liability Management,,,MBA,,Majors in Finance and Banking,CBM
+FIN612,* SME and Micro-Financing,,,MBA,,Majors in Finance and Banking,CBM
+FIN633,"* Mergers, Acquisitions and Restructuring",,,MBA,,Majors in Finance and Banking,CBM
+FIN634,* Enterprise Risk Management,,,MBA,,Majors in Finance and Banking,CBM
+FIN602,**Behavioral Finance,,,MBA,,Majors in Finance and Banking,CBM
+FIN603,** Entrepreneurial Finance,,,MBA,,Majors in Finance and Banking,CBM
+FIN610,**Debt and Equity Markets,,,MBA,,Majors in Finance and Banking,CBM
+FIN613,** Financial Modeling for Investment Decisions,,,MBA,,Majors in Finance and Banking,CBM
+*Choos,e two courses,,,MBA,,Majors in Finance and Banking,CBM
+** Cho,ose two courses,,,MBA,,Majors in Finance and Banking,CBM
+HRM612,Strategic Human Resource Management,,,MBA,,Majors in Human Resource Management,CBM
+HRM617,HR Analytics,,,MBA,,Majors in Human Resource Management,CBM
+HRM618,Managing Diversity & Inclusion in Organization,,,MBA,,Majors in Human Resource Management,CBM
+HRM619,Talent Acquisition,,,MBA,,Majors in Human Resource Management,CBM
+HRM620,Labour Studies and Employee Relations,,,MBA,,Majors in Human Resource Management,CBM
+HRM621,Learning and Organizational Development,,,MBA,,Majors in Human Resource Management,CBM
+HRM622,Negotiations and Conflict Resolution Skills,,,MBA,,Majors in Human Resource Management,CBM
+HRM623,Managing Organizational Change,,,MBA,,Majors in Human Resource Management,CBM
+HRM624,Talent Management and Performance Development,,,MBA,,Majors in Human Resource Management,CBM
+HRM625,Total Rewards Management,,,MBA,,Majors in Human Resource Management,CBM
+MAN501,Total Quality Management,,,MBA,,Majors in Management,CBM
+MAN611,Project Management,,,MBA,,Majors in Management,CBM
+MAN613,Corporate Governance,,,MBA,,Majors in Management,CBM
+MAN 50,2 Business Process Re-engineering,,,MBA,,Majors in Management,CBM
+SCM601,Quantitative Methods in Production and Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM602,Business Process Mgmt. in Supply Chain & Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM603,IT Applications in Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM604,Packaging Design and Environmental Aspects,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM605,Supply Chain Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM606,ERP Systems Design and Implementation,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM607,Strategic Supply Chain Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM608,Procurement and Inventory Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM609,Storage and Warehouse Techniques,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM610,Transportation Techniques and Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM611,Sustainability & Env. Aspects in Managing Supply Chains,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM612,Risk Management in Supply Networks,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM613,Innovation Management in Supply Chain and Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM614,Corporate Consultancy Project in Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM615,Contract Management for Supply Chain & Negotiations,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM616,Life Cycle Enterprise Asset Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM617,Mobile Commerce and Mobile Logistics,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM618,Aviation Logistics Supply Chain Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM619,Humanitarian Logistics Supply Chain Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM620,Supply Chain Project Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+SCM621,Lean Construction Supplychain Management,,,MBA,,Majors in Logistics and Supply Chain Management,CBM
+ISF601,Economics for Islamic Finance,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ISF602,Islamic Banking Practices,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ISF603,Accounting for Islamic Finance,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ISF604,Islamic Financial Services Marketing,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ISF605,Islamic Capital Markets,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ISF606,International Islamic Finance Standards,,,MBA,,Majors in Islamic Banking and Finance,CBM
+FRM514,Takaful and Risk Management in Islamic Products,,,MBA,,Majors in Islamic Banking and Finance,CBM
+ENT503,Competitive Strategies for Startup,,,MBA,,Majors in Entrepreneurship,CBM
+ENT504,Technology Support for Small Business,,,MBA,,Majors in Entrepreneurship,CBM
+ENT505,Innovative Internet Based Business Models,,,MBA,,Majors in Entrepreneurship,CBM
+ENT506,Guerrilla Strategies in Business,,,MBA,,Majors in Entrepreneurship,CBM
+ENT507,Affordable Design and Frugal Innovation,,,MBA,,Majors in Entrepreneurship,CBM
+ENT508,Commercializing and Monetizing Ideas,,,MBA,,Majors in Entrepreneurship,CBM
+ENT509,Building and Managing Start-Up Teams,,,MBA,,Majors in Entrepreneurship,CBM
+ENT510,New Venture Finance,,,MBA,,Majors in Entrepreneurship,CBM
+ENT511,Managing Family Business,,,MBA,,Majors in Entrepreneurship,CBM
+ENT512,Growth Hacking Strategies,,,MBA,,Majors in Entrepreneurship,CBM
+ENT513,Design Thinking and Strategy,,,MBA,,Majors in Entrepreneurship,CBM
+MHM605,Financial Management of Health Services,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM606,Concepts of Primary Healthcare,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM607,Introduction to Epidemiology,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM608,Pharmaceutical Marketing and Quality Assurance,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM609,Marketing of Health Services,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM610,Population and Health,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM611,Environmental Health Assessment & Management,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM612,Hospital Administration,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM613,Regulatory Affairs at Healthcare Industries,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM614,Product Management,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM615,Pharmaceutical Sales Management,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM616,Project Management of Health Services,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM617,Seminar in Health Policy Management,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM618,Health Communications,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM619,Healthcare Human Resource Management,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM621,Supply Chain & Prod. Mgmt. in Pharma. Inds.,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM622,Quality Management in Healthcare,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM623,Pharmaceutical Branding,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM624,Occupational Health and Safety,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM625,Knowledge Management for Health Managers,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM626,Workplace Well-being for Healthcare Managers,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM627,Global and local Public Health Challenges and Practices,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+MHM628,Pharmacovigilance,,,MBA,,Elective Courses for MBA Health and Hospital Mgmt.,CBM
+FIN403,Islamic Banking and Finance,,,MBA,,Elective Courses for MBA Finance and Risk Mgmt. / Finance and Banking,CBM
+FRM503,Corporate Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM504,Theory of Risk and Insurance,,,MBA,,Finance and Risk Management,CBM
+FRM505,Corporate Treasury and Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM506,Financial Regulation for Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM508,Financial Market Issues and Crisis,,,MBA,,Finance and Risk Management,CBM
+FRM510,Energy Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM512,International Risk and Financial Reporting,,,MBA,,Finance and Risk Management,CBM
+FRM513,Project Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM514,Takaful and Risk Management in Islamic Products,,,MBA,,Finance and Risk Management,CBM
+FRM516,International Financial Reporting and Standards,,,MBA,,Finance and Risk Management,CBM
+FRM517,Property Risk Management,,,MBA,,Finance and Risk Management,CBM
+FRM518,Management of Insurance Institutions,,,MBA,,Finance and Risk Management,CBM
+EDM624,Innovations and Technology in Education,,,MBA,,Elective Courses for MBA Educational Management,CBM
+EDM621,Edupreneurship in the Changing World,,,MBA,,Elective Courses for MBA Educational Management,CBM
+EDM654,Lifelong Learning in Changing Contexts,,,MBA,,Elective Courses for MBA Educational Management,CBM
+EDM656,Teacher Education,,,MBA,,Elective Courses for MBA Educational Management,CBM
+EDM625,Distance Learning in the 21st Century,,,MBA,,Elective Courses for MBA Educational Management,CBM
+EDM606,Global Trends in Education,,,MBA,,Elective Courses for MBA Educational Management,CBM
+CSC111,Intro to Info & Communication Technology,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+CSC111,Intro to Info & Communication Technology LAB,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+PHY111,Applied Physics,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+ECO104,Micro and Macroeconomics ,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+PSC301,Pakistan Studies,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+REL101,Islamic Studies,one,Fall-2022,BS COMPUTER SCIENCE ,,,CCSIS
+CSC113,Programming Fundamentals ,two,Spring-2023,BS COMPUTER SCIENCE ,,,CCSIS
+CSC113,Programming Fundamentals Lab ,two,Spring-2023,BS COMPUTER SCIENCE ,,,CCSIS
+COM107,Persuasive & Analytical Writing for Bus. Com ,two,Spring-2023,BS COMPUTER SCIENCE ,COM107,,CCSIS
+CSC231,Discrete Structure,two,Spring-2023,BS COMPUTER SCIENCE ,,,CCSIS
+PHY111,Digital Logic and Design ,two,Spring-2023,BS COMPUTER SCIENCE ,PHY111,,CCSIS
+PHY111,Digital Logic and Design Lab ,two,Spring-2023,BS COMPUTER SCIENCE ,PHY111,,CCSIS
+,Foreign Language l ,two,Spring-2023,BS COMPUTER SCIENCE ,,,CCSIS
+CSC113,Object Oriented Programming ,three,Fall-2023,BS COMPUTER SCIENCE ,CSC113,,CCSIS
+CSC113,Object Oriented Programming Lab ,three,Fall-2023,BS COMPUTER SCIENCE ,CSC113,,CCSIS
+COM107,Business and Professional Speech,three,Fall-2023,BS COMPUTER SCIENCE ,COM107,,CCSIS
+MTH107,Calculus and Analytical Geometry ,three,Fall-2023,BS COMPUTER SCIENCE ,,,CCSIS
+CSC211,Comp. Organization & Assembly Lang. ,three,Fall-2023,BS COMPUTER SCIENCE ,,,CCSIS
+CSC211,Comp. Organization & Assembly Lang.,three,Spring-2024,BS COMPUTER SCIENCE ,,,CCSIS
+,Foreign Language II ,three,Spring-2024,BS COMPUTER SCIENCE ,,,CCSIS
+CSC213,Data Structures and Algorithms ,four,Spring-2024,BS COMPUTER SCIENCE ,CSC213,,CCSIS
+CSC213,Data Structures and Algorithms Lab,four,Spring-2024,BS COMPUTER SCIENCE ,CSC213,,CCSIS
+CSC219,Professional Practices,four,Spring-2024,BS COMPUTER SCIENCE ,,,CCSIS
+SSC301,History of Ideas,four,Spring-2024,BS COMPUTER SCIENCE ,,,CCSIS
+CSC215,Intro. to Database Systems,four,Spring-2024,BS COMPUTER SCIENCE ,CSC215,,CCSIS
+CSC215,Intro. to Database Systems Lab ,four,Spring-2024,BS COMPUTER SCIENCE ,CSC215,,CCSIS
+SSC202,Environmental Studies,four,Spring-2024,BS COMPUTER SCIENCE ,,,CCSIS
+MAN101,Principles of Management ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,,,CCSIS
+STA203,Probability Theory and Statistics ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,,,CCSIS
+MTH107,CS Supporting 1 (Multivariable Calculus) ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,MTH107,,CCSIS
+CSC317,Intro. to Software Engineering ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,,,CCSIS
+CSC231,Theory of Automata & Formal Lang. ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,CSC231,,CCSIS
+MTH107,Linear Algebra ,Fifth,Fall-2024,BS COMPUTER SCIENCE ,,,CCSIS
+CSC215,Operating Systems,Sixth,Spring-2025,BS COMPUTER SCIENCE ,CSC215,,CCSIS
+CSC215,Operating Systems LAB ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,CSC215,,CCSIS
+CSC215,Computer Networks ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,CSC215,,CCSIS
+CSC311,Computer Networks LAB ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,CSC311,,CCSIS
+CSC315,Design & Analysis of Algorithms ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,,,CCSIS
+CSC411,Compiler Constructions ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,,,CCSIS
+CSC233,CS Supporting 2 (Differential Equations) ,Sixth,Spring-2025,BS COMPUTER SCIENCE ,CSC233,,CCSIS
+CSC231,Artificial Intelligence ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,CSC231,,CCSIS
+CSC231,Artificial Intelligence LAB ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,CSC231,,CCSIS
+CSC333,CS Supporting 3 Numerical Computing ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,MTH204,,CCSIS
+,CS Elective 1 ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,,,CCSIS
+,CS Elective 2 ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,,,CCSIS
+CSC317,Final Year Project l ,Seventh,Fall-2025,BS COMPUTER SCIENCE ,CSC317,,CCSIS
+CSC313,Parallel & Distributed Computing ,Eights,Spring-2027,BS COMPUTER SCIENCE ,CSC313,,CCSIS
+CSC483,Information Security ,Eights,Spring-2027,BS COMPUTER SCIENCE ,,,CCSIS
+,CS Elective ,Eights,Spring-2027,BS COMPUTER SCIENCE ,,,CCSIS
+,CS Elective 4 ,Eights,Spring-2027,BS COMPUTER SCIENCE ,,,CCSIS
+,CS Elective 5 ,Eights,Spring-2027,BS COMPUTER SCIENCE ,,,CCSIS
+CSC491,Final Year Project ll ,Eights,Spring-2027,BS COMPUTER SCIENCE ,CSC491,,CCSIS
+CSC371,Computer Graphics,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC372,Human Computer Interaction,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC373,Web Engineering,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC374,Mobile Application Development,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC471,Database Administration and Management,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC472,Visual Programming,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC473,Enterprise Systems,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC474,Data Warehousing,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC475,Big Data Analytics,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC476,E-Commerce,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC477,IT Infrastructure,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC478,Digital Image Processing,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC479,Digital Signal Processing,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC481,Software Quality Assurance,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC482,Formal Methods in Software Engineering,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC483,Information Security Audit,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC484,Network Security,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC485,Cyber Security,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC486,Wireless Network,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC487,Neural Network,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC488,Fuzzy Logic,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+CSC489,Software Project Management,,,BS COMPUTER SCIENCE ,,Computer Science (Elective Courses),CCSIS
+COM107,Academic English,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ECO101,Principles of Microeconomics,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA203,Probability Theory and Statistics,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH104,Calculus I,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+REL101,Islamic Studies,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ARM201,Introduction to Actuarial Science,one,Fall-2022,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ACC101,Introduction to Financial Accounting,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA205,Probability Theory and Statistics II,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH105,Calculus II,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ECO102,Principles of Macroeconomics,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH209,Financial Mathematics I,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+LAN 10*,Foreign Language I,two,Spring-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MKT301,Principles of Marketing,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH204,Linear Algebra,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA301,Model and Inferences,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN201,Introduction to Business Finance,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+COM205,Persuasive & Analytical Writing for Bus. Com.,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,COM107,,CCSIS
+MTH210,Financial Mathematics II,three,Fall-2023,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN509,Numerical Computing,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH211,Business Law,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM201,Introduction to Econometrics,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+BDS410,Principles of Management,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN406,Pakistan Studies,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN503,Method of Data Analysis,four,Spring-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN509,Financial Derivatives,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MTH211,Actuarial Mathematics,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM201,Principles of Risk Management,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+BDS410,Stochastic Processes,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN406,Financial Econometrics,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN503,Corporate Finance,Fifth,Fall-2024,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FIN507,Portfolio Management,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM202,Life and Other Contingencies,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+INM407,Enterprise Risk Management,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA210,Sampling Theory,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ARM601,Models in Financial Economics I,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+MKT404,Methods in Business Research,Sixth,Spring-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM206,Institutional Investments,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ARM602,Models in Financial Economics II,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA305,Applied Regression Analysis,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM302,Computational Methods in Risk Mgmt.,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA309,Loss Models I,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+,Elective I,Seventh,Fall-2025,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA307,Decision Theory,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+STA310,Loss Models II,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM304,Risk Financing Techniques,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+BDS411,Time Series Analysis & Forecasting,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+ACC591,Project,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+,Elective II,Eights,Spring-2027,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,,CCSIS
+FRM503,Corporate Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM505,Corporate Treasury and Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM508,Financial Market Issues and Crisis,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM512,International Risk and Financial Reporting,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM514,Takaful and Risk Management in Islamic Products,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM517,Property Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM504,Theory of Risk and Insurance,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM50,6 Financial Regulation for Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM510,Energy Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM513,Project Risk Management,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM516,International Financial Reporting and Standards,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+FRM518,Management of Insurance Institutions,,,BS ACTUARIAL SCIENCE AND RISK MANAGEMENT,,Finance and Risk Management,CCSIS
+REL101,Islamic studies,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+PHY111,Applied Physics,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+ECO101,Principles of Microeconomics,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH104,Calculus I,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+CSC113,Programming Fundamentals,one,Fall-2022,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+COM107,Persuasive. & Analytical Writing for Business Communication,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,COM107,,CCSIS
+,Foreign Language I,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH104,Probability theory & Statistics ,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,MTH104,,CCSIS
+ECO102,Principles of Macroeconomics,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH104,Calculus II ,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,MTH104,,CCSIS
+CSS113,Object Oriented Programming,two,Spring-2023,BS MATHEMATICS AND ECONOMICS,CSS113,,CCSIS
+ECO101,Managerial Economics ,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,"ECO101, ECO102",,CCSIS
+MTH105,Multivariable Calculus ,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,MTH105,,CCSIS
+STA203,Model and inference ,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,STA203,,CCSIS
+MTH203,Introduction to Formal Mathematics,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+COM202,Business and Professional Speech ,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,COM202,,CCSIS
+CSC213,Data Structure and Algorithms,three,Fall-2023,BS MATHEMATICS AND ECONOMICS,CSC213,,CCSIS
+ECO102,Macroeconomics Analysis ,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,ECO102,,CCSIS
+MTH203,Real Analysis I ,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,MTH203,,CCSIS
+STA301,Methods of Data Analysis,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,STA301,,CCSIS
+MTH204,Linear Algebra,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+PSC301,Pakistan Studies,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+ECO101,Topics in Mathematical Economics,four,Spring-2024,BS MATHEMATICS AND ECONOMICS,"MTH104, ECO101",,CCSIS
+ECO103,Development Economics ,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,ECO103 & ECO316,,CCSIS
+ECO316,International Trade ,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,ECO103 & ECO316,,CCSIS
+MTH301,Real Analysis II ,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,MTH301,,CCSIS
+NSC302,Environmental Studies,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH224,Ordinary Differential Equations ,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,MTH224,,CCSIS
+SSC301,History of Ideas,Fifth,Fall-2024,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH105,Numerical Analysis ,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS,"MTH105, MTH204 & MTH344",,CCSIS
+MTH303,Complex Analysis ,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS,MTH303 & MTH304,,CCSIS
+STA301,Econometrics I ,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS,STA301,,CCSIS
+ECO102,Financial Economics ,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS,ECO102,,CCSIS
+MTH 344,Partial Differential Equations,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS, MTH 344,,CCSIS
+ECO316,Monetary theory & Policy ,Sixth,Spring-2025,BS MATHEMATICS AND ECONOMICS,ECO316,,CCSIS
+ECO304,Econometrics II ,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,ECO304,,CCSIS
+MTH427,Topology,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH433,Optimization Techniques,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+,Economics Elective I,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+,Mathematics Elective I,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+,Final Year Project I,Seventh,Fall-2025,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+ECO402,Pakistan Economic Policy,Eights,Spring-2027,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+STA302,Time Series Analysis ,Eights,Spring-2027,BS MATHEMATICS AND ECONOMICS,STA302,,CCSIS
+,Economics Elective II,Eights,Spring-2027,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+,Mathematics Elective II,Eights,Spring-2027,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+,Final Year Project II,Eights,Spring-2027,BS MATHEMATICS AND ECONOMICS,,,CCSIS
+MTH406,Finite Element Analysis,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH411,Modelling and Simulation,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH421,Abstract Algebra,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH430,Operational Research,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH437,Functional Analysis,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH439,Introduction to Dynamical Systems,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH451,Number Theory,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH456,Statistical Machine Learning,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH457,Deep Learning,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+MTH214,Game Theory,,,BS MATHEMATICS AND ECONOMICS,,Mathematics,CCSIS
+ECO314,Contemporary Issues in Macroeconomics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO411,Islamic Economics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO416,Growth Theories,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO418,Resource & Environmental Economics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO526,Energy Economics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO442,Public Finance,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO444,Economics of Logistics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO415,"WTO, Disputes and Settlements",,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO419,Agriculture and Food Security,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO407,Analysis of Pakistani Industries,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO321,General Equilibrium and Welfare Economics,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO310,History of Economic Thoughts,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+ECO528,Economics and Social Equilibrium,,,BS MATHEMATICS AND ECONOMICS,,Economics,CCSIS
+CSC113,Programming Fundamentals,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+CSL113,Programming Fundamentals LAB,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+PHY111,Applied Physics,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+CSC111,Information and Comm. Tech.,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+CSC111,Information and Comm. Tech. LAB,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+ECO104,Micro & Macroeconomics,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+REL101,Islamic Studies,one,Fall-2022,BS DATA SCIENCE ,,,CCSIS
+SSC202,Environmental Studies,two,Spring-2023,BS DATA SCIENCE ,,,CCSIS
+CSC113,Object Oriented Programming,two,Spring-2023,BS DATA SCIENCE ,CSC113,,CCSIS
+CSL213,Object Oriented Programming LAB,two,Spring-2023,BS DATA SCIENCE ,CSC113,,CCSIS
+SSC301,History of Ideas,two,Spring-2023,BS DATA SCIENCE ,,,CCSIS
+CSC231,Discrete Structures,two,Spring-2023,BS DATA SCIENCE ,,,CCSIS
+COM205,Persuasive & Analytical Writing for Bus. Comm.,two,Spring-2023,BS DATA SCIENCE ,COM107,,CCSIS
+COM107,Professional Practices,two,Spring-2023,BS DATA SCIENCE ,,,CCSIS
+PSC301,Pakistan Studies,three,Fall-2023,BS DATA SCIENCE ,,,CCSIS
+MTH107,Calculus & Analytical Geometry,three,Fall-2023,BS DATA SCIENCE ,,,CCSIS
+STA203,Probability Theory & Statistics I,three,Fall-2023,BS DATA SCIENCE ,,,CCSIS
+PHY111,Digital Logic & Design,three,Fall-2023,BS DATA SCIENCE ,PHY111,,CCSIS
+PHY111,Digital Logic & Design LAB,three,Fall-2023,BS DATA SCIENCE ,PHY111,,CCSIS
+COM107,Business & Professional Speech,three,Fall-2023,BS DATA SCIENCE ,COM107,,CCSIS
+,Foreign Language I,three,Fall-2023,BS DATA SCIENCE ,,,CCSIS
+MTH224,Differential Equations,four,Spring-2024,BS DATA SCIENCE ,MTH224,,CCSIS
+CSC211,Comp. Organization & Assembly Lang.,four,Spring-2024,BS DATA SCIENCE ,,,CCSIS
+CSL211,Comp. Organization & Assembly Lang. LAB,four,Spring-2024,BS DATA SCIENCE ,,,CCSIS
+STA203,Probability Theory & Statistics II,four,Spring-2024,BS DATA SCIENCE ,STA203,,CCSIS
+BDS101,Introduction to Data Science,four,Spring-2024,BS DATA SCIENCE ,,,CCSIS
+,Introduction to Data Science LAB,four,Spring-2024,BS DATA SCIENCE ,,,CCSIS
+LAN10*,Foreign Language II [Pre Req. LAN10*],four,Spring-2024,BS DATA SCIENCE ,,,CCSIS
+MTH205,Model & Inferences,Fifth,Fall-2024,BS DATA SCIENCE ,MTH205,,CCSIS
+CSC319,Computer Networks,Fifth,Fall-2024,BS DATA SCIENCE ,,,CCSIS
+CSL319,Computer Networks LAB,Fifth,Fall-2024,BS DATA SCIENCE ,,,CCSIS
+MTH107,Linear Algebra,Fifth,Fall-2024,BS DATA SCIENCE ,MTH107,,CCSIS
+CSC213,Data Structures & Algorithms,Fifth,Fall-2024,BS DATA SCIENCE ,CSC213,,CCSIS
+CSC213,Data Structures & Algorithms LAB,Fifth,Fall-2024,BS DATA SCIENCE ,CSC213,,CCSIS
+CSC317,Intro. to Software Engineering,Fifth,Fall-2024,BS DATA SCIENCE ,,,CCSIS
+CSC215,Intro. to Database Systems,Sixth,Spring-2025,BS DATA SCIENCE ,CSC215,,CCSIS
+CSC215,Intro. to Database Systems LAB,Sixth,Spring-2025,BS DATA SCIENCE ,CSC215,,CCSIS
+BDS301,Methods of Data Analysis,Sixth,Spring-2025,BS DATA SCIENCE ,BDS301,,CCSIS
+BDS301,Data Visualization,Sixth,Spring-2025,BS DATA SCIENCE ,,,CCSIS
+CSC215,Operating Systems,Sixth,Spring-2025,BS DATA SCIENCE ,CSC215,,CCSIS
+CSC215,Operating Systems LAB,Sixth,Spring-2025,BS DATA SCIENCE ,CSC215,,CCSIS
+CSC215,Design & Analysis of Algorithms,Sixth,Spring-2025,BS DATA SCIENCE ,CSC215,,CCSIS
+CSC231,Artificial Intelligence,Seventh,Fall-2025,BS DATA SCIENCE ,CSC231,,CCSIS
+CSC231,Artificial Intelligence LAB,Seventh,Fall-2025,BS DATA SCIENCE ,CSC231,,CCSIS
+BDS403,Big Data & Analytics,Seventh,Fall-2025,BS DATA SCIENCE ,,,CCSIS
+BDS301,Data Mining,Seventh,Fall-2025,BS DATA SCIENCE ,,,CCSIS
+,Elective I,Seventh,Fall-2025,BS DATA SCIENCE ,,,CCSIS
+,Elective II,Seventh,Fall-2025,BS DATA SCIENCE ,,,CCSIS
+,Final Year Project I,Seventh,Fall-2025,BS DATA SCIENCE ,,,CCSIS
+BDSxxx,Data Warehousing & Bus. Intelligence,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+BDSxxx,Data Warehousing & Bus. Intelligence LAB,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+CSC419,Information Security,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+CSC313,Parallel & Distributed Computing,Eights,Spring-2027,BS DATA SCIENCE ,CSC313,,CCSIS
+,Elective III,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+,Elective IV,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+,Final Year Project II,Eights,Spring-2027,BS DATA SCIENCE ,,,CCSIS
+BDS410,Stochastic Processes,,,BS DATA SCIENCE ,,Data Science,CCSIS
+CSC311,Theory of Automata & Formal Languages,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS402,Big Data & Concepts,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS418,Health Informatics,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS414,Game Theory,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS421,Deep Learning,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS422,Platform & Architecture for Data Science,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS424,Speech Processing,,,BS DATA SCIENCE ,,Data Science,CCSIS
+ECO304,Introduction to Econometrics,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS404,Machine Learning,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS201,Business Process Analysis,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS411,Time Series Analysis & Forecasting,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS413,Bioinformatics,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS415,Financial Data Analytics,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS417,Artificial Neural Networks,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS425,Text Mining,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS423,Privacy Preservation,,,BS DATA SCIENCE ,,Data Science,CCSIS
+BDS429,Topics in Data Science,,,BS DATA SCIENCE ,,Data Science,CCSIS
+REL101,Islamic studies,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+ECO101,Principles of Microeconomics,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH102,Calculus I,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+PHY111,Applied Physics,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+CSC113,Programming Fundamentals,one,Fall-2022,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH102,Probability Theory and Statistics ,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH102,,CCSIS
+COM107,Persuasive & Analytical Writing for Business Communication,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,COM107,,CCSIS
+ECO102,Principles of Macroeconomics,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH102,Calculus II ,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH102,,CCSIS
+SSC202,Environmental Studies,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+CSS113,Object Oriented Programming,two,Spring-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,CSS113,,CCSIS
+ACC201,Introduction to Business Finance ,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,ACC201,,CCSIS
+MTH203,Introduction to Formal Mathematics,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+STA203,Model and Inference  Multivariable,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,STA203,,CCSIS
+MTH106,Calculus ,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH106,,CCSIS
+COM107,Business and Professional Speech ,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,COM107,,CCSIS
+CSC213,Data Structure and Algorithms,three,Fall-2023,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,CSC213,,CCSIS
+MCF201,Financial Management ,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MCF201,,CCSIS
+MTH203,Real Analysis I ,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH203,,CCSIS
+STA301,Qualitative Data Analysis ,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,STA301,,CCSIS
+MTH204,Linear Algebra,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+,Foreign Language I,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+PSC301,Pakistan Studies,four,Spring-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+FRM201,Principal of Risk Management,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH301,Real Analysis II ,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH301,,CCSIS
+STA301,Quantitative Data Analysis,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,STA301,,CCSIS
+STA301,Applied Econometrics,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,STA301,,CCSIS
+MTH224,Introduction to Differential Equations,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH224,,CCSIS
+MCF202,Financial Modeling ,Fifth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MCF202,,CCSIS
+ MTH344,Numerical Analysis ,Sixth,Fall-2024,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,"MTH105, MTH204 & MTH344",,CCSIS
+MTH304,Probability and Measure Theory ,Sixth,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH304,,CCSIS
+MTH309,Stochastic Process,Sixth,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MCF202,Corporate Finance ,Sixth,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MCF202,,CCSIS
+MCF202,Financial Derivatives ,Sixth,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MCF202,,CCSIS
+SSC301,History of Ideas,Sixth,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+FRM201,Advance Financial Risk Management ,Seventh,Spring-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,FRM201,,CCSIS
+STA309,Discrete Time Finance ,Seventh,Fall-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,STA309,,CCSIS
+,Finance Elective I Mathematics Elective I,Seventh,Fall-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH344,Partial Differential Equations ,Seventh,Fall-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH344,,CCSIS
+,Computational Finance Project I,Seventh,Fall-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MCF202,Fintech ,Eights,Fall-2025,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MCF201 & MCF202,,CCSIS
+MTH310,Continuous Time Finance ,Eights,Spring-2027,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,MTH310,,CCSIS
+,Finance Elective II,Eights,Spring-2027,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+,Mathematics Elective II,Eights,Spring-2027,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+,Computational Finance Project II,Eights,Spring-2027,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,,CCSIS
+MTH430,Operations Research (3+0),,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH439,Introduction to Dynamical Systems,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH437,Functional Analysis,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH406,Finite Element Methods,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH456,Statistical Machine Learning,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH457,Deep Learning,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH440,Advanced Methods for Data Analysis,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH452,Convex and Non-Linear Analysis,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+MTH451,Number Theory,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Mathematics,CCSIS
+FIN403,Islamic Banking and Finance,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+FIN506,Investment Banking and Security Analysis,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+FIN507,Portfolio Management,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+FIN511,Analysis of Financial Statement,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+FIN512,Money and Capital Market,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+FIN515,Foreign Trade and Banking,,,BS MATHEMATICS AND COMPUTATIONAL FINANCE ,,Finance,CCSIS
+CSC111,Intro to Info. & Comm. Technology,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC111,Intro to Info. & Comm. Technology Lab,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+PHY111,Applied Physics,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+PSC301,Pakistan Studies,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+ECO104,Micro and Macroeconomics,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+REL101,Islamic Studies,one,Fall-2022,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC113,Programming Fundamentals,two,Spring-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC113,Programming Fundamentals Lab,two,Spring-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+COM205,Persuasive & Analytical Writing for Bus. Comm.,two,Spring-2023,BS SOFTWARE ENGINEERING,COM107,,CCSIS
+,Foreign Language I,two,Spring-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC231,Discrete Structures,two,Spring-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+SSC202,Environmental Studies,two,Spring-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC113,Object Oriented Programming,three,Fall-2023,BS SOFTWARE ENGINEERING,CSC113,,CCSIS
+ CSC113,Object Oriented Programming Lab,three,Fall-2023,BS SOFTWARE ENGINEERING,CSC113,,CCSIS
+COM202,Business and Professional Speech,three,Fall-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+MTH107,Calculus and Analytical Geometry,three,Fall-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+SSC301,History of Ideas,three,Fall-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+LAN10*,Foreign Language II Pre Req. LAN10*],three,Fall-2023,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC213,Data Structures and Algorithms,four,Spring-2024,BS SOFTWARE ENGINEERING,CSC213,,CCSIS
+CSC213,Data Structures and Algorithms Lab,four,Spring-2024,BS SOFTWARE ENGINEERING,CSC213,,CCSIS
+CSC219,Professional PracticesNA],four,Spring-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC317,Intro. to Software Engineering,four,Spring-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+STA203,Probability Theory and Statistics,four,Spring-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+ CSC215,Intro. to Database Systems,four,Spring-2024,BS SOFTWARE ENGINEERING,CSC215,,CCSIS
+CSC215,Intro. to Database Systems Lab,four,Spring-2024,BS SOFTWARE ENGINEERING,CSC215,,CCSIS
+MAN101,Principles of Management,Fifth,Fall-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC322,Web EngineeringNA],Fifth,Fall-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC317,Software Requirements Engineering,Fifth,Fall-2024,BS SOFTWARE ENGINEERING,CSC317,,CCSIS
+,SE Supporting-I,Fifth,Fall-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Supporting-II,Fifth,Fall-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+MTH107,Linear Algebra,Fifth,Fall-2024,BS SOFTWARE ENGINEERING,MTH107,,CCSIS
+CSC313,Operating Systems,Sixth,Fall-2024,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC313,Operating Systems Lab,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC211,Software Design & Architecture,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC311,Software Construction & Development,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC319,Computer Networks,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC319,Computer Networks Lab,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Supporting III,Sixth,Spring-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC411,Software Re-Engineering,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC372,Human Computer Interaction,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Elective 1,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Elective 2,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC323,Software Project Management,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+BDS491,Final Year Project I,Seventh,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC321,Software Quality Engineering,Eights,Fall-2025,BS SOFTWARE ENGINEERING,,,CCSIS
+CSC419,Information Security,Eights,Spring-2027,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Elective 3,Eights,Spring-2027,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Elective 4,Eights,Spring-2027,BS SOFTWARE ENGINEERING,,,CCSIS
+,SE Elective 5,Eights,Spring-2027,BS SOFTWARE ENGINEERING,,,CCSIS
+BDS492,Final Year Project II,Eights,Spring-2027,BS SOFTWARE ENGINEERING,,,CCSIS
+SEC461,Computer Graphics,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC462,Visual Programming,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC463,E-Commerce,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC464,Systems Programming,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC465,Game Application Development,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC466,Mobile Application Development,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC471,Agent Based Software Engineering,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC472,Semantic Web,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC473,Natural Language Processing,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC474,Real-Time Systems,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC481,Cloud Computing,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC482,Big Data Analytics,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC483,Multimedia Communication,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC491,Management Information Systems,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC492,Data Encryption and Security,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC493,Information Systems Audit,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC494,Global Software Development,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC495,Software Engineering Economics,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC496,Software Metrics,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+SEC499,Topics in Software Engineering,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+MAN411,Project Management,,,BS SOFTWARE ENGINEERING,,Elective Courses,CCSIS
+REL101,Islamic Studies,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MTH100,Mathematics for Business,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MAN101,Principles of Management,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+ECO102,Introduction to Micro and Macroeconomics,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,ECO102,,CCSIS
+STA203,Probability Theory and Statistics I,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+COM107,Academic English,one,Fall-2022,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+COM205,Persuasive and Analytical Writing for Bus. Comm.,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,COM107,,CCSIS
+PSC301,Pakistan Studies ,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MTH105,Calculus I,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA203,Probability Theory and Statistics II,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,STA203,,CCSIS
+MKT301,Principles of Marketing,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+,Foreign Language I,two,Spring-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MIS401,Computer Applications,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+ECO103,Intermediate Micro and Macroeconomics,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MTH104,Calculus II,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,MTH104,,CCSIS
+ACC101,Introduction to Financial Accounting,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA205,Model and Inferences,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,STA205,,CCSIS
+COM107,Business and Professional Speech,three,Fall-2023,BS STATISTICS & BUSINESS ANALYTICS,COM107,,CCSIS
+MTH204,Linear Algebra,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MAN101,Organizational Behavior,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,MAN101,,CCSIS
+ACC101,Intermediate Financial Accounting,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,ACC101,,CCSIS
+MKT301,Marketing Management,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,MKT301,,CCSIS
+STA301,Methods of Data Analysis,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,STA301,,CCSIS
+PHY111,Applied Physics,four,Spring-2024,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MAN302,Human Resource Management,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,MAN302,,CCSIS
+ECO102,Introduction to Econometrics,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,ECO102,,CCSIS
+FIN201,Introduction to Business Finance,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+MKT302,Methods in Business Research,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,MKT302,,CCSIS
+STA302,Applied Regression Analysis,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,STA302,,CCSIS
+SSC202,Environmental studies,Fifth,Fall-2024,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+FIN201,Financial Management,Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,FIN201,,CCSIS
+STA302,Sampling Theory,Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,STA302,,CCSIS
+MTH204,Numerical Analysis,Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,MTH204,,CCSIS
+,Elective I (STATISTICS),Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+ECO103,Pakistan Economic Policy,Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,ECO103,,CCSIS
+SSC301,History of Ideas,Sixth,Spring-2025,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA301,Decision Theory,Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,STA301,,CCSIS
+STA305,Design of Experiment I,Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,STA305,,CCSIS
+MAN303,Production and Operations Management,Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+,Elective I (BUSINESS ANALYTICS),Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+,Elective II (STATISTICS),Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA305,Final Year Project I,Seventh,Fall-2025,BS STATISTICS & BUSINESS ANALYTICS,"MKT404, STA305",,CCSIS
+STA313,Applied Multivariate Analysis,Eights,Spring-2027,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA305,Time Series Analysis and Forecasting,Eights,Spring-2027,BS STATISTICS & BUSINESS ANALYTICS,STA305,,CCSIS
+,Elective III (STATISTICS),Eights,Spring-2027,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+,Elective II (BUSINESS ANALYTICS),Eights,Spring-2027,BS STATISTICS & BUSINESS ANALYTICS,,,CCSIS
+STA491,Final Year Project II,Eights,Spring-2027,BS STATISTICS & BUSINESS ANALYTICS,STA491,,CCSIS
+STA315,Design of Experiment II,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+STA316,Operations Research I,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+STA317,Operations Research II,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+STA309,Loss Models I,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+STA310,Loss Models II,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+STA319,Statistical Quality Control,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+FRM201,Principles of Risk Management,,,BS STATISTICS & BUSINESS ANALYTICS,,Statistics,CCSIS
+MKT602,Marketing Analytics,,,BS STATISTICS & BUSINESS ANALYTICS,,Elective (Business Analytics),CCSIS
+HRM512,HR Analytics,,,BS STATISTICS & BUSINESS ANALYTICS,,Elective (Business Analytics),CCSIS
+FINXXX,Financial Analytics,,,BS STATISTICS & BUSINESS ANALYTICS,,Elective (Business Analytics),CCSIS
+COM117,Functional English,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+GSC103,Applied Physics,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+REL101,Islamic Studies,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM101,Introduction to Computing,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+MTH107,Calculus & Analytical Geometry,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+,Foreign languages,one,Fall-2022,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM102,Basic Electrical Circuits,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+MAN101,Principles of Management,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+MTH204,Linear Algebra,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+COM119,Communication Skills,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+PSC301,Pakistan Studies,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM103,Information & Communications Technology,two,Spring-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+CME104,Computer Programming & Problem Solving,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+ELE201,Digital Logic Design,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+MTH216,Complex Variables,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+EPE201,CAD/CAM,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+IDE404,Design Thinking,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM202,Operating Systems,three,Fall-2023,BS TECHNOLOGY MANAGEMENT,,,CES
+CME203,Data Structure & Algorithms,four,Spring-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+TCE205,Signals and Systems,four,Spring-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM201,Renewable Energy,four,Spring-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+CME205,Microprocessor & Microcontroller Systems,four,Spring-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+COM 208,Technical Report Writing,four,Spring-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+ACC101,Introduction to Financial Accounting,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM301,Data Communication & Networks,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+HRM301,Human Resource Management,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+ENG203,Engineering Economics,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM303,Organizational Behavior,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM302,Technology Management,Fifth,Fall-2024,BS TECHNOLOGY MANAGEMENT,,,CES
+ELE419,Linear Control System,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+IDE401,Principles of Applied Mechatronics,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM304,Sensors and Instrumentation,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+FIN202,Digital Financial Management,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM305,Total Quality Management,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+,Elective I,Sixth,Spring-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+,Elective II,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+,Elective III,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+IDE400,Intro to Enterprise Resource Planning,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM401,Big Data and Cloud Computing,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM402,Emerging Trends in Connected Systems,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+,Final Year Project I,Seventh,Fall-2025,BS TECHNOLOGY MANAGEMENT,,,CES
+ENT403,Small Business & Entrepreneurship,Eights,Spring-2027,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM403,Artificial Intelligence & Machine Learning,Eights,Spring-2027,BS TECHNOLOGY MANAGEMENT,,,CES
+,Final Year Project II,Eights,Spring-2027,BS TECHNOLOGY MANAGEMENT,,,CES
+BTM404,Cyber Physical Systems & Internet of People,Eights,Spring-2027,BS TECHNOLOGY MANAGEMENT,,,CES
+,Elective IV,Eights,Spring-2027,BS TECHNOLOGY MANAGEMENT,,,CES
+IDE404,Design Thinking,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+IDE409,Philosophy of Technology,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+IDE405,Business and Technology Strategy,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+CME415,Management Information System,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+CME416,IoT System Development,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+CME417,UI/UX Design Development,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+CME418,IoT Business Case,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+BTM405,Nano Technology Fundamentals,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+ELE432,Introduction to Internet of Things,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+EPE432,Wireless Power Transmission,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+BTM406,Wireless Sensor Networks,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+BTM407,Information Theory and Coding,,,BS TECHNOLOGY MANAGEMENT,,Digital Technology Transformation (3+0),CES
+BTM410,Auditing & Taxation,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+BTM411,Industrial Relations,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+BTM412,Business Transformation,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+BTM413,Digital Business Law,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+BTM414,Supply Chain Fundamentals & Inventory Mgmt.,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+IDE406,Production Planning & Control,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+IDE407,Software Project Management,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+IDE408,Professional Practices,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+ELE435,Technology and Society,,,BS TECHNOLOGY MANAGEMENT,,E-Business (3+0),CES
+BTM415,Real time Embedded System,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM416,Opto Electronics,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM417,Smart Grid Technology,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM418,Digital Image Processing,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM419,Industrial Electronics,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM420,Robotics Design Lab (modular),,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM421,Underwater Internet of Things,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM422,VLSI Basics,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM423,Optical Fiber Communication,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM424,Digital Communication Systems,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM425,Network Communication Protocols,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM426,Power Electronics,,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+BTM427,Internet of Robotic Things (IoRT),,,BS TECHNOLOGY MANAGEMENT,,Emerging Trends in Technology (3+1),CES
+GSC103,Applied Physics,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+COM117,Functional English,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+EPE101,Linear Circuit Analysis,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+CME102,Fundamentals of Computing,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MTH107,Calculus & Analytical Geometry,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE202,Electronic Workshop Practices,one,Fall-2022,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MTH204,Linear Algebra,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+REL101,Islamic Studies,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+COM119,Communication Skills,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+,Basic Electronics,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+CME104,Computer Programming & Problem Solving,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+EPE200,Electrical Network Analysis,two,Spring-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+PSC301,Pakistan Studies,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE201,Digital Logic Design,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+CME203,Data Structure & Algorithms,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MTH216,Complex Variables & Transforms,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+EPE201,Computer Aided Engineering Designs,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE200,Electronic Devices and Circuits,three,Fall-2023,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+,Signals & Systems,four,Spring-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MTH215,Differential Equations,four,Spring-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+COM208,Technical Report Writing,four,Spring-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE204,Electromagnetic Field Theory,four,Spring-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+CME205,Microcontroller & Microprocessor Systems,four,Spring-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+EPE302,Electrical Machines,Fifth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MTH405,Numerical Analysis,Fifth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE419,Linear Control Systems,Fifth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE370,Instrumentation and Measurements,Fifth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE301,Probability Methods in Engineering,Fifth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+IDE404,Engineering Mechanics OR,Sixth,Fall-2024,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+IDE405,Heat and Mass Transfer,Sixth,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ENG203,Engineering Economics,Sixth,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE201,Communication System,Sixth,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE404,Digital Signal Processing,Sixth,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ELE420,Power Electronics,Sixth,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+,Elective II,Seventh,Spring-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+,Elective III,Seventh,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+MAN418,Management and Organizational Dynamics OR,Seventh,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+IDE403,Project Management,Seventh,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE450,Senior Design Project I,Seventh,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+IDE400,Introduction to ERP,Seventh,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+,Elective IV,Eights,Fall-2025,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+SSC100,Community Service (0 ch),Eights,Spring-2027,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+TCE451,Senior Design Project II,Eights,Spring-2027,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+ENT403,Small Business and Entrepreneurship,Eights,Spring-2027,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+IDE402,Renewable Energy Methods,Eights,Spring-2027,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+EPE434,Power System Analysis,Eights,Spring-2027,BE ELECTRICAL ENGINEERING IN ELECTRONICS AND TELECOMMUNICATION ,,,CES
+COM103,Functional English I,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+SCM551,Quantitative Methods I,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+REL101,Islamic Studies,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ECO107,Fundamentals of Microeconomics,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC104,Accounting Principles,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+GSC103,General Science,one,Fall-2022,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+COM104,Functional English II,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+STA102,Quantitative Methods II,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+PSC301,Pakistan Studies,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ECO201,Fundamentals of Macroeconomics,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC205,Intermediary Accounting,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW105,Mercantile Law,two,Spring-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+SSC202,Environmental Studies,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MAN101,Principle of Management,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+FIN203,Principles of Business Finance,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+SSC103,Behavioral Studies,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW106,Company Law and Secretarial Practices,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+COM105,Business Communication - AML,three,Fall-2023,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC208,Cost Accounting,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MKT301,Principle of Marketing,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+FIN204,Theory of Business Finance,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MIS402,Computer Concepts and Application,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC207,Principle of Taxation,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+SSC401,Business Ethics,four,Spring-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC309,Auditing 1: Conceptual Foundations of Auditing Banking,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW202,Laws in Pakistan,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC310,Management Accounting for Decision making,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+HRM301,Human Resource Management,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC521,Financial Reporting,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+,Introduction to a Foreign Language,Fifth,Fall-2024,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC315,Auditing-II: The Practice of Auditing,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW407,Statutory Compliance,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW302,Intellectual Property Laws,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC313,Intermediary Financial Reporting,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+FIN312,Islamic Finance: Principles and Practice,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC314,Advance Taxation,Sixth,Spring-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC403,Strategic Performance Measurement and evaluation,Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MAN309,Leadership Journey,Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC404,Islamic Accounting and Reporting,Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC406,"Internal Audit, Control, and governance",Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+LAW408,Consumer Protection Act & Electronic Crimes Law,Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MPM612,Research Methodology,Seventh,Fall-2025,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC408,Advance Audit and Assurance,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+ACC409,Strategic Financial Reporting,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MAN405,Strategic Management,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+FIN405,Applied Business Finance,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+CSC491,Final Year Project,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+SCM701,Introduction to ERP Systems,Eights,Spring-2027,"BS (HONORS) ACCOUNTANCY, MANAGEMENT AND LAW",,,CESD
+MMM329,Creative Writing Workshop,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM363,Introduction to Design Tools,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+LAN112,Urdu I,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+,Intro to Creative Arts,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+PSC301,Pakistan Studies,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM395,Media History,one,Fall-2022,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM360,Introduction to Photography,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM374,Introduction to Journalism,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM383,Introduction to Video Production,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM376,Intro to Performing Arts,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+REL101,Islamic Studies,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM362,History of Filmmaking,two,Spring-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM344,Screenplay I,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM405,Cinematography,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM396,Concept Art,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM382,Edit & Post Production,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+LAN113,Urdu II,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM354,Introduction to Sound Design,three,Fall-2023,BS (HONORS) MEDIA STUDIES,,,CESD
+,Intro to 3D Animation & Motion Graphics,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,UI/UX for Interactive Media,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Introduction to Advertising & PR,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM385,Writing for Digital Media,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM367,Digital Journalism,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM386,Intro to Podcast & Audio Journalism (J),four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective I (P,four,Spring-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Studio Production,Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Digital Marketing Basics,Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Social Sciences in Media,Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Creative Portfolio Management,Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM369,Production Design (P),Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Screenplay II (P),Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM333,Sports Journalism (J),Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM301,Photojournalism (J),Fifth,Fall-2024,BS (HONORS) MEDIA STUDIES,,,CESD
+,Production of Documentary,Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM377,Direction,Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM399,New Media Technologies: Tools & Applications,Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM373,Content Creation,Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM351,Production Management (P),Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM377,Direction (P),Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM318,Business Journalism (J),Sixth,Spring-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Methods in Media Research,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Media Law & Ethics,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Creative Portfolio Management,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM342,Filmmaking – The Art & Craft: Thesis I (P) (6C),Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM403,Investigative Journalism: Thesis I (J) (6C),Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective I – Design Thinking,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective II,Seventh,Fall-2025,BS (HONORS) MEDIA STUDIES,,,CESD
+,Content Distribution & Promotion,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+,Entrepreneurship & Small Business,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM336,Human Rights & Gender Reporting (J),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM366,Filmmaking – The Art & Craft: Thesis II (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM382,Editing & Post Production III (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM392,Investigative Journalism: Thesis II (6C),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective I – Discovering Film (J),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective II – Introduction to Unreal Engine (P),Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+,Elective II,Eights,Spring-2027,BS (HONORS) MEDIA STUDIES,,,CESD
+MMM301,Photojournalism,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM367,Digital Journalism,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM384,Design Thinking,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM386,Intro to Podcast & Audio Journalism,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM399,New Media Technologies: Tools & Applications,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM402,Introduction to Unreal Engine,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM555,Discovering Film,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+ENT403,Entrepreneurship & Small Business,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Production Major),CESD
+MMM384,Design Thinking,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Journalism Major),CESD
+MMM396,Concept Art,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Journalism Major),CESD
+MMM399,New Media Technologies: Tools & Applications,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Journalism Major),CESD
+MMM555,Discovering Film,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Journalism Major),CESD
+ENT403,Entrepreneurship & Small Business,,,BS (HONORS) MEDIA STUDIES,,Elective Courses (Journalism Major),CESD
+ECO101,Principles of Microeconomics,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+REL101,Islamic Studies,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+COM101,General English,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+SSC101,Introduction to Psychology,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+SSC104,Principles of Sociology,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+MTH101,College Algebra,one,Fall-2022,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO102,Principles of Macroeconomics,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAN 10*,Foreign Language-1,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+BED101,General Science,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+COM107,Academic English,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+MTH104,Calculus-1,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+SSC202,Environmental Studies,two,Spring-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO315,Microeconomics Analysis,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAN 20**,Foreign Language-2,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+BIR301,Introduction to IR,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW105,Mercantile Law,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+STA301,Models and Inferences,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO206,Mathematical Economics,three,Fall-2023,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO316,Macroeconomics Analysis,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+STA302,Methods of Data Analysis,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+PSC301,Pakistan Studies,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+SSC301,History of Ideas,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+COM119,Communication skills,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+MTH105,Calculus II,four,Spring-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO304,Econometrics-1,Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO208,Development Economics,Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW106,Company Law,Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW202,Banking Law,Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+BIR303,World Politics,Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+BIR305,"Religion, Culture & IR",Fifth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO412,Econometrics-2,Sixth,Fall-2024,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO302,International Trade,Sixth,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW203,Insurance law in Pakistan,Sixth,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW301,"Intellectual property, Patents and copyright",Sixth,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Borders in a Globalization World,Sixth,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Energy Politics,Sixth,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO307,Monetary Theory & Policy,Seventh,Spring-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO402,Pakistan Economic Policy,Seventh,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+LAW400,Company Secretarial Practices,Seventh,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+BIR308,Peacebuilding & Conflict Zone,Seventh,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Law Elective-I,Seventh,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,IR Elective-I,Seventh,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Economics Elective-I,Eights,Fall-2025,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Economics Elective-II,Eights,Spring-2027,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Economics Elective-III,Eights,Spring-2027,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Economics Elective-IV,Eights,Spring-2027,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,Law Elective-II,Eights,Spring-2027,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+,IR Elective-II,Eights,Spring-2027,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,,CESD
+ECO207,Game Theory,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO310,History of Economics Thought,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO314,Contemporary Issues in Macroeconomics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO321,General Equilibrium and Welfare Economics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO407,Analysis of Pakistan Industry,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO410,Issues in Political Economy,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO411,Islamic Economics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO418,Resources & Environmental Economics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO442,Public Finance,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO444,Economics of Logistics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECO518,Governance & Public Policy,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECOXXX,Agronomics,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+ECOXXX,"Merger, Acquisition & Restructuring",,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Economics,CESD
+BIR314,Confidence Building Measures,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,International Relations (IR),CESD
+BIRXXX,Introduction to Political Science,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,International Relations (IR),CESD
+BIRXXX,Global Governance,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,International Relations (IR),CESD
+BIRXXX,Muslim Political Thought,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,International Relations (IR),CESD
+LAW404,Arbitration,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Law,CESD
+LAW407,Statutory Compliance,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Law,CESD
+LAWXXX,Taxation Law,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Law,CESD
+LAWXXX,Consumer Protection Act & Electronic Crime Law,,,"BS ECONOMICS, LAW & INTERNATIONAL RELATIONS (ELI)  ",,Law,CESD
+ECO101,Principles of Microeconomics,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+REL101,Islamic Studies,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+COM101,General English,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+PSY300,Introduction to Psychology,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+SSC104,Principles of Sociology,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MTH101,College Algebra,one,Fall-2022,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO102,Principles of Macroeconomics,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Foreign Language-1,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BED101,General Science,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+COM107,Academic English,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MTH104,Calculus-1,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+SSC202,Environmental Studies,two,Spring-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO315,Microeconomics Analysis,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Foreign Language-2,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BIR301,Introduction to IR,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+LAW105,Mercantile Law,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+STA301,Models and Inferences,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MTH100,Mathematical Economics,three,Fall-2023,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO316,Macroeconomics Analysis,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+STA302,Methods of Data Analysis,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+PSC301,Pakistan Studies,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+SSC301,History of Ideas,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM374,Introduction to Journalism,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MTH105,Calculus II,four,Spring-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO304,Econometrics-1,Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO323,Development Economics,Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM395,Media History,Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM367,Digital Journalism,Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BIR303,World Politics,Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BIR305,"Religion, Culture & IR",Fifth,Fall-2024,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO412,Econometrics-2,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO302,International Trade,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM318,Business Journalism,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM384,Design Thinking,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BIR312,Globalization,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+BIR302,Political Geography,Sixth,Spring-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO307,Monetary Theory & Policy,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO402,Pakistan Economic Policy,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+MMM385,Writing for Digital Media,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Peacebuilding & Conflict Zone,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Media Elective-I,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,IR Elective-I,Seventh,Fall-2025,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Economics Elective-I,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Economics Elective-II,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Economics Elective-III,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Economics Elective-IV,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,Media Elective-II,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+,IR Elective-II,Eights,Spring-2027,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,,CESD
+ECO407,Analysis of Pakistan Industry,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO410,Issues in Political Economy,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO411,Islamic Economics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO418,Resources & Environmental Economics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO442,Public Finance,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO518,Governance & Public Policy,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO310,History of Economics Thought,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO321,General Equilibrium and Welfare Economics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO207,Game Theory,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO314,Contemporary Issues in Macroeconomics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECO444,Economics of Logistics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECOXXX,Agronomics,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+ECOXXX,"Merger, Acquisition & Restructuring",,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Economics,CESD
+BIR314,Confidence Building Measures,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,International Relations (IR),CESD
+BIRXXX,Introduction to Political Science,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,International Relations (IR),CESD
+BIRXXX,Global Governance,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,International Relations (IR),CESD
+BIRXXX,Muslim Political Thought,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,International Relations (IR),CESD
+MMM308,Contemporary World Media,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Media,CESD
+MMM555,Discovering Film,,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Media,CESD
+MMM405,"Media, Law and Ethics",,,"BS ECONOMICS, MEDIA & INTERNATIONAL RELATIONS (EMI)",,Media,CESD
+COM107,Academic English,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+MTH102,Business Math,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+REL101,Islamic Studies,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+ECO101,Principles of Microeconomics,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SSC101,Introduction to Psychology,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SSC104,Principles of Sociology,one,Fall-2022,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+ACC101,Introduction to Financial Accounting,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSC301,Pakistan Studies,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+ECO102,Principles of Macroeconomics,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+BED101,General Science,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+STA104,Quantitative Techniques in Business,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY301,Research Methods in Business Psychology,two,Spring-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+FIN201,Introduction to Business Finance,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+ENT202,Entrepreneurial Business Operations,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+MKT201,Marketing Management,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+COM205,Persuasive & Analytical Writing for Business Communication,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY303,Introduction to Psychological Testing,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY305,Contemporary Social Psychology,three,Fall-2023,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+MAN101,Principles of Management & Organizational Behavior,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+COM205,Business and Professional Speech,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SSC202,Environmental Studies,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+LAN 10*,Foreign Language I,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SSC401,Business Ethics,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY304,Experimental Psychology,four,Spring-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+LAN 20**,Foreign Language II,Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+MKT511,Brand Management,Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+BDS101,Introduction to Data Science,Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY302,Writing Business Psychology Research,Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY309,Developmental Psychology,Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY310,Positive Psychology (Compulsory Elective I),Fifth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY311,Consumer Psychology,Sixth,Fall-2024,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+MAN309,Leadership Journey,Sixth,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SCM501,Supply Chain Management,Sixth,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+HRM513,HR Automation (Compulsory Elective II),Sixth,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective III,Sixth,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective IV,Sixth,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+LAW409,Corporate and Business Law,Seventh,Spring-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SEL415,Social Advocacy and Change,Seventh,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective V,Seventh,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective VI,Seventh,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Internship (non-credit),Seventh,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,0,Seventh,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+LAW409,Corporate and Business Law,Eights,Fall-2025,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+SEL415,Social Advocacy and Change,Eights,Spring-2027,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective V,Eights,Spring-2027,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Elective VI,Eights,Spring-2027,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+,Internship (non-credit),Eights,Spring-2027,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,,CESD
+PSY310,Positive Psychology (Compulsory Elective),,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY306,Understanding Individual: Personal Construct,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY307,Psychology of Organizational Change,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY308,Psychological Aspects of Advertising,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY501,Work Motivation and Attitude,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY515,Projective Methods,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY507,"Cyber Psychology, Behavior and Social Networking",,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+PSY508,Health Promotion in Corporate Setting,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Psychology,CESD
+HRM513,HR Automation (Compulsory Elective),,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+HRM505,Organizational Change & Development,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+HRM514,Occupational Health and Safety,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+HRM515,Employees Engagement & Wellbeing,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+MKT507,Services Marketing,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+MKT508,Personal Selling,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+ENT502,Green Entrepreneurship,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+ENT503,Competitive Strategies for Startups,,,BS JOINT (HONORS) IN BUSINESS & PSYCHOLOGY  ,,Elective Business,CESD
+COM107,Academic English,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+SSC101,Introduction to Psychology,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+PSY313,History of Psychology,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+SSC104,Principles of Sociology,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+REL101,Islamic Studies,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+MTH102,Business Mathematics,one,Fall-2022,BS PSYCHOLOGY ,,,CESD
+STA104,Quantitative Techniques in Business,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+LAN 10*,Foreign Language I,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+COM205,Persuasive and Analytical Writing for Business Communication,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+PSY325,Research Methods in Psychology,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+BED101,General Science,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+PSY316,Physiological psychology,two,Spring-2023,BS PSYCHOLOGY ,,,CESD
+COM202,Business and Professional Speech,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+SSC202,Environmental Studies,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+PSC301,Pakistan Studies,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+PSY327,Writing Psychological Research,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+LAN 20**,Foreign Language II,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+SSC401,Business Ethics,three,Fall-2023,BS PSYCHOLOGY ,,,CESD
+PSY309,Developmental Psychology,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY303,Introduction to Psychological Testing,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY305,Contemporary Social Psychology,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY317,Personality psychology,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY321,Psychology of Education,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY315,Statistics in psychology,four,Spring-2024,BS PSYCHOLOGY ,,,CESD
+PSY304,Experimental Psychology,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY318,Cognitive Psychology,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY308,Psychological Aspects of Advertising,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY310,Positive Psychology,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY326,Organizational Psychology,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY320,Health Psychology,Fifth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY311,Consumer Psychology,Sixth,Fall-2024,BS PSYCHOLOGY ,,,CESD
+PSY306,Understanding Individual: Personal Construct,Sixth,Spring-2025,BS PSYCHOLOGY ,,,CESD
+PSY314,Psychopathology,Sixth,Spring-2025,BS PSYCHOLOGY ,,,CESD
+PSY319,Clinical Psychology,Sixth,Spring-2025,BS PSYCHOLOGY ,,,CESD
+PSY324,Fundamentals of Psychological Counselling,Sixth,Spring-2025,BS PSYCHOLOGY ,,,CESD
+PSY322,Cross-cultural Psychology,Sixth,Spring-2025,BS PSYCHOLOGY ,,,CESD
+PSY323,Project Practicum,Seventh,Spring-2025,BS PSYCHOLOGY ,,,CESD
+,Elective I,Seventh,Fall-2025,BS PSYCHOLOGY ,,,CESD
+,Elective II,Seventh,Fall-2025,BS PSYCHOLOGY ,,,CESD
+,Elective III,Seventh,Fall-2025,BS PSYCHOLOGY ,,,CESD
+,Elective IV,Eights,Fall-2025,BS PSYCHOLOGY ,,,CESD
+,Elective V,Eights,Spring-2027,BS PSYCHOLOGY ,,,CESD
+,Elective VI,Eights,Spring-2027,BS PSYCHOLOGY ,,,CESD
+,Internship (Non Credit),Eights,Spring-2027,BS PSYCHOLOGY ,,,CESD
+PSY501,Work Motivation and Attitude,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY515,Projective Methods,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY507,"Cyber Psychology, Behavior and Social Networking",,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY508,Health Promotion in Corporate Setting,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY502,School Psychology,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY503,Psychology of Diversity,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY504,Forensic Psychology,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+PSY505,Psychological Crisis Management,,,BS PSYCHOLOGY ,,Elective Courses,CESD
+COM101,General English,one,Fall-2022,BS Education (4 Year) ,,,CESD
+REL101,Islamic Studies,one,Fall-2022,BS Education (4 Year) ,,,CESD
+SSC101,Introduction to Psychology,one,Fall-2022,BS Education (4 Year) ,,,CESD
+LAN112,Urdu I,one,Fall-2022,BS Education (4 Year) ,,,CESD
+BED101,General Science,one,Fall-2022,BS Education (4 Year) ,,,CESD
+BED203,Foundation and History of Education,one,Fall-2022,BS Education (4 Year) ,,,CESD
+COM107,Academic English,two,Spring-2023,BS Education (4 Year) ,,,CESD
+BED110,Introduction to Info. and Communication Technology (ICT),two,Spring-2023,BS Education (4 Year) ,,,CESD
+BED107,General Mathematics,two,Spring-2023,BS Education (4 Year) ,,,CESD
+BED103,General Methods and Principles of Teaching,two,Spring-2023,BS Education (4 Year) ,,,CESD
+PSC301,Pakistan Studies,two,Spring-2023,BS Education (4 Year) ,,,CESD
+SED102,Philosophy of Education and its Psychological Roots,two,Spring-2023,BS Education (4 Year) ,,,CESD
+BED206,Educational Psychology,three,Fall-2023,BS Education (4 Year) ,,,CESD
+BED238,Interpersonal Communication Skills in Educational Setting,three,Fall-2023,BS Education (4 Year) ,,,CESD
+BED205,Early Childhood Education,three,Fall-2023,BS Education (4 Year) ,,,CESD
+,Environmental Sciences,three,Fall-2023,BS Education (4 Year) ,,,CESD
+BED209,English Language Teaching,three,Fall-2023,BS Education (4 Year) ,,,CESD
+BED21,Teaching of Mathematics,three,Fall-2023,BS Education (4 Year) ,,,CESD
+BED233,Evaluation and Assessment,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED213,Teaching in Early Years,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED231,Educational Policy and Economics,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED421,Sociology of Education,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED201,Teaching of Science,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED281,Teaching Practicum – I,four,Spring-2024,BS Education (4 Year) ,,,CESD
+BED303,Contemporary Issues & Trends in Edu.,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+EDM621,Edupreneurship,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+EDM656,Teacher Education,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+BED337,Educational Counseling,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+BED353,Teaching of Social Science Subjects,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+BED381,Teaching Practicum – II,Fifth,Fall-2024,BS Education (4 Year) ,,,CESD
+BED301,Curriculum Development,Sixth,Fall-2024,BS Education (4 Year) ,,,CESD
+BED361,Research Methods in Education I (Qualitative),Sixth,Spring-2025,BS Education (4 Year) ,,,CESD
+BED357,Critical Thinking and Reading,Sixth,Spring-2025,BS Education (4 Year) ,,,CESD
+BED335,Teaching through Arts and Crafts,Sixth,Spring-2025,BS Education (4 Year) ,,,CESD
+BED359,School Management,Sixth,Spring-2025,BS Education (4 Year) ,,,CESD
+BED491,Psychological Assessment,Sixth,Spring-2025,BS Education (4 Year) ,,,CESD
+EDM654,Lifelong Learning,Seventh,Spring-2025,BS Education (4 Year) ,,,CESD
+BED362,Research Methods in Education II (Quantitative),Seventh,Fall-2025,BS Education (4 Year) ,,,CESD
+BED401,Area of Specialization – I *,Seventh,Fall-2025,BS Education (4 Year) ,,,CESD
+BED403,Area of Specialization – II*,Seventh,Fall-2025,BS Education (4 Year) ,,,CESD
+BED405,Area of Specialization – III *,Seventh,Fall-2025,BS Education (4 Year) ,,,CESD
+BED426,Comparative Education System,Seventh,Fall-2025,BS Education (4 Year) ,,,CESD
+EDM624,Innovations and Technology in Education,Eights,Fall-2025,BS Education (4 Year) ,,,CESD
+BED405,Inclusive Education,Eights,Spring-2027,BS Education (4 Year) ,,,CESD
+BED409,Research Project,Eights,Spring-2027,BS Education (4 Year) ,,,CESD
+BED409,Marketing Education Services,Eights,Spring-2027,BS Education (4 Year) ,,,CESD
+BED417,Quality Assurance in Education,Eights,Spring-2027,BS Education (4 Year) ,,,CESD
