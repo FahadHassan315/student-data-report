@@ -149,46 +149,127 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         st.metric("Total Courses", len(catalog_df))
 
 def login_page():
-    """Display login page with improved layout - no scrolling needed"""
-    # Centered layout
+   def login_page():
+    """Display horizontal login page with logo/name on left, login on right, credits at bottom"""
+    
+    # Add custom CSS for full height layout and styling
     st.markdown("""
-    <div style='text-align: center; margin-bottom: 30px;'>
+    <style>
+    .main-container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    .login-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        margin: 20px 0;
+    }
+    .logo-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px;
+    }
+    .login-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .credits-section {
+        text-align: center;
+        padding: 20px;
+        border-top: 1px solid #e0e0e0;
+        margin-top: auto;
+    }
+    .app-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #1f77b4;
+        margin: 20px 0 10px 0;
+    }
+    .app-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .login-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    </style>
     """, unsafe_allow_html=True)
     
-    # Center everything using columns
-    col1, col2, col3 = st.columns([1, 2, 1])
+    # Create two main columns for horizontal layout
+    col_left, col_right = st.columns([1, 1], gap="large")
     
-    with col2:
-        # Center the logo and title
-        st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-        display_logo_login()
+    # Left side - Logo and App Name
+    with col_left:
+        st.markdown('<div class="logo-section">', unsafe_allow_html=True)
         
-        st.markdown("""
-        <h1 style='margin: 10px 0; color: #1f77b4; text-align: center;'>SSK ACMS</h1>
-        <p style='margin-bottom: 30px; color: #666; font-size: 18px; text-align: center;'>Academic Course Management System</p>
-        """, unsafe_allow_html=True)
+        # Display logo
+        try:
+            st.image("iobm.png", width=250)
+        except:
+            st.markdown('<div style="width: 250px; height: 150px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h2>IOBM</h2></div>', unsafe_allow_html=True)
         
-        st.markdown("</div>", unsafe_allow_html=True)
+        # App title and subtitle
+        st.markdown('<h1 class="app-title">SSK ACMS</h1>', unsafe_allow_html=True)
+        st.markdown('<p class="app-subtitle">Academic Course Management System</p>', unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Right side - Login Form
+    with col_right:
+        st.markdown('<div class="login-section">', unsafe_allow_html=True)
+        
+        st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
         
         # Login form
-        with st.container():
-            st.markdown("### 🔐 Login")
+        username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
+        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
+        
+        # Add some spacing
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Login button
+        if st.button("🚀 Login", use_container_width=True, type="primary"):
+            username_lower = username.lower()
+            password_lower = password.lower()
             
-            username = st.text_input("👤 Username", placeholder="Enter your username")
-            password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
-            
-            if st.button("🚀 Login", use_container_width=True, type="primary"):
-                username_lower = username.lower()
-                password_lower = password.lower()
-                
-                if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
-                    st.session_state.logged_in = True
-                    st.session_state.username = username_lower
-                    st.success("✅ Login successful!")
-                    st.rerun()
-                else:
-                    st.error("❌ Invalid username or password!")
-
+            if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
+                st.session_state.logged_in = True
+                st.session_state.username = username_lower
+                st.success("✅ Login successful!")
+                st.rerun()
+            else:
+                st.error("❌ Invalid username or password!")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Bottom - Credits section (full width)
+    st.markdown('<div class="credits-section">', unsafe_allow_html=True)
+    st.markdown("""
+    <div style='color: #666; font-size: 14px;'>
+        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
