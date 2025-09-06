@@ -42,13 +42,6 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
-def display_logo_login():
-    """Display IOBM logo for login page - centered and smaller"""
-    try:
-        st.image("iobm.png", width=200)
-    except:
-        st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
-
 def display_logo_main():
     """Display IOBM logo for main app - larger size for header"""
     try:
@@ -149,7 +142,6 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         st.metric("Total Courses", len(catalog_df))
 
 def login_page():
-   def login_page():
     """Display horizontal login page with logo/name on left, login on right, credits at bottom"""
     
     # Add custom CSS for full height layout and styling
@@ -270,6 +262,7 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
