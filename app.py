@@ -478,7 +478,7 @@ def main_app():
     selected_catalog_year = None
     
     if data_source == "📊 Institutional Catalog":
-        default_index = list(CATALOG_FILES.keys()).index("2024-2025")
+        default_index = list(CATALOG_FILES.keys()).index("2023-2024")
         selected_catalog_year = st.sidebar.selectbox(
             "Select Academic Year:",
             list(CATALOG_FILES.keys()),
