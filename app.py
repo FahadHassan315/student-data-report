@@ -408,25 +408,34 @@ def assign_schedule(df, allow_weekend_courses=True):
 def main_app():
     """Main application interface"""
     
-    # Add background styling for main app
-    st.markdown("""
-    <style>
-    /* Add background image to the main app */
-    .stApp {
-        background-image: url('./bg.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
+    # Get background image as base64
+    bg_image = get_base64_background()
     
-    /* Fallback background color if image doesn't load */
-    .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
+    # Create background CSS based on whether image exists
+    if bg_image:
+        background_css = f"""
+        .stApp {{
+            background-image: url('data:image/jpeg;base64,{bg_image}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        """
+    else:
+        background_css = """
+        .stApp {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        """
+    
+    # Add background styling for main app
+    st.markdown(f"""
+    <style>
+    {background_css}
     
     /* Add overlay for better text readability */
-    .stApp::before {
+    .stApp::before {{
         content: '';
         position: fixed;
         top: 0;
@@ -435,28 +444,28 @@ def main_app():
         height: 100%;
         background: rgba(255, 255, 255, 0.85);
         z-index: -1;
-    }
+    }}
     
     /* Keep sidebar background solid */
-    .css-1d391kg, .css-6qob1r, .css-18e3th9 {
+    .css-1d391kg, .css-6qob1r, .css-18e3th9 {{
         background-color: #f0f2f6 !important;
-    }
+    }}
     
     /* Main content area styling */
-    .main .block-container {
+    .main .block-container {{
         background: rgba(255, 255, 255, 0.9);
         border-radius: 10px;
         padding: 2rem;
         margin: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(10px);
-    }
+    }}
     
     /* Header styling */
-    .main h1, .main h2, .main h3 {
+    .main h1, .main h2, .main h3 {{
         color: #1f77b4;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    }
+    }}
     </style>
     """, unsafe_allow_html=True)
     
