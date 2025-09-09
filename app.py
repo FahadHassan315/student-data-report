@@ -229,7 +229,7 @@ def login_page():
         # App title and subtitle - properly centered
         st.markdown("""
         <div style="text-align: center; margin-top: 20px;">
-            <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 0; line-height: 1.2;">SSK ACMS</h1>
+            <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 0.5; line-height: 1.2;">SSK ACMS</h1>
             <p style="font-size: 1.2rem; color: #666; margin: 1px 0 0 0;">Academic Course Management System</p>
         </div>
         """, unsafe_allow_html=True)
