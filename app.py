@@ -227,14 +227,21 @@ def login_page():
                 st.markdown('<div style="width: 250px; height: 150px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h2>IOBM</h2></div>', unsafe_allow_html=True)
         
         # App title and subtitle - properly centered
-        st.markdown("""
-        <div style="text-align: center; margin-top: 20px;">
-            <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: -0.5; line-height: 1.2;">SSK ACMS</h1>
-            <p style="font-size: 1.2rem; color: #666; margin: 1px 0 0 0;">Academic Course Management System</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+       st.markdown(
+    """
+    <div style="text-align: center; margin-top: 0; padding-top: 0;">
+        <img src="data:image/png;base64,..." style="max-width:150px; margin-bottom:5px;"/>
+        <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 0; line-height: 1.2;">
+            SSK ACMS
+        </h1>
+        <p style="font-size: 1.2rem; color: #666; margin: 0;">
+            Academic Course Management System
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
     
     # Right side - Login Form
     with col_right:
