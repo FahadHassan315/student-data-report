@@ -228,7 +228,7 @@ def login_page():
         
         # App title and subtitle - properly centered with reduced spacing
         st.markdown("""
-        <div style="text-align: center; margin-top: -25px;">
+        <div style="text-align: center; margin-top: 10px;">
             <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 5px 0; line-height: 1.1;">SSK ACMS</h1>
             <p style="font-size: 1.2rem; color: #666; margin: 5px 0 0 0;">Academic Course Management System</p>
         </div>
@@ -407,6 +407,52 @@ def assign_schedule(df, allow_weekend_courses=True):
 
 def main_app():
     """Main application interface"""
+    
+    # Add background styling for main app
+    st.markdown("""
+    <style>
+    /* Add background image to the main app */
+    .stApp {
+        background-image: url('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    
+    /* Add overlay for better text readability */
+    .stApp::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.85);
+        z-index: -1;
+    }
+    
+    /* Keep sidebar background solid */
+    .css-1d391kg {
+        background-color: #f0f2f6 !important;
+    }
+    
+    /* Main content area styling */
+    .main .block-container {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Header styling */
+    .main h1, .main h2, .main h3 {
+        color: #1f77b4;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     # Header
     col1, col2, col3 = st.columns([2, 4, 2])
