@@ -413,11 +413,16 @@ def main_app():
     <style>
     /* Add background image to the main app */
     .stApp {
-        background-image: url('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/bg.jpg');
+        background-image: url('./bg.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+    }
+    
+    /* Fallback background color if image doesn't load */
+    .stApp {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
     /* Add overlay for better text readability */
@@ -433,7 +438,7 @@ def main_app():
     }
     
     /* Keep sidebar background solid */
-    .css-1d391kg {
+    .css-1d391kg, .css-6qob1r, .css-18e3th9 {
         background-color: #f0f2f6 !important;
     }
     
@@ -444,6 +449,7 @@ def main_app():
         padding: 2rem;
         margin: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
     }
     
     /* Header styling */
