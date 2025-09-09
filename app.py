@@ -77,7 +77,7 @@ def set_background_image():
         
         /* Make main content area semi-transparent */
         .main .block-container {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             padding: 2rem;
             margin-top: 1rem;
@@ -89,14 +89,21 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }}
         
-        /* Login page specific styling */
-        .login-container {{
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* Make charts blend better */
+        .js-plotly-plot {{
+            background: rgba(255, 255, 255, 0.8) !important;
+            border-radius: 10px;
+            padding: 10px;
+        }}
+        
+        /* Improve text visibility */
+        .stMarkdown, .stDataFrame, .stSelectbox, .stText {{
+            color: #1a1a1a !important;
+        }}
+        
+        h1, h2, h3, h4, h5, h6, p, .stMetric {{
+            color: #1a1a1a !important;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }}
         </style>
         """
@@ -122,13 +129,11 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }
         
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* Make charts blend better */
+        .js-plotly-plot {
+            background: rgba(255, 255, 255, 0.8) !important;
+            border-radius: 10px;
+            padding: 10px;
         }
         </style>
         """
@@ -138,7 +143,7 @@ def set_background_image():
 def display_logo_main():
     """Display IOBM logo for main app - larger size for header"""
     try:
-        st.image("iobm.png", width=200)
+        st.image("iobm.png", width=300)
     except:
         st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
 
@@ -201,7 +206,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         programs_list = "<br>• ".join(sorted(programs_in_college))
         hover_text.append(f"<b>{college}</b><br>Programs: {len(programs_in_college)}<br><br>• {programs_list}")
     
-    # Center the pie chart
+    # Center the pie chart with better styling
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
@@ -217,7 +222,15 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             hovertemplate=hover_text,
             textinfo="label+percent"
         )
-        fig_college.update_layout(height=500, showlegend=True)
+        
+        # Improve chart styling to blend with background
+        fig_college.update_layout(
+            height=500, 
+            showlegend=True,
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(255,255,255,0.8)',
+            font=dict(color='#1a1a1a', size=12)
+        )
         
         st.plotly_chart(fig_college, use_container_width=True)
     
@@ -235,12 +248,12 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         st.metric("Total Courses", len(catalog_df))
 
 def login_page():
-    """Display horizontal login page with logo/name on left, login on right, credits at bottom"""
+    """Display horizontal login page with improved styling"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS for full height layout and styling
+    # Add custom CSS for full height layout and improved styling
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -248,20 +261,18 @@ def login_page():
         background-color: transparent;
     }
     
-    .main-container {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 20px;
+    /* Remove any unwanted containers/boxes */
+    .element-container:has(.stTextInput) {
+        margin-top: 0 !important;
     }
+    
     .login-content {
-        flex: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 40px;
         margin: 20px 0;
+        padding: 20px;
     }
     .logo-section {
         flex: 1;
@@ -270,13 +281,12 @@ def login_page():
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 20px;
-        margin-top: 0px;
-        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.85);
         border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
     }
     .login-section {
         flex: 1;
@@ -284,42 +294,61 @@ def login_page():
         flex-direction: column;
         justify-content: center;
         padding: 40px;
-        margin-top: 0px;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.85);
         border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
     }
     .credits-section {
         text-align: center;
         padding: 20px;
-        border-top: 1px solid rgba(224, 224, 224, 0.3);
-        margin-top: auto;
-        background: rgba(255, 255, 255, 0.8);
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.85);
         border-radius: 10px;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
     .app-title {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: bold;
-        color: #1f77b4;
-        margin: 5px 0;
+        color: #2c3e50;
+        margin: 10px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
     .app-subtitle {
-        font-size: 1.2rem;
-        color: #666;
+        font-size: 1.4rem;
+        color: #34495e;
         margin-bottom: 10px;
+        font-weight: 500;
     }
     .login-title {
-        font-size: 1.8rem;
-        color: #333;
+        font-size: 2rem;
+        color: #2c3e50;
         margin-bottom: 30px;
         text-align: left;
+        font-weight: 600;
+    }
+    
+    /* Improve form styling */
+    .stTextInput > div > div > input {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #bdc3c7;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .stTextInput > div > div > input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
     }
     </style>
     """, unsafe_allow_html=True)
+    
+    # Main content wrapper
+    st.markdown('<div class="login-content">', unsafe_allow_html=True)
     
     # Create two main columns for horizontal layout
     col_left, col_right = st.columns([1, 1], gap="large")
@@ -328,19 +357,19 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
         
-        # Display logo - centered
+        # Display logo - centered and larger
         col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
         with col_logo2:
             try:
-                st.image("iobm.png", width=250)
+                st.image("iobm.png", width=300)
             except:
-                st.markdown('<div style="width: 250px; height: 150px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h2>IOBM</h2></div>', unsafe_allow_html=True)
+                st.markdown('<div style="width: 300px; height: 180px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h2>IOBM</h2></div>', unsafe_allow_html=True)
         
-        # App title and subtitle - properly centered with reduced spacing
+        # App title and subtitle with better colors
         st.markdown("""
-        <div style="text-align: center; margin-top: 10px;">
-            <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 5px 0; line-height: 1.1;">SSK ACMS</h1>
-            <p style="font-size: 1.2rem; color: #666; margin: 5px 0 0 0;">Academic Course Management System</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <h1 class="app-title">SSK ACMS</h1>
+            <p class="app-subtitle">Academic Course Management System</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -374,10 +403,12 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
+    st.markdown('</div>', unsafe_allow_html=True)
+    
     # Bottom - Credits section (full width)
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div style='color: #666; font-size: 14px;'>
+    <div style='color: #2c3e50; font-size: 14px; font-weight: 500;'>
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
@@ -521,22 +552,28 @@ def main_app():
     # Set background image for main app
     set_background_image()
     
-    # Header
-    col1, col2, col3 = st.columns([2, 4, 2])
+    # Header with better alignment
+    col1, col2, col3 = st.columns([1, 3, 2])
     
     with col1:
         display_logo_main()
     
     with col2:
         st.markdown("""
-        <div style="padding-top: 40px;">
-            <h1>SSK ACMS</h1>
+        <div style="padding-top: 80px; padding-left: 20px;">
+            <h1 style="color: #2c3e50; font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">SSK ACMS</h1>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
-        st.markdown(f"**Welcome, {USERS[st.session_state.username]['display_name']}!**")
-        if st.button("Logout"):
+        st.markdown(f"""
+        <div style="padding-top: 120px; text-align: right;">
+            <p style="color: #2c3e50; font-size: 18px; font-weight: 600; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">
+                <strong>Welcome, {USERS[st.session_state.username]['display_name']}!</strong>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Logout", type="secondary"):
             st.session_state.logged_in = False
             st.session_state.username = ""
             st.session_state.selected_college = None
@@ -797,7 +834,7 @@ def main_app():
     st.markdown("---")
     st.markdown(
         """
-        <div style='text-align: center; color: #666; font-size: 12px; margin-top: 30px;'>
+        <div style='text-align: center; color: #2c3e50; font-size: 12px; margin-top: 30px; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>
             <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
         </div>
         """, 
