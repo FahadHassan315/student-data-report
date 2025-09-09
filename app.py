@@ -6,6 +6,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from collections import defaultdict
+import base64
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
@@ -41,6 +42,98 @@ CATALOG_FILES = {
     "2024-2025": "2024-2025.csv",
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
+
+def get_base64_of_bin_file(bin_file):
+    """Convert image to base64 string"""
+    try:
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    except:
+        return None
+
+def set_background_image():
+    """Set background image for the app"""
+    # Try to get the image as base64
+    bin_str = get_base64_of_bin_file('bg.jpg')
+    
+    if bin_str:
+        # If local image exists, use it
+        background_css = f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{bin_str}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        
+        .stApp > div:first-child {{
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }}
+        
+        /* Make main content area semi-transparent */
+        .main .block-container {{
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }}
+        
+        /* Keep sidebar opaque */
+        .css-1d391kg, .css-1544g2n {{
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }}
+        
+        /* Login page specific styling */
+        .login-container {{
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }}
+        </style>
+        """
+    else:
+        # Fallback: use a gradient background
+        background_css = """
+        <style>
+        .stApp {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+        
+        .main .block-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Keep sidebar opaque */
+        .css-1d391kg, .css-1544g2n {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        </style>
+        """
+    
+    st.markdown(background_css, unsafe_allow_html=True)
 
 def display_logo_main():
     """Display IOBM logo for main app - larger size for header"""
@@ -144,6 +237,9 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
 def login_page():
     """Display horizontal login page with logo/name on left, login on right, credits at bottom"""
     
+    # Set background image
+    set_background_image()
+    
     # Add custom CSS for full height layout and styling
     st.markdown("""
     <style>
@@ -176,6 +272,11 @@ def login_page():
         text-align: center;
         padding: 20px;
         margin-top: 0px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
     .login-section {
         flex: 1;
@@ -184,12 +285,21 @@ def login_page():
         justify-content: center;
         padding: 40px;
         margin-top: 0px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
     .credits-section {
         text-align: center;
         padding: 20px;
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid rgba(224, 224, 224, 0.3);
         margin-top: auto;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
     .app-title {
         font-size: 3rem;
@@ -228,7 +338,7 @@ def login_page():
         
         # App title and subtitle - properly centered with reduced spacing
         st.markdown("""
-        <div style="text-align: center; margin-top: -25px;">
+        <div style="text-align: center; margin-top: 10px;">
             <h1 style="font-size: 3rem; font-weight: bold; color: #1f77b4; margin: 5px 0; line-height: 1.1;">SSK ACMS</h1>
             <p style="font-size: 1.2rem; color: #666; margin: 5px 0 0 0;">Academic Course Management System</p>
         </div>
@@ -407,6 +517,9 @@ def assign_schedule(df, allow_weekend_courses=True):
 
 def main_app():
     """Main application interface"""
+    
+    # Set background image for main app
+    set_background_image()
     
     # Header
     col1, col2, col3 = st.columns([2, 4, 2])
