@@ -398,21 +398,25 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
         
+        # Center everything in a container
+        st.markdown('<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">', unsafe_allow_html=True)
+        
         # Display logo
         try:
-            st.image("iobm.png", width=350)
+            st.image("iobm.png", width=300)
         except:
-            st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+            st.markdown('<div style="width: 300px; height: 180px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
         
-        # App title and subtitle
+        # App title and subtitle with proper spacing
         st.markdown("""
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="margin-top: 20px;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)  # Close centering container
+        st.markdown('</div>', unsafe_allow_html=True)  # Close logo-section
     
     # Right side - Login Form
     with col_right:
