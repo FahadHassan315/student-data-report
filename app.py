@@ -637,14 +637,24 @@ def main_app():
         USERS[st.session_state.username]['display_name']
     ), unsafe_allow_html=True)
     
-    # Logout button in sidebar
+    # Logout button in sidebar with better session management
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
+        # Clear all session state keys to prevent websocket issues
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        
+        # Reset to default values
         st.session_state.logged_in = False
         st.session_state.username = ""
         st.session_state.selected_college = None
         st.session_state.selected_program = None
-        st.rerun()
+        
+        # Force rerun with proper method
+        try:
+            st.rerun()
+        except AttributeError:
+            st.experimental_rerun()
     
     # Sidebar
     st.sidebar.header("Input Parameters")
