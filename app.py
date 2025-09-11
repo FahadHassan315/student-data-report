@@ -89,11 +89,15 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }}
         
-        /* Make charts blend better */
+        /* Make charts blend better - remove white background completely */
         .js-plotly-plot {{
-            background: rgba(255, 255, 255, 0.8) !important;
+            background: transparent !important;
             border-radius: 10px;
             padding: 10px;
+        }}
+        
+        .js-plotly-plot .plotly {{
+            background: transparent !important;
         }}
         
         /* Improve text visibility */
@@ -129,11 +133,15 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }
         
-        /* Make charts blend better */
+        /* Make charts blend better - remove white background completely */
         .js-plotly-plot {
-            background: rgba(255, 255, 255, 0.8) !important;
+            background: transparent !important;
             border-radius: 10px;
             padding: 10px;
+        }
+        
+        .js-plotly-plot .plotly {
+            background: transparent !important;
         }
         </style>
         """
@@ -226,12 +234,12 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             textposition='inside'
         )
         
-        # Improve chart styling with high contrast
+        # Improve chart styling with transparent background
         fig_college.update_layout(
             height=500, 
             showlegend=True,
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(255,255,255,0.95)',
+            paper_bgcolor='rgba(0,0,0,0)',  # Changed to transparent
             font=dict(color='#1a1a1a', size=14, family="Arial Black"),
             legend=dict(
                 orientation="v",
@@ -249,13 +257,13 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         st.plotly_chart(fig_college, use_container_width=True)
     
-    # Summary statistics with better contrast
+    # Summary statistics with increased opacity for background blending
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; border: 2px solid #1a1a1a; text-align: center;'>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Colleges</h3>
             <h1 style='color: #FF6B6B; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -263,7 +271,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col2:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; border: 2px solid #1a1a1a; text-align: center;'>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Programs</h3>
             <h1 style='color: #4ECDC4; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -271,19 +279,19 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col3:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; border: 2px solid #1a1a1a; text-align: center;'>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Courses</h3>
             <h1 style='color: #45B7D1; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with NO white boxes"""
+    """Display horizontal login page with improved design"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS to completely remove white containers
+    # Add custom CSS to improve login page design
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -304,8 +312,8 @@ def login_page():
         background: transparent !important;
     }
     
-    /* Custom login sections with glassmorphism */
-    .logo-section {
+    /* Logo and title container with better alignment */
+    .logo-title-container {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
@@ -315,6 +323,11 @@ def login_page():
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         text-align: center;
         margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
     }
     
     .login-section {
@@ -328,23 +341,11 @@ def login_page():
         margin: 20px 0;
     }
     
-    .credits-section {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        margin-top: 30px;
-    }
-    
     .app-title {
         font-size: 4rem;
         font-weight: bold;
         color: white;
-        margin: 10px 0;
+        margin: 20px 0 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
     }
@@ -352,7 +353,7 @@ def login_page():
     .app-subtitle {
         font-size: 1.5rem;
         color: white;
-        margin-bottom: 10px;
+        margin: 0;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
@@ -406,25 +407,32 @@ def login_page():
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
+    
+    /* Footer separator line */
+    .footer-separator {
+        border-top: 2px solid rgba(255, 255, 255, 0.3);
+        margin: 40px 0 20px 0;
+        padding-top: 20px;
+    }
     </style>
     """, unsafe_allow_html=True)
     
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
     
-    # Left side - Logo and App Name
+    # Left side - Logo and App Name with better alignment
     with col_left:
-        st.markdown('<div class="logo-section">', unsafe_allow_html=True)
+        st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
         
         # Display logo
         try:
-            st.image("iobm.png", width=350)
+            st.image("iobm.png", width=300)
         except:
-            st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+            st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
         
         # App title and subtitle
         st.markdown("""
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="text-align: center;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
@@ -460,14 +468,14 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section
-    st.markdown('<div class="credits-section">', unsafe_allow_html=True)
+    # Bottom - Credits section with separator line
     st.markdown("""
-    <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
-        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+    <div class="footer-separator">
+        <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); text-align: center;'>
+            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+        </div>
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
@@ -602,12 +610,12 @@ def assign_schedule(df, allow_weekend_courses=True):
     return schedule
 
 def main_app():
-    """Main application interface with fixed alignment"""
+    """Main application interface with improved design"""
     
     # Set background image for main app
     set_background_image()
     
-    # Header with perfect alignment using a single container
+    # Header with white text and better alignment
     st.markdown("""
     <div style='display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 30px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
         <div style='display: flex; align-items: center; gap: 30px; flex: 1;'>
