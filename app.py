@@ -44,16 +44,21 @@ CATALOG_FILES = {
 }
 
 def get_base64_of_bin_file(bin_file):
-    """Convert image to base64 string"""
+    """Convert image to base64 string - with error handling for deployment"""
     try:
-        with open(bin_file, 'rb') as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
-    except:
+        if os.path.exists(bin_file):
+            with open(bin_file, 'rb') as f:
+                data = f.read()
+            return base64.b64encode(data).decode()
+        else:
+            st.warning(f"Image file {bin_file} not found - using fallback styling")
+            return None
+    except Exception as e:
+        st.warning(f"Error loading image {bin_file}: {e}")
         return None
 
 def set_background_image():
-    """Set background image for the app"""
+    """Set background image for the app - with fallback for deployment"""
     # Try to get the image as base64
     bin_str = get_base64_of_bin_file('bg.jpg')
     
@@ -89,7 +94,7 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }}
         
-        /* Make charts blend better - remove white background completely */
+        /* Make charts blend better */
         .js-plotly-plot {{
             background: transparent !important;
             border-radius: 10px;
@@ -112,12 +117,13 @@ def set_background_image():
         </style>
         """
     else:
-        # Fallback: use a gradient background
+        # Fallback: use a gradient background (more reliable for deployment)
         background_css = """
         <style>
         .stApp {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
+            min-height: 100vh;
         }
         
         .main .block-container {
@@ -133,7 +139,7 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }
         
-        /* Make charts blend better - remove white background completely */
+        /* Make charts blend better */
         .js-plotly-plot {
             background: transparent !important;
             border-radius: 10px;
@@ -149,15 +155,26 @@ def set_background_image():
     st.markdown(background_css, unsafe_allow_html=True)
 
 def display_logo_main():
-    """Display IOBM logo for main app - larger size for header"""
+    """Display IOBM logo for main app - with fallback"""
     try:
-        st.image("iobm.png", width=200)
-    except:
-        st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
+        if os.path.exists("iobm.png"):
+            st.image("iobm.png", width=200)
+        else:
+            st.markdown("<h2>🏛️ IOBM</h2>", unsafe_allow_html=True)
+    except Exception as e:
+        st.markdown("<h2>🏛️ IOBM</h2>", unsafe_allow_html=True)
 
 def load_catalog_data(catalog_year):
-    """Load catalog data from the repository CSV file"""
-    filename = CATALOG_FILES[catalog_year]
+    """Load catalog data from the repository CSV file - with better error handling"""
+    filename = CATALOG_FILES.get(catalog_year)
+    
+    if not filename:
+        st.error(f"No catalog file found for year {catalog_year}")
+        return None, False
+    
+    if not os.path.exists(filename):
+        st.error(f"Catalog file {filename} not found. Please ensure the file is in your repository.")
+        return None, False
     
     encodings_to_try = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1', 'cp1252']
     
@@ -180,13 +197,31 @@ def load_catalog_data(catalog_year):
         # Normalize column names
         catalog_df.columns = catalog_df.columns.str.lower().str.strip()
         
+        # Check if required columns exist
+        required_columns = ['semester', 'course_code', 'course_title']
+        missing_columns = [col for col in required_columns if col not in catalog_df.columns]
+        
+        if missing_columns:
+            st.error(f"Missing required columns in {filename}: {missing_columns}")
+            st.info(f"Available columns: {list(catalog_df.columns)}")
+            return None, False
+        
         # Handle missing values
         catalog_df = catalog_df.dropna(subset=['semester'])
         catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
         catalog_df['course_code'] = catalog_df['course_code'].fillna('')
         catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
-        catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
-        catalog_df['college'] = catalog_df['college'].fillna('Unknown College')
+        
+        # Handle college and program columns with defaults
+        if 'college' not in catalog_df.columns:
+            catalog_df['college'] = 'General Studies'
+        else:
+            catalog_df['college'] = catalog_df['college'].fillna('General Studies')
+        
+        if 'program' not in catalog_df.columns:
+            catalog_df['program'] = 'General Program'
+        else:
+            catalog_df['program'] = catalog_df['program'].fillna('General Program')
         
         # Convert semester values to lowercase for consistency
         catalog_df['semester'] = catalog_df['semester'].astype(str).str.lower().str.strip()
@@ -198,7 +233,7 @@ def load_catalog_data(catalog_year):
         return None, False
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
-    """Create single pie chart showing college distribution by number of programs"""
+    """Create charts showing catalog insights"""
     
     st.markdown(f"<h2 style='color: #1a1a1a; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold; margin-bottom: 30px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
     
@@ -239,7 +274,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             height=500, 
             showlegend=True,
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',  # Changed to transparent
+            paper_bgcolor='rgba(0,0,0,0)',
             font=dict(color='#1a1a1a', size=14, family="Arial Black"),
             legend=dict(
                 orientation="v",
@@ -257,7 +292,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         st.plotly_chart(fig_college, use_container_width=True)
     
-    # Summary statistics with increased opacity for background blending
+    # Summary statistics
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
     
@@ -286,20 +321,14 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with improved design"""
+    """Display login page with improved design and error handling"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS to improve login page design - REMOVE ALL CONTAINERS
+    # Add custom CSS for login page
     st.markdown("""
     <style>
-    /* Hide the default Streamlit header and menu */
-    .stApp > header {
-        background-color: transparent;
-    }
-    
-    /* Remove ALL white backgrounds and containers completely */
     .main .block-container {
         background: transparent !important;
         padding: 0 !important;
@@ -308,21 +337,6 @@ def login_page():
         border: none !important;
     }
     
-    /* Remove any element containers */
-    .element-container {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Remove container from columns */
-    .css-1kyxreq, .css-12oz5g7, .css-ocqkz7, .css-1v7f65g, .css-18ni7ap, .css-1adrfps {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Logo and title container with better alignment */
     .logo-title-container {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -377,7 +391,6 @@ def login_page():
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     }
     
-    /* Make form inputs more visible */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -400,7 +413,6 @@ def login_page():
         font-size: 16px !important;
     }
     
-    /* Style buttons */
     .stButton > button {
         background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
         color: white !important;
@@ -418,19 +430,10 @@ def login_page():
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
     
-    /* Footer separator line */
     .footer-separator {
         border-top: 2px solid rgba(255, 255, 255, 0.3);
         margin: 40px 0 20px 0;
         padding-top: 20px;
-    }
-    
-    /* Logo alignment improvements */
-    .logo-container img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto 20px auto;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -438,19 +441,20 @@ def login_page():
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
     
-    # Left side - Logo and App Name with better alignment
+    # Left side - Logo and App Name
     with col_left:
         st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
         
-        # Display logo with better alignment
-        st.markdown('<div class="logo-container">', unsafe_allow_html=True)
+        # Display logo with fallback
         try:
-            st.image("iobm.png", width=300)
+            if os.path.exists("iobm.png"):
+                st.image("iobm.png", width=300)
+            else:
+                st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">🏛️ IOBM</h1></div>', unsafe_allow_html=True)
         except:
-            st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">🏛️ IOBM</h1></div>', unsafe_allow_html=True)
         
-        # App title and subtitle - properly centered
+        # App title and subtitle
         st.markdown("""
         <div style="text-align: center;">
             <h1 class="app-title">SSK ACMS</h1>
@@ -466,31 +470,31 @@ def login_page():
         
         st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
         
-        # Login form with better spacing
+        # Login form
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
         
-        # Add spacing
         st.markdown("<br>", unsafe_allow_html=True)
         
         # Login button
         if st.button("🚀 Login", use_container_width=True, type="primary"):
-            username_lower = username.lower()
-            password_lower = password.lower()
-            
-            if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
-                st.session_state.logged_in = True
-                st.session_state.username = username_lower
-                st.success("✅ Login successful!")
-                # Clear any cached data to prevent connection error
-                st.cache_data.clear()
-                st.rerun()
+            if username and password:  # Check if fields are not empty
+                username_lower = username.lower()
+                password_lower = password.lower()
+                
+                if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username_lower
+                    st.success("✅ Login successful!")
+                    st.rerun()
+                else:
+                    st.error("❌ Invalid username or password!")
             else:
-                st.error("❌ Invalid username or password!")
+                st.warning("⚠️ Please enter both username and password!")
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section with separator line
+    # Bottom - Credits section
     st.markdown("""
     <div class="footer-separator">
         <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); text-align: center;'>
@@ -499,150 +503,23 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
 
-def normalize_semester_name(semester):
-    """Normalize semester names for consistent ordering"""
-    semester_str = str(semester).lower().strip()
-    
-    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
-        return 'one'
-    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
-        return 'two'
-    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
-        return 'three'
-    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
-        return 'four'
-    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
-        return 'five'
-    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
-        return 'six'
-    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
-        return 'seven'
-    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
-        return 'eight'
-    else:
-        return semester_str
-
-def get_semester_order():
-    """Return the proper order for semesters"""
-    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
-
-def assign_schedule(df, allow_weekend_courses=True):
-    """Improved scheduling function"""
-    section_occupied_slots = defaultdict(set)
-    course_slot_usage = defaultdict(lambda: defaultdict(int))
-    course_section_slots = defaultdict(set)
-    
-    schedule = []
-    program_name = df["program"].iloc[0].lower() if not df.empty else ""
-    is_mba = "mba" in program_name
-    
-    # Time slots
-    weekday_slots = [
-        ("9:00 AM", "10:30 AM"),
-        ("10:45 AM", "12:15 PM"),
-        ("12:30 PM", "2:00 PM"),
-        ("2:15 PM", "3:45 PM")
-    ]
-
-    weekend_slots = [
-        ("9:00 AM", "12:00 PM"),
-        ("2:00 PM", "5:00 PM")
-    ]
-
-    mba_slots = [
-        ("9:00 AM", "12:00 PM"),
-        ("2:00 PM", "5:00 PM"),
-        ("6:30 PM", "9:30 PM")
-    ]
-
-    weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
-    weekend_days = ["Saturday", "Sunday"]
-    
-    # Get all available slots
-    if is_mba:
-        all_slots = []
-        for slot in mba_slots:
-            if slot == ("6:30 PM", "9:30 PM"):
-                for day in weekday_days:
-                    all_slots.append((day, slot))
-            else:
-                for day in weekend_days:
-                    all_slots.append((day, slot))
-    else:
-        all_slots = []
-        for slot in weekday_slots:
-            for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
-                all_slots.append((f"{day1} / {day2}", slot))
-        
-        if allow_weekend_courses:
-            for slot in weekend_slots:
-                for day in weekend_days:
-                    all_slots.append((day, slot))
-    
-    total_sections = df["required sections"].max() if not df.empty else 0
-    
-    for _, row in df.iterrows():
-        course = row["course_title"]
-        course_code = row["course_code"]
-        sections = row["required sections"]
-        
-        for sec in range(1, sections + 1):
-            slot_assigned = False
-            candidate_slots = all_slots.copy()
-            candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
-            
-            for slot_key in candidate_slots:
-                day, slot = slot_key
-                
-                if slot_key in section_occupied_slots[sec]:
-                    continue
-                
-                if slot_key in course_section_slots[course]:
-                    continue
-                
-                section_occupied_slots[sec].add(slot_key)
-                course_slot_usage[course][slot_key] += 1
-                course_section_slots[course].add(slot_key)
-                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-                slot_assigned = True
-                break
-            
-            if not slot_assigned:
-                for slot_key in candidate_slots:
-                    day, slot = slot_key
-                    
-                    if slot_key in section_occupied_slots[sec]:
-                        continue
-                    
-                    section_occupied_slots[sec].add(slot_key)
-                    course_slot_usage[course][slot_key] += 1
-                    course_section_slots[course].add(slot_key)
-                    schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-                    slot_assigned = True
-                    break
-            
-            if not slot_assigned:
-                slot_key = random.choice(all_slots)
-                day, slot = slot_key
-                section_occupied_slots[sec].add(slot_key)
-                course_slot_usage[course][slot_key] += 1
-                course_section_slots[course].add(slot_key)
-                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-    
-    return schedule
-
 def main_app():
-    """Main application interface with improved design"""
+    """Main application interface"""
     
     # Set background image for main app
     set_background_image()
     
-    # Header with white text and no shadows - UPDATED
-    st.markdown("""
+    # Header with logo and welcome message
+    logo_base64 = get_base64_of_bin_file('iobm.png')
+    
+    st.markdown(f"""
     <div style='display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 30px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
         <div style='display: flex; align-items: center; gap: 30px; flex: 1;'>
             <div style='margin-left: 20px;'>
-                {}
+                {
+                    f'<img src="data:image/png;base64,{logo_base64}" width="120" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">' if logo_base64 
+                    else '<div style="width: 120px; height: 70px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold;">🏛️ IOBM</div>'
+                }
             </div>
             <div>
                 <h1 style='color: white; font-size: 3.5rem; margin: 0; font-family: Arial Black;'>SSK ACMS</h1>
@@ -650,18 +527,82 @@ def main_app():
         </div>
         <div style='text-align: right; margin-right: 30px;'>
             <p style='color: white; font-size: 20px; font-weight: bold; margin: 0;'>
-                Welcome, {}!
+                Welcome, {USERS[st.session_state.username]['display_name']}!
             </p>
         </div>
     </div>
-    """.format(
-        '<img src="data:image/png;base64,{}" width="120" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">'.format(get_base64_of_bin_file('iobm.png')) if get_base64_of_bin_file('iobm.png') else '<div style="width: 120px; height: 70px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold;">IOBM</div>',
-        USERS[st.session_state.username]['display_name']
-    ), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     # Logout button in sidebar
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
         st.session_state.logged_in = False
         st.session_state.username = ""
-        st.session_state
+        st.rerun()
+    
+    # Main content tabs
+    tab1, tab2 = st.tabs(["📈 Catalog Overview", "📋 Course Management"])
+    
+    with tab1:
+        st.markdown("## 📊 Academic Catalog Analysis")
+        
+        # Catalog year selection
+        selected_year = st.selectbox(
+            "Select Catalog Year:",
+            options=list(CATALOG_FILES.keys()),
+            index=len(CATALOG_FILES) - 1  # Default to latest year
+        )
+        
+        if selected_year:
+            # Load and display catalog data
+            catalog_df, success = load_catalog_data(selected_year)
+            
+            if success and catalog_df is not None:
+                create_catalog_charts(catalog_df, selected_year)
+                
+                # Show sample data
+                st.markdown("### 📋 Sample Course Data")
+                st.dataframe(catalog_df.head(10), use_container_width=True)
+                
+            else:
+                st.error("Failed to load catalog data. Please check if the CSV files are present in your repository.")
+    
+    with tab2:
+        st.markdown("## 🎯 Course Management")
+        st.info("Course management features will be implemented here.")
+        
+        # Placeholder for course management functionality
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            ### ✨ Available Features:
+            - Course scheduling
+            - Program management
+            - Semester planning
+            - Resource allocation
+            """)
+        
+        with col2:
+            st.markdown("""
+            ### 🚀 Coming Soon:
+            - Advanced analytics
+            - Export functionality
+            - Conflict detection
+            - Automated scheduling
+            """)
+
+# Main application logic
+def main():
+    """Main application entry point"""
+    try:
+        if not st.session_state.logged_in:
+            login_page()
+        else:
+            main_app()
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        st.info("Please refresh the page and try again.")
+
+if __name__ == "__main__":
+    main()
