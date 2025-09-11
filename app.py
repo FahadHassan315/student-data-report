@@ -287,206 +287,183 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with improved design"""
+    """Display perfectly centered login page with logo + title on left and login on right"""
 
-    # Set background image
+    # Background
     set_background_image()
 
-    # Custom CSS
+    # CSS
     st.markdown("""
     <style>
-    /* Hide default Streamlit header */
-    .stApp > header {
-        background-color: transparent;
-    }
-
-    /* Kill ALL default white/grey containers */
+    /* Remove ALL Streamlit default containers */
     .main .block-container,
-    .element-container,
+    .stApp > header,
+    [data-testid="stDecoration"],
     [data-testid="stVerticalBlock"],
     [data-testid="stHorizontalBlock"],
     [data-testid="stVerticalBlock"] > div,
     [data-testid="stHorizontalBlock"] > div {
         background: transparent !important;
-        box-shadow: none !important;
         border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
     }
 
-    /* Align both columns vertically centered */
-    [data-testid="stHorizontalBlock"] {
-        display: flex !important;
-        align-items: center !important;
+    /* Full screen center */
+    .fullpage-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        gap: 80px;
     }
 
-    /* Logo + title container */
-    .logo-title-container {
+    /* Left side (logo + title) */
+    .logo-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
         padding: 40px;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* Flexbox for logo + text (stacked by default) */
-    .logo-flex {
-        display: flex;
-        flex-direction: column;   /* change to row for side-by-side */
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         text-align: center;
     }
-
     .app-logo {
-        width: 150px;
+        width: 130px;
         height: auto;
+        margin-bottom: 20px;
     }
-
     .app-title {
-        font-size: 3.5rem;
+        font-size: 3rem;
         font-weight: bold;
         color: white;
-        margin: 10px 0;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-        font-family: 'Arial Black', sans-serif;
-    }
-
-    .app-subtitle {
-        font-size: 1.3rem;
-        color: white;
         margin: 0;
-        font-weight: 600;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    }
+    .app-subtitle {
+        font-size: 1.2rem;
+        color: white;
+        margin-top: 10px;
+        font-weight: 500;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
-    .login-section {
+    /* Right side (login) */
+    .login-box {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
-        padding: 40px;
+        padding: 40px 50px;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        margin: 20px 0;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        width: 350px;
     }
-
     .login-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: white;
-        margin-bottom: 30px;
         text-align: center;
         font-weight: bold;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
-    /* Inputs */
+    /* Input fields */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
         border-radius: 10px !important;
-        padding: 15px !important;
-        font-size: 16px !important;
+        padding: 12px !important;
+        font-size: 15px !important;
         color: #1a1a1a !important;
         font-weight: 500 !important;
-    }
-    .stTextInput > div > div > input:focus {
-        border-color: #4ECDC4 !important;
-        box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3) !important;
     }
     .stTextInput > label {
         color: white !important;
         font-weight: bold !important;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
-        font-size: 16px !important;
     }
 
-    /* Buttons */
+    /* Button */
     .stButton > button {
         background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
         color: white !important;
         border: none !important;
         border-radius: 10px !important;
-        padding: 15px 30px !important;
-        font-size: 18px !important;
+        padding: 12px 20px !important;
+        font-size: 16px !important;
         font-weight: bold !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+        width: 100% !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
     .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
 
     /* Footer */
-    .footer-separator {
-        border-top: 2px solid rgba(255, 255, 255, 0.3);
-        margin: 40px 0 20px 0;
-        padding-top: 20px;
+    .footer {
+        border-top: 2px solid rgba(255,255,255,0.3);
+        margin-top: 40px;
+        padding-top: 15px;
+        text-align: center;
     }
-    .footer-separator p {
+    .footer p {
         color: white !important;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        text-align: center;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # Two columns
-    col_left, col_right = st.columns([1, 1], gap="large")
+    # Custom layout
+    st.markdown('<div class="fullpage-center">', unsafe_allow_html=True)
 
-    # Left: logo + text
-    with col_left:
-        st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
-        st.markdown('<div class="logo-flex">', unsafe_allow_html=True)
+    # Left (Logo + Title)
+    st.markdown('<div class="logo-box">', unsafe_allow_html=True)
+    try:
+        st.image("iobm.png", width=130, output_format="auto")
+    except:
+        st.markdown('<div style="width: 130px; height: 130px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;"><h2 style="color:white;">Logo</h2></div>', unsafe_allow_html=True)
 
-        try:
-            st.image("iobm.png", width=150, output_format="auto")
-        except:
-            st.markdown('<div style="width: 150px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px;"><h1 style="color: white;">IOBM</h1></div>', unsafe_allow_html=True)
+    st.markdown("""
+        <h1 class="app-title">SSK ACMS</h1>
+        <p class="app-subtitle">Academic Course Management System</p>
+    """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown("""
-            <div>
-                <h1 class="app-title">SSK ACMS</h1>
-                <p class="app-subtitle">Academic Course Management System</p>
-            </div>
-        """, unsafe_allow_html=True)
+    # Right (Login)
+    st.markdown('<div class="login-box">', unsafe_allow_html=True)
+    st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
+    password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
 
-    # Right: login form
-    with col_right:
-        st.markdown('<div class="login-section">', unsafe_allow_html=True)
-        st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
+    if st.button("🚀 Login", use_container_width=True):
+        username_lower = username.lower()
+        password_lower = password.lower()
+        if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
+            st.session_state.logged_in = True
+            st.session_state.username = username_lower
+            st.success("✅ Login successful!")
+            st.rerun()
+        else:
+            st.error("❌ Invalid username or password!")
 
-        username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
-        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        if st.button("🚀 Login", use_container_width=True, type="primary"):
-            username_lower = username.lower()
-            password_lower = password.lower()
-            if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
-                st.session_state.logged_in = True
-                st.session_state.username = username_lower
-                st.success("✅ Login successful!")
-                st.rerun()
-            else:
-                st.error("❌ Invalid username or password!")
-
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # Footer
     st.markdown("""
-    <div class="footer-separator">
+    <div class="footer">
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
         <strong>Supervisor:</strong> Dr. Rabiya Sabri | 
         <strong>Designer:</strong> Habibullah Rajpar</p>
