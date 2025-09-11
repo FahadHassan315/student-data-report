@@ -313,40 +313,23 @@ def login_page():
         background: transparent !important;
     }
     
-    /* Custom login sections with glassmorphism */
+    /* Custom login sections with NO background boxes */
     .logo-section {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        padding: 40px;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         text-align: center;
         margin: 20px 0;
+        padding: 40px 20px;
     }
     
     .login-section {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        padding: 40px;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         margin: 20px 0;
+        padding: 40px 20px;
     }
     
     .credits-section {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         text-align: center;
-        margin-top: 30px;
+        margin-top: 50px;
+        padding: 20px;
+        border-top: 2px solid rgba(255,255,255,0.3);
     }
     
     .app-title {
@@ -469,16 +452,14 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section
+    # Bottom - Credits section with thin line separator
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
     <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-def normalize_semester_name(semester):
+    st.markdown('</div>', unsafe_allow_html=True)def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
     
