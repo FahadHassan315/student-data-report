@@ -301,19 +301,20 @@ def login_page():
     }
     
     /* Remove ALL white backgrounds and containers */
-    .main .block-container {
+    .main .block-container,
+    .element-container,
+    .stColumn,
+    .css-ocqkz7,
+    .st-emotion-cache-1vt4y43,
+    .st-emotion-cache-1r6slb0 {
         background: transparent !important;
         padding: 0 !important;
         margin: 0 !important;
         box-shadow: none !important;
+        border: none !important;
     }
     
-    /* Remove any element containers */
-    .element-container {
-        background: transparent !important;
-    }
-    
-    /* Logo and title container with better alignment */
+    /* Logo + title container */
     .logo-title-container {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -325,10 +326,40 @@ def login_page():
         text-align: center;
         margin: 20px 0;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 400px;
+    }
+
+    /* Flexbox for logo + text alignment */
+    .logo-flex {
+        display: flex;
+        flex-direction: column; /* stacked */
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .app-logo {
+        width: 150px;
+        height: auto;
+    }
+
+    .app-title {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: white;
+        margin: 10px 0;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        font-family: 'Arial Black', sans-serif;
+    }
+    
+    .app-subtitle {
+        font-size: 1.3rem;
+        color: white;
+        margin: 0;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     .login-section {
@@ -342,23 +373,6 @@ def login_page():
         margin: 20px 0;
     }
     
-    .app-title {
-        font-size: 4rem;
-        font-weight: bold;
-        color: white;
-        margin: 20px 0 10px 0;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-        font-family: 'Arial Black', sans-serif;
-    }
-    
-    .app-subtitle {
-        font-size: 1.5rem;
-        color: white;
-        margin: 0;
-        font-weight: 600;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-    }
-    
     .login-title {
         font-size: 2.5rem;
         color: white;
@@ -368,7 +382,7 @@ def login_page():
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     }
     
-    /* Make form inputs more visible */
+    /* Form input styling */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -391,7 +405,7 @@ def login_page():
         font-size: 16px !important;
     }
     
-    /* Style buttons */
+    /* Buttons */
     .stButton > button {
         background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
         color: white !important;
@@ -409,11 +423,18 @@ def login_page():
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
     
-    /* Footer separator line */
+    /* Footer */
     .footer-separator {
         border-top: 2px solid rgba(255, 255, 255, 0.3);
         margin: 40px 0 20px 0;
         padding-top: 20px;
+    }
+    .footer-separator p {
+        color: white !important;
+        font-size: 16px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        text-align: center;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -421,40 +442,36 @@ def login_page():
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
     
-    # Left side - Logo and App Name with better alignment
+    # Left side - Logo and App Name
     with col_left:
         st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
-        
-        # Display logo
+        st.markdown('<div class="logo-flex">', unsafe_allow_html=True)
+
         try:
-            st.image("iobm.png", width=300)
+            st.image("iobm.png", width=150, output_format="auto")
         except:
-            st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+            st.markdown('<div style="width: 150px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px;"><h1 style="color: white;">IOBM</h1></div>', unsafe_allow_html=True)
         
-        # App title and subtitle
         st.markdown("""
-        <div style="text-align: center;">
-            <h1 class="app-title">SSK ACMS</h1>
-            <p class="app-subtitle">Academic Course Management System</p>
-        </div>
+            <div>
+                <h1 class="app-title">SSK ACMS</h1>
+                <p class="app-subtitle">Academic Course Management System</p>
+            </div>
         """, unsafe_allow_html=True)
-        
+
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     
     # Right side - Login Form
     with col_right:
         st.markdown('<div class="login-section">', unsafe_allow_html=True)
-        
         st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
         
-        # Login form with better spacing
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
         
-        # Add spacing
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Login button
         if st.button("🚀 Login", use_container_width=True, type="primary"):
             username_lower = username.lower()
             password_lower = password.lower()
@@ -469,12 +486,12 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section with separator line
+    # Footer
     st.markdown("""
     <div class="footer-separator">
-        <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); text-align: center;'>
-            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
-        </div>
+        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
+        <strong>Supervisor:</strong> Dr. Rabiya Sabri | 
+        <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
 
