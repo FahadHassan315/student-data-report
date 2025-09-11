@@ -89,11 +89,15 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }}
         
-        /* Make charts blend better */
+        /* Make charts blend better - remove white background completely */
         .js-plotly-plot {{
             background: transparent !important;
             border-radius: 10px;
             padding: 10px;
+        }}
+        
+        .js-plotly-plot .plotly {{
+            background: transparent !important;
         }}
         
         /* Improve text visibility */
@@ -103,6 +107,7 @@ def set_background_image():
         
         h1, h2, h3, h4, h5, h6, p, .stMetric {{
             color: #1a1a1a !important;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }}
         </style>
         """
@@ -128,11 +133,15 @@ def set_background_image():
             background-color: rgba(255, 255, 255, 0.95) !important;
         }
         
-        /* Make charts blend better */
+        /* Make charts blend better - remove white background completely */
         .js-plotly-plot {
             background: transparent !important;
             border-radius: 10px;
             padding: 10px;
+        }
+        
+        .js-plotly-plot .plotly {
+            background: transparent !important;
         }
         </style>
         """
@@ -191,7 +200,7 @@ def load_catalog_data(catalog_year):
 def create_catalog_charts(catalog_df, selected_catalog_year):
     """Create single pie chart showing college distribution by number of programs"""
     
-    st.markdown(f"<h2 style='color: white; font-weight: bold; margin-bottom: 30px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color: #1a1a1a; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold; margin-bottom: 30px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
     
     # Create college-wise program distribution (count unique programs per college)
     college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
@@ -229,18 +238,18 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         fig_college.update_layout(
             height=500, 
             showlegend=True,
-            plot_bgcolor='transparent',
-            paper_bgcolor='transparent',
-            font=dict(color='white', size=14, family="Arial Black"),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',  # Changed to transparent
+            font=dict(color='#1a1a1a', size=14, family="Arial Black"),
             legend=dict(
                 orientation="v",
                 yanchor="middle",
                 y=0.5,
                 xanchor="left",
                 x=1.05,
-                font=dict(size=12, color='white'),
-                bgcolor='rgba(255,255,255,0.1)',
-                bordercolor='white',
+                font=dict(size=12, color='#1a1a1a'),
+                bgcolor='rgba(255,255,255,0.9)',
+                bordercolor='#1a1a1a',
                 borderwidth=1
             ),
             margin=dict(l=20, r=150, t=20, b=20)
@@ -248,41 +257,41 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         st.plotly_chart(fig_college, use_container_width=True)
     
-    # Summary statistics with improved styling
+    # Summary statistics with increased opacity for background blending
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); text-align: center;'>
-            <h3 style='color: white; margin: 0; font-weight: bold;'>Total Colleges</h3>
-            <h1 style='color: #FF6B6B; margin: 10px 0 0 0; font-weight: bold;'>{}</h1>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+            <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Colleges</h3>
+            <h1 style='color: #FF6B6B; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df['college'].unique())), unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); text-align: center;'>
-            <h3 style='color: white; margin: 0; font-weight: bold;'>Total Programs</h3>
-            <h1 style='color: #4ECDC4; margin: 10px 0 0 0; font-weight: bold;'>{}</h1>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+            <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Programs</h3>
+            <h1 style='color: #4ECDC4; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df['program'].unique())), unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); text-align: center;'>
-            <h3 style='color: white; margin: 0; font-weight: bold;'>Total Courses</h3>
-            <h1 style='color: #45B7D1; margin: 10px 0 0 0; font-weight: bold;'>{}</h1>
+        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+            <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Courses</h3>
+            <h1 style='color: #45B7D1; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with NO white boxes"""
+    """Display horizontal login page with improved design"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS to completely remove white containers
+    # Add custom CSS to improve login page design
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -303,30 +312,40 @@ def login_page():
         background: transparent !important;
     }
     
-    /* Custom login sections with NO background boxes */
-    .logo-section {
+    /* Logo and title container with better alignment */
+    .logo-title-container {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         text-align: center;
         margin: 20px 0;
-        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
     }
     
     .login-section {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         margin: 20px 0;
-        padding: 40px 20px;
-    }
-    
-    .credits-section {
-        text-align: center;
-        margin-top: 50px;
-        padding: 20px;
-        border-top: 2px solid rgba(255,255,255,0.3);
     }
     
     .app-title {
         font-size: 4rem;
         font-weight: bold;
         color: white;
-        margin: 10px 0;
+        margin: 20px 0 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
     }
@@ -334,7 +353,7 @@ def login_page():
     .app-subtitle {
         font-size: 1.5rem;
         color: white;
-        margin-bottom: 10px;
+        margin: 0;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
@@ -388,25 +407,32 @@ def login_page():
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
+    
+    /* Footer separator line */
+    .footer-separator {
+        border-top: 2px solid rgba(255, 255, 255, 0.3);
+        margin: 40px 0 20px 0;
+        padding-top: 20px;
+    }
     </style>
     """, unsafe_allow_html=True)
     
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
     
-    # Left side - Logo and App Name
+    # Left side - Logo and App Name with better alignment
     with col_left:
-        st.markdown('<div class="logo-section">', unsafe_allow_html=True)
+        st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
         
         # Display logo
         try:
-            st.image("iobm.png", width=350)
+            st.image("iobm.png", width=300)
         except:
-            st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+            st.markdown('<div style="width: 300px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto 20px auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
         
         # App title and subtitle
         st.markdown("""
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="text-align: center;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
@@ -442,14 +468,14 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section with thin line separator
-    st.markdown('<div class="credits-section">', unsafe_allow_html=True)
+    # Bottom - Credits section with separator line
     st.markdown("""
-    <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
-        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+    <div class="footer-separator">
+        <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); text-align: center;'>
+            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+        </div>
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
@@ -584,12 +610,12 @@ def assign_schedule(df, allow_weekend_courses=True):
     return schedule
 
 def main_app():
-    """Main application interface with fixed alignment"""
+    """Main application interface with improved design"""
     
     # Set background image for main app
     set_background_image()
     
-    # Header with perfect alignment using a single container
+    # Header with white text and better alignment
     st.markdown("""
     <div style='display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 30px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
         <div style='display: flex; align-items: center; gap: 30px; flex: 1;'>
@@ -597,11 +623,11 @@ def main_app():
                 {}
             </div>
             <div>
-                <h1 style='color: white; font-size: 3.5rem; margin: 0; font-family: Arial Black;'>SSK ACMS</h1>
+                <h1 style='color: white; font-size: 3.5rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
             </div>
         </div>
         <div style='text-align: right; margin-right: 30px;'>
-            <p style='color: white; font-size: 20px; font-weight: bold; margin: 0;'>
+            <p style='color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
                 Welcome, {}!
             </p>
         </div>
@@ -611,14 +637,24 @@ def main_app():
         USERS[st.session_state.username]['display_name']
     ), unsafe_allow_html=True)
     
-    # Logout button in sidebar
+    # Logout button in sidebar with better session management
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
+        # Clear all session state keys to prevent websocket issues
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        
+        # Reset to default values
         st.session_state.logged_in = False
         st.session_state.username = ""
         st.session_state.selected_college = None
         st.session_state.selected_program = None
-        st.rerun()
+        
+        # Force rerun with proper method
+        try:
+            st.rerun()
+        except AttributeError:
+            st.experimental_rerun()
     
     # Sidebar
     st.sidebar.header("Input Parameters")
@@ -862,7 +898,7 @@ def main_app():
 
     # Add Room Allocation System button at the bottom
     st.markdown("---")
-    st.markdown("<h2 style='color: white; font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #1a1a1a; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -870,14 +906,16 @@ def main_app():
             st.info("Opening Room Allocation System...")
             st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
     
-    # Footer with thin line separator
-    st.markdown("""
-    <div style='margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.3);'>
-        <div style='text-align: center; color: white; font-size: 14px; font-weight: bold;'>
+    # Footer
+    st.markdown("---")
+    st.markdown(
+        """
+        <div style='text-align: center; color: #1a1a1a; font-size: 14px; margin-top: 30px; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold;'>
             <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, 
+        unsafe_allow_html=True
+    )
 
 # Main application logic
 def main():
