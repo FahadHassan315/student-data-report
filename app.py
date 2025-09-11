@@ -285,36 +285,13 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         </div>
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
-import streamlit as st
-
-# Dummy USERS dict for login (replace with your own)
-USERS = {
-    "fahad": {"password": "123"},
-    "ali": {"password": "456"}
-}
-
-def set_background_image():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-image: url('background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
 def login_page():
     """Display horizontal login page with NO white boxes"""
-
+    
     # Set background image
     set_background_image()
-
-    # Add custom CSS
+    
+    # Add custom CSS to completely remove white containers
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -330,34 +307,37 @@ def login_page():
         box-shadow: none !important;
     }
     
+    /* Remove any element containers */
     .element-container {
         background: transparent !important;
     }
-
-    /* Two column fix - vertically center contents */
-    .st-emotion-cache-1inhx8t, .st-emotion-cache-1kyxreq {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    
+    /* Custom login sections with NO background boxes */
+    .logo-section {
+        text-align: center;
+        margin: 20px 0;
+        padding: 40px 20px;
     }
-
-    .left-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+    
+    .login-section {
+        margin: 20px 0;
+        padding: 40px 20px;
     }
-
-    /* Logo + Title */
+    
+    .credits-section {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        border-top: 2px solid rgba(255,255,255,0.3);
+    }
+    
     .app-title {
         font-size: 4rem;
         font-weight: bold;
         color: white;
-        margin: 20px 0 10px 0;
+        margin: 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
-        text-align: center;
     }
     
     .app-subtitle {
@@ -366,9 +346,8 @@ def login_page():
         margin-bottom: 10px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        text-align: center;
     }
-
+    
     .login-title {
         font-size: 2.5rem;
         color: white;
@@ -377,8 +356,8 @@ def login_page():
         font-weight: bold;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     }
-
-    /* Inputs */
+    
+    /* Make form inputs more visible */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -401,7 +380,7 @@ def login_page():
         font-size: 16px !important;
     }
     
-    /* Buttons */
+    /* Style buttons */
     .stButton > button {
         background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
         color: white !important;
@@ -418,51 +397,46 @@ def login_page():
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
-
-    /* Credits */
-    .credits-section {
-        text-align: center;
-        margin-top: 50px;
-        padding: 20px;
-        border-top: 2px solid rgba(255,255,255,0.3);
-        color: white !important;
-        font-weight: bold;
-        font-size: 16px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-    }
     </style>
     """, unsafe_allow_html=True)
-
+    
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
-
-    # Left side - Logo + Title
+    
+    # Left side - Logo and App Name
     with col_left:
-        st.markdown('<div class="left-col">', unsafe_allow_html=True)
-
+        st.markdown('<div class="logo-section">', unsafe_allow_html=True)
+        
+        # Display logo
         try:
-            st.image("iobm.png", width=200)
+            st.image("iobm.png", width=350)
         except:
-            st.markdown('<div style="width: 200px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white;">IOBM</h1></div>', unsafe_allow_html=True)
-
+            st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+        
+        # App title and subtitle
         st.markdown("""
-        <h1 class="app-title">SSK ACMS</h1>
-        <p class="app-subtitle">Academic Course Management System</p>
+        <div style="text-align: center; margin-top: 30px;">
+            <h1 class="app-title">SSK ACMS</h1>
+            <p class="app-subtitle">Academic Course Management System</p>
+        </div>
         """, unsafe_allow_html=True)
-
+        
         st.markdown('</div>', unsafe_allow_html=True)
-
+    
     # Right side - Login Form
     with col_right:
         st.markdown('<div class="login-section">', unsafe_allow_html=True)
-
+        
         st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
-
+        
+        # Login form with better spacing
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
-
+        
+        # Add spacing
         st.markdown("<br>", unsafe_allow_html=True)
-
+        
+        # Login button
         if st.button("🚀 Login", use_container_width=True, type="primary"):
             username_lower = username.lower()
             password_lower = password.lower()
@@ -474,18 +448,17 @@ def login_page():
                 st.rerun()
             else:
                 st.error("❌ Invalid username or password!")
-
+        
         st.markdown('</div>', unsafe_allow_html=True)
-
-    # Credits section
+    
+    # Bottom - Credits section with thin line separator
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
-    <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
-    <strong>Supervisor:</strong> Dr. Rabiya Sabri | 
-    <strong>Designer:</strong> Habibullah Rajpar</p>
+    <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
+        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+    </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
