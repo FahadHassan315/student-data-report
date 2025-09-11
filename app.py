@@ -291,7 +291,7 @@ def login_page():
     # Set background image
     set_background_image()
     
-    # Add custom CSS to completely remove white containers
+    # Add custom CSS to completely remove white containers and improve layout with Flexbox
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -314,8 +314,10 @@ def login_page():
     
     /* Custom login sections with NO background boxes */
     .logo-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        margin: 20px 0;
         padding: 40px 20px;
     }
     
@@ -407,7 +409,7 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
         
-        # Display logo
+        # Display logo or placeholder
         try:
             st.image("iobm.png", width=350)
         except:
@@ -427,7 +429,7 @@ def login_page():
     with col_right:
         st.markdown('<div class="login-section">', unsafe_allow_html=True)
         
-        st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="login-title">Login</h2>', unsafe_allow_html=True)
         
         # Login form with better spacing
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
@@ -459,7 +461,14 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-def normalize_semester_name(semester):
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    login_page()
+else:
+    st.write("Logged in!")def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
     
