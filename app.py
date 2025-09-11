@@ -288,32 +288,36 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
 
 def login_page():
     """Display horizontal login page with improved design"""
-    
+
     # Set background image
     set_background_image()
-    
-    # Add custom CSS to improve login page design
+
+    # Custom CSS
     st.markdown("""
     <style>
-    /* Hide the default Streamlit header and menu */
+    /* Hide default Streamlit header */
     .stApp > header {
         background-color: transparent;
     }
-    
-    /* Remove ALL white backgrounds and containers */
+
+    /* Kill ALL default white/grey containers */
     .main .block-container,
     .element-container,
-    .stColumn,
-    .css-ocqkz7,
-    .st-emotion-cache-1vt4y43,
-    .st-emotion-cache-1r6slb0 {
+    [data-testid="stVerticalBlock"],
+    [data-testid="stHorizontalBlock"],
+    [data-testid="stVerticalBlock"] > div,
+    [data-testid="stHorizontalBlock"] > div {
         background: transparent !important;
-        padding: 0 !important;
-        margin: 0 !important;
         box-shadow: none !important;
         border: none !important;
     }
-    
+
+    /* Align both columns vertically centered */
+    [data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        align-items: center !important;
+    }
+
     /* Logo + title container */
     .logo-title-container {
         background: rgba(255, 255, 255, 0.15);
@@ -323,21 +327,19 @@ def login_page():
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        margin: 20px 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        min-height: 400px;
+        align-items: center;
     }
 
-    /* Flexbox for logo + text alignment */
+    /* Flexbox for logo + text (stacked by default) */
     .logo-flex {
         display: flex;
-        flex-direction: column; /* stacked */
+        flex-direction: column;   /* change to row for side-by-side */
         align-items: center;
         justify-content: center;
         gap: 20px;
+        text-align: center;
     }
 
     .app-logo {
@@ -353,7 +355,7 @@ def login_page():
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
     }
-    
+
     .app-subtitle {
         font-size: 1.3rem;
         color: white;
@@ -361,7 +363,7 @@ def login_page():
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
-    
+
     .login-section {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -372,7 +374,7 @@ def login_page():
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         margin: 20px 0;
     }
-    
+
     .login-title {
         font-size: 2.5rem;
         color: white;
@@ -381,8 +383,8 @@ def login_page():
         font-weight: bold;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
     }
-    
-    /* Form input styling */
+
+    /* Inputs */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -392,19 +394,17 @@ def login_page():
         color: #1a1a1a !important;
         font-weight: 500 !important;
     }
-    
     .stTextInput > div > div > input:focus {
         border-color: #4ECDC4 !important;
         box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3) !important;
     }
-    
     .stTextInput > label {
         color: white !important;
         font-weight: bold !important;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
         font-size: 16px !important;
     }
-    
+
     /* Buttons */
     .stButton > button {
         background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
@@ -417,12 +417,11 @@ def login_page():
         text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
     }
-    
     .stButton > button:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
-    
+
     /* Footer */
     .footer-separator {
         border-top: 2px solid rgba(255, 255, 255, 0.3);
@@ -438,11 +437,11 @@ def login_page():
     }
     </style>
     """, unsafe_allow_html=True)
-    
-    # Main content - two columns
+
+    # Two columns
     col_left, col_right = st.columns([1, 1], gap="large")
-    
-    # Left side - Logo and App Name
+
+    # Left: logo + text
     with col_left:
         st.markdown('<div class="logo-title-container">', unsafe_allow_html=True)
         st.markdown('<div class="logo-flex">', unsafe_allow_html=True)
@@ -451,7 +450,7 @@ def login_page():
             st.image("iobm.png", width=150, output_format="auto")
         except:
             st.markdown('<div style="width: 150px; height: 150px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px;"><h1 style="color: white;">IOBM</h1></div>', unsafe_allow_html=True)
-        
+
         st.markdown("""
             <div>
                 <h1 class="app-title">SSK ACMS</h1>
@@ -461,21 +460,20 @@ def login_page():
 
         st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Right side - Login Form
+
+    # Right: login form
     with col_right:
         st.markdown('<div class="login-section">', unsafe_allow_html=True)
         st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
-        
+
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
-        
+
         st.markdown("<br>", unsafe_allow_html=True)
-        
+
         if st.button("🚀 Login", use_container_width=True, type="primary"):
             username_lower = username.lower()
             password_lower = password.lower()
-            
             if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
                 st.session_state.logged_in = True
                 st.session_state.username = username_lower
@@ -483,9 +481,9 @@ def login_page():
                 st.rerun()
             else:
                 st.error("❌ Invalid username or password!")
-        
+
         st.markdown('</div>', unsafe_allow_html=True)
-    
+
     # Footer
     st.markdown("""
     <div class="footer-separator">
