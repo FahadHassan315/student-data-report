@@ -343,7 +343,7 @@ def login_page():
     }
     
     .app-title {
-        font-size: 5rem;
+        font-size: 7rem;
         font-weight: bold;
         color: white !important; /* Forced white title */
         margin: 10px 0;
@@ -352,7 +352,7 @@ def login_page():
     }
     
     .app-subtitle {
-        font-size: 2.5rem;
+        font-size: 4.5rem;
         color: white !important; /* Forced white subtitle */
         margin-bottom: 10px;
         font-weight: 600;
