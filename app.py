@@ -436,7 +436,7 @@ def login_page():
         # Show logo FIRST - above everything
         try:
             # Force the logo to display with centered alignment
-            col1, col2, col3 = st.columns([0.5, 1, 0.5])
+            col1, col2, col3 = st.columns([0.7, 1, 0.3])
             with col2:
                 st.image("iobm.png", width=350)
         except Exception as e:
