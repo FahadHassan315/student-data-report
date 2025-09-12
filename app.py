@@ -79,7 +79,7 @@ def set_background_image():
         .main .block-container {{
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            padding: 2rem;
+            padding: 1rem;
             margin-top: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }}
@@ -123,7 +123,7 @@ def set_background_image():
         .main .block-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
-            padding: 2rem;
+            padding: 1rem;
             margin-top: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -200,7 +200,7 @@ def load_catalog_data(catalog_year):
 def create_catalog_charts(catalog_df, selected_catalog_year):
     """Create single pie chart showing college distribution by number of programs"""
     
-    st.markdown(f"<h2 style='color: #1a1a1a; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold; margin-bottom: 30px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold; margin-bottom: 20px; margin-top: 0px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
     
     # Create college-wise program distribution (count unique programs per college)
     college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
@@ -236,7 +236,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         # Improve chart styling with transparent background
         fig_college.update_layout(
-            height=500, 
+            height=400, 
             showlegend=True,
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',  # Changed to transparent
@@ -263,7 +263,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col1:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Colleges</h3>
             <h1 style='color: #FF6B6B; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -271,7 +271,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col2:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Programs</h3>
             <h1 style='color: #4ECDC4; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -279,32 +279,50 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col3:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Courses</h3>
             <h1 style='color: #45B7D1; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with NO white boxes"""
+    """Display horizontal login page with NO white boxes and proper viewport sizing"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS to completely remove white containers
+    # Add custom CSS to completely remove white containers and fix viewport
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
     .stApp > header {
         background-color: transparent;
+        height: 0px;
+    }
+    
+    /* Force full height usage */
+    html, body, [data-testid="stAppViewContainer"] {
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+    
+    [data-testid="stAppViewContainer"] > .main {
+        height: 100vh !important;
+        overflow-y: auto !important;
+        padding-top: 0 !important;
     }
     
     /* Remove ALL white backgrounds and containers */
     .main .block-container {
         background: transparent !important;
-        padding: 0 !important;
+        padding: 1rem 2rem !important;
         margin: 0 !important;
         box-shadow: none !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
     }
     
     /* Remove any element containers */
@@ -326,43 +344,48 @@ def login_page():
     /* Custom login sections with NO background boxes */
     .logo-section {
         text-align: center;
-        margin: 20px 0;
-        padding: 40px 20px;
+        margin: 10px 0;
+        padding: 20px;
+        flex-shrink: 0;
     }
     
     .login-section {
-        margin: 20px 0;
-        padding: 40px 20px;
+        margin: 10px 0;
+        padding: 20px;
+        flex-shrink: 0;
     }
     
     .credits-section {
         text-align: center;
-        margin-top: 50px;
-        padding: 20px;
+        margin-top: 20px;
+        padding: 10px;
         border-top: 2px solid rgba(255,255,255,0.3);
+        flex-shrink: 0;
     }
     
     .app-title {
-        font-size: 7rem;
+        font-size: 5rem;
         font-weight: bold;
-        color: white !important; /* Forced white title */
-        margin: 10px 0;
+        color: white !important; 
+        margin: 5px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
+        line-height: 1.1;
     }
     
     .app-subtitle {
-        font-size: 4.5rem;
-        color: white !important; /* Forced white subtitle */
-        margin-bottom: 10px;
+        font-size: 3rem;
+        color: white !important; 
+        margin-bottom: 5px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        line-height: 1.2;
     }
     
     .login-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: white;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         text-align: center;
         font-weight: bold;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
@@ -370,13 +393,14 @@ def login_page():
     
     .credits-text {
         color: white !important;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     .credits-text p {
         color: white !important;
+        margin: 5px 0 !important;
     }
     
     .credits-text strong {
@@ -388,7 +412,7 @@ def login_page():
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
         border-radius: 10px !important;
-        padding: 15px !important;
+        padding: 12px !important;
         font-size: 16px !important;
         color: #1a1a1a !important;
         font-weight: 500 !important;
@@ -412,8 +436,8 @@ def login_page():
         color: white !important;
         border: none !important;
         border-radius: 10px !important;
-        padding: 15px 30px !important;
-        font-size: 18px !important;
+        padding: 12px 25px !important;
+        font-size: 16px !important;
         font-weight: bold !important;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
@@ -423,8 +447,25 @@ def login_page():
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
     }
+    
+    /* Adjust column spacing */
+    .block-container [data-testid="column"] {
+        padding: 0 1rem !important;
+    }
+    
+    /* Fix main content container */
+    .main-content-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        max-height: 100vh;
+    }
     </style>
     """, unsafe_allow_html=True)
+    
+    # Wrap everything in a container to control layout
+    st.markdown('<div class="main-content-container">', unsafe_allow_html=True)
     
     # Main content - two columns
     col_left, col_right = st.columns([1, 1], gap="large")
@@ -438,12 +479,12 @@ def login_page():
             # Force the logo to display with centered alignment
             col1, col2, col3 = st.columns([0.5, 1, 0.5])
             with col2:
-                st.image("iobm.png", width=350)
+                st.image("iobm.png", width=250)
         except Exception as e:
             # Fallback if image doesn't load
             st.markdown('''
-            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-                <div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); 
+            <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                <div style="width: 250px; height: 150px; background: rgba(255,255,255,0.2); 
                            display: flex; align-items: center; justify-content: center; 
                            border-radius: 10px;">
                     <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 0;">IOBM</h1>
@@ -453,7 +494,7 @@ def login_page():
 
         # Title + subtitle (AFTER logo, with some spacing)
         st.markdown("""
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="text-align: center; margin-top: 20px;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
@@ -497,6 +538,10 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Close main container
+    st.markdown('</div>', unsafe_allow_html=True)
+
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
@@ -630,321 +675,49 @@ def assign_schedule(df, allow_weekend_courses=True):
     return schedule
 
 def main_app():
-    """Main application interface with improved design"""
+    """Main application interface with improved design and proper spacing"""
     
     # Set background image for main app
     set_background_image()
     
-    # Header with white text and better alignment
+    # Add CSS for white text in header and footer
     st.markdown("""
-    <div style='display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 30px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
-        <div style='display: flex; align-items: center; gap: 30px; flex: 1;'>
-            <div style='margin-left: 20px;'>
-                {}
-            </div>
-            <div>
-                <h1 style='color: white; font-size: 3.5rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
-            </div>
-        </div>
-        <div style='text-align: right; margin-right: 30px;'>
-            <p style='color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
-                Welcome, {}!
-            </p>
-        </div>
-    </div>
-    """.format(
-        '<img src="data:image/png;base64,{}" width="120" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">'.format(get_base64_of_bin_file('iobm.png')) if get_base64_of_bin_file('iobm.png') else '<div style="width: 120px; height: 70px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold;">IOBM</div>',
-        USERS[st.session_state.username]['display_name']
-    ), unsafe_allow_html=True)
+    <style>
+    /* Main app container adjustments */
+    .main .block-container {
+        padding-top: 1rem !important;
+        margin-top: 0 !important;
+    }
     
-    # Logout button in sidebar with better session management
-    st.sidebar.markdown("---")
-    if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Clear all session state keys to prevent websocket issues
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        
-        # Reset to default values
-        st.session_state.logged_in = False
-        st.session_state.username = ""
-        st.session_state.selected_college = None
-        st.session_state.selected_program = None
-        
-        # Force rerun with proper method
-        try:
-            st.rerun()
-        except AttributeError:
-            st.experimental_rerun()
+    /* White text for headers and important elements */
+    .main-header h1, .main-header p {
+        color: white !important;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    }
     
-    # Sidebar
-    st.sidebar.header("Input Parameters")
-
-    data_source = st.sidebar.radio(
-        "Choose Data Source:",
-        ["📊 Institutional Catalog", "📁 Upload Your Own File"],
-        index=0
-    )
+    .main-footer p, .main-footer strong {
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    }
     
-    catalog_df = None
-    selected_catalog_year = None
+    /* Reduce spacing and margins */
+    .chart-container {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
     
-    if data_source == "📊 Institutional Catalog":
-        default_index = list(CATALOG_FILES.keys()).index("2023-2024")
-        selected_catalog_year = st.sidebar.selectbox(
-            "Select Academic Year:",
-            list(CATALOG_FILES.keys()),
-            index=default_index
-        )
-        
-        catalog_df, success = load_catalog_data(selected_catalog_year)
-        if not success:
-            st.error(f"Failed to load the {selected_catalog_year} catalog.")
-            st.stop()
-        
-        create_catalog_charts(catalog_df, selected_catalog_year)
-            
-    else:
-        uploaded_file = st.sidebar.file_uploader("Upload Catalog File", type=["csv", "xlsx"])
-        if uploaded_file:
-            try:
-                if uploaded_file.name.endswith(".csv"):
-                    catalog_df = pd.read_csv(uploaded_file)
-                else:
-                    catalog_df = pd.read_excel(uploaded_file)
-                
-                catalog_df.columns = catalog_df.columns.str.lower().str.strip()
-                catalog_df = catalog_df.dropna(subset=['semester'])
-                catalog_df['course_code'] = catalog_df['course_code'].fillna('')
-                catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
-                catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
-                
-                selected_catalog_year = "Custom Upload"
-                create_catalog_charts(catalog_df, selected_catalog_year)
-                
-            except Exception as e:
-                st.error(f"Error reading file: {e}")
-                st.stop()
-        else:
-            st.warning("Please upload a file to continue.")
-            st.stop()
-
-    if catalog_df is None:
-        st.error("No data loaded.")
-        st.stop()
-
-    # Rest of the main functionality continues here...
-    programs_list = sorted(catalog_df["program"].unique())
-    programs_with_all = ["All Programs"] + programs_list
-    program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
+    /* Compact layout adjustments */
+    div[data-testid="stMarkdownContainer"] {
+        margin-bottom: 0.5rem !important;
+    }
     
-    # Get semesters
-    raw_semesters = catalog_df["semester"].unique()
-    normalized_semesters = []
+    .stPlotlyChart {
+        margin-top: 0 !important;
+        margin-bottom: 0.5rem !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
-    for sem in raw_semesters:
-        if sem and str(sem).strip():
-            normalized = normalize_semester_name(sem)
-            normalized_semesters.append((normalized, sem))
-    
-    semester_order = get_semester_order()
-    normalized_semesters.sort(key=lambda x: semester_order.index(x[0]) if x[0] in semester_order else 999)
-    
-    semester_display_list = [original for normalized, original in normalized_semesters]
-    semester_filter = st.sidebar.selectbox("Select Semester", semester_display_list)
-    
-    selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
-    has_bachelor_programs = any("mba" not in prog.lower() for prog in selected_programs)
-    
-    include_weekend_courses = True
-    if has_bachelor_programs:
-        st.sidebar.markdown("### Weekend Course Settings")
-        include_weekend_courses = st.sidebar.checkbox(
-            "Include Weekend Courses",
-            value=True,
-            help="Uncheck to avoid weekend classes"
-        )
-    
-    # Student count input
-    if program_filter == "All Programs":
-        if 'student_counts' not in st.session_state:
-            st.session_state.student_counts = {program: 1 for program in programs_list}
-        
-        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=False):
-            st.markdown("**Enter number of students for each program:**")
-            for program in programs_list:
-                st.session_state.student_counts[program] = st.number_input(
-                    f"{program}",
-                    min_value=1,
-                    value=st.session_state.student_counts.get(program, 1),
-                    step=1,
-                    key=f"students_{program}"
-                )
-        
-        student_counts = st.session_state.student_counts
-        
-    else:
-        student_count = st.sidebar.number_input("Enter Number of Students", min_value=1, step=1)
-
-    # Generate report
-    if st.sidebar.button("Generate Report"):
-        catalog_name = selected_catalog_year if selected_catalog_year else "Custom_Upload"
-        
-        if program_filter == "All Programs":
-            all_programs_df = catalog_df[
-                catalog_df["semester"] == semester_filter
-            ][["program", "course_code", "course_title", "college"]].copy()
-            
-            if all_programs_df.empty:
-                st.warning("No courses found for the selected Semester.")
-            else:
-                all_results = []
-                
-                for program in programs_list:
-                    program_df = all_programs_df[all_programs_df["program"] == program].copy()
-                    
-                    if not program_df.empty:
-                        current_student_count = student_counts[program]
-                        
-                        program_df["failed/withdrawn students"] = 0
-                        program_df["active students"] = current_student_count
-                        program_df["total student strength"] = current_student_count
-                        program_df["required sections"] = program_df["total student strength"].apply(lambda x: math.ceil(x / 40))
-                        program_df["section"] = ""
-                        program_df["name"] = "Faculty Member"
-                        program_df["ids"] = ""
-                        program_df["type name"] = ""
-                        program_df["semester_selected"] = semester_filter
-                        program_df["catalog_year"] = catalog_name
-                        
-                        schedule = assign_schedule(program_df, include_weekend_courses)
-                        
-                        expanded_df = []
-                        sched_idx = 0
-                        
-                        for _, row in program_df.iterrows():
-                            for sec in range(1, row["required sections"] + 1):
-                                new_row = row.copy()
-                                new_row["section"] = sec
-                                new_row["days"] = schedule[sched_idx][1]
-                                new_row["time's"] = schedule[sched_idx][2]
-                                expanded_df.append(new_row)
-                                sched_idx += 1
-                        
-                        program_result_df = pd.DataFrame(expanded_df)
-                        program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                        all_results.append(program_result_df)
-                
-                if all_results:
-                    final_df = pd.concat(all_results, ignore_index=True)
-                    final_df = final_df[[
-                        "program", "college", "section", "course_code", "course_title", "name", "ids", 
-                        "type name", "days", "time's", "failed/withdrawn students", 
-                        "active students", "total student strength", "required sections",
-                        "semester_selected", "catalog_year"
-                    ]]
-                    
-                    st.success("Report generated for all programs!")
-                    
-                    for program in programs_list:
-                        program_data = final_df[final_df["program"] == program]
-                        if not program_data.empty:
-                            st.subheader(f"📚 {program}")
-                            st.dataframe(program_data)
-                    
-                    csv = final_df.to_csv(index=False).encode('utf-8')
-                    st.download_button(
-                        label="📥 Download Complete Schedule CSV",
-                        data=csv,
-                        file_name=f"timetable_AllPrograms_{semester_filter}_{catalog_name}.csv",
-                        mime="text/csv",
-                    )
-                else:
-                    st.warning("No data found for any programs in the selected semester.")
-        
-        else:
-            # Single program logic
-            df = catalog_df[
-                (catalog_df["program"] == program_filter) & 
-                (catalog_df["semester"] == semester_filter)
-            ][["program", "course_code", "course_title", "college"]].copy()
-            
-            if df.empty:
-                st.warning("No courses found for the selected Program and Semester.")
-            else:
-                df["failed/withdrawn students"] = 0
-                df["active students"] = student_count
-                df["total student strength"] = student_count
-                df["required sections"] = df["total student strength"].apply(lambda x: math.ceil(x / 40))
-                df["section"] = ""
-                df["name"] = "Faculty Member"
-                df["ids"] = ""
-                df["type name"] = ""
-                df["semester_selected"] = semester_filter
-                df["catalog_year"] = catalog_name
-                
-                schedule = assign_schedule(df, include_weekend_courses)
-                
-                expanded_df = []
-                sched_idx = 0
-                
-                for _, row in df.iterrows():
-                    for sec in range(1, row["required sections"] + 1):
-                        new_row = row.copy()
-                        new_row["section"] = sec
-                        new_row["days"] = schedule[sched_idx][1]
-                        new_row["time's"] = schedule[sched_idx][2]
-                        expanded_df.append(new_row)
-                        sched_idx += 1
-                
-                df = pd.DataFrame(expanded_df)
-                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                df = df[[
-                    "program", "college", "section", "course_code", "course_title", "name", "ids", 
-                    "type name", "days", "time's", "failed/withdrawn students", 
-                    "active students", "total student strength", "required sections",
-                    "semester_selected", "catalog_year"
-                ]]
-                
-                st.success("Report generated!")
-                st.dataframe(df)
-                
-                csv = df.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="📥 Download CSV",
-                    data=csv,
-                    file_name=f"timetable_{program_filter}_{semester_filter}_{catalog_name}.csv",
-                    mime="text/csv",
-                )
-
-    # Add Room Allocation System button at the bottom
-    st.markdown("---")
-    st.markdown("<h2 style='color: #1a1a1a; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
-            st.info("Opening Room Allocation System...")
-            st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
-    
-    # Footer
-    st.markdown("---")
-    st.markdown(
-        """
-        <div style='text-align: center; color: #1a1a1a; font-size: 14px; margin-top: 30px; text-shadow: 2px 2px 4px rgba(255,255,255,0.9); font-weight: bold;'>
-            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-
-# Main application logic
-def main():
-    """Main function to run the application"""
-    if not st.session_state.logged_in:
-        login_page()
-    else:
-        main_app()
-
-# Run the application
-if __name__ == "__main__":
-    main()
+    # Header with white text and better alignment
+    st.markdown(f"""
+    <div class="main-header" style='display: flex; align-items: center; justify-content: space-between; padding:
