@@ -312,6 +312,17 @@ def login_page():
         background: transparent !important;
     }
     
+    /* Hide Streamlit's image container styling */
+    .stImage {
+        background: transparent !important;
+    }
+    
+    .stImage > div {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
     /* Custom login sections with NO background boxes */
     .logo-section {
         text-align: center;
@@ -334,7 +345,7 @@ def login_page():
     .app-title {
         font-size: 4rem;
         font-weight: bold;
-        color: white; /* White title */
+        color: white !important; /* Forced white title */
         margin: 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
@@ -342,7 +353,7 @@ def login_page():
     
     .app-subtitle {
         font-size: 1.5rem;
-        color: white; /* White subtitle */
+        color: white !important; /* Forced white subtitle */
         margin-bottom: 10px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
@@ -355,6 +366,13 @@ def login_page():
         text-align: center;
         font-weight: bold;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    }
+    
+    .credits-text {
+        color: white !important;
+        font-size: 16px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     /* Make form inputs more visible */
@@ -407,15 +425,27 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
 
-        # Show logo above title
+        # Show logo FIRST - above everything
         try:
-            st.image("iobm.png", width=350)
-        except:
-            st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
+            # Force the logo to display with centered alignment
+            col1, col2, col3 = st.columns([0.5, 1, 0.5])
+            with col2:
+                st.image("iobm.png", width=350)
+        except Exception as e:
+            # Fallback if image doesn't load
+            st.markdown('''
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); 
+                           display: flex; align-items: center; justify-content: center; 
+                           border-radius: 10px;">
+                    <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 0;">IOBM</h1>
+                </div>
+            </div>
+            ''', unsafe_allow_html=True)
 
-        # Title + subtitle (below logo)
+        # Title + subtitle (AFTER logo, with some spacing)
         st.markdown("""
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 30px;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
@@ -454,7 +484,7 @@ def login_page():
     # Bottom - Credits section with thin line separator
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
+    <div class="credits-text">
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
