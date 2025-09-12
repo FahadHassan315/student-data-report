@@ -372,23 +372,15 @@ def login_page():
         color: white !important;
         font-size: 16px;
         font-weight: bold;
-        -webkit-text-stroke: 2px black;
-        text-stroke: 2px black;
-        text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     .credits-text p {
         color: white !important;
-        -webkit-text-stroke: 2px black;
-        text-stroke: 2px black;
-        text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black;
     }
     
     .credits-text strong {
         color: white !important;
-        -webkit-text-stroke: 2px black;
-        text-stroke: 2px black;
-        text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black;
     }
     
     /* Make form inputs more visible */
@@ -504,7 +496,8 @@ def login_page():
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)def normalize_semester_name(semester):
+    st.markdown('</div>', unsafe_allow_html=True)
+def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
     
