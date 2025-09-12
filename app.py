@@ -375,6 +375,14 @@ def login_page():
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
+    .credits-text p {
+        color: white !important;
+    }
+    
+    .credits-text strong {
+        color: white !important;
+    }
+    
     /* Make form inputs more visible */
     .stTextInput > div > div > input {
         background: rgba(255, 255, 255, 0.9) !important;
@@ -489,7 +497,6 @@ def login_page():
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
 def normalize_semester_name(semester):
     """Normalize semester names for consistent ordering"""
     semester_str = str(semester).lower().strip()
