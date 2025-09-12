@@ -619,17 +619,19 @@ def main_app():
     # Logout button in sidebar with better session management
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Clear all session state keys properly
+        # Clear session state properly
         st.session_state.logged_in = False
         st.session_state.username = ""
         st.session_state.selected_college = None
         st.session_state.selected_program = None
         
-        # Clear any other session state variables that might cause issues
-        if 'student_counts' in st.session_state:
-            del st.session_state.student_counts
+        # Clear any other session state keys that might cause issues
+        keys_to_clear = ['student_counts']
+        for key in keys_to_clear:
+            if key in st.session_state:
+                del st.session_state[key]
         
-        # Use the proper rerun method
+        # Force rerun
         st.rerun()
     
     # Sidebar
