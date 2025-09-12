@@ -619,21 +619,18 @@ def main_app():
     # Logout button in sidebar with better session management
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Clear all session state keys to prevent websocket issues
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        
-        # Reset to default values
+        # Clear all session state keys properly
         st.session_state.logged_in = False
         st.session_state.username = ""
         st.session_state.selected_college = None
         st.session_state.selected_program = None
         
-        # Force rerun with proper method
-        try:
-            st.rerun()
-        except AttributeError:
-            st.experimental_rerun()
+        # Clear any other session state variables that might cause issues
+        if 'student_counts' in st.session_state:
+            del st.session_state.student_counts
+        
+        # Use the proper rerun method
+        st.rerun()
     
     # Sidebar
     st.sidebar.header("Input Parameters")
