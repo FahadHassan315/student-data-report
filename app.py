@@ -334,7 +334,7 @@ def login_page():
     .app-title {
         font-size: 4rem;
         font-weight: bold;
-        color: white; /* White title */
+        color: white !important; /* White title */
         margin: 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
@@ -342,7 +342,7 @@ def login_page():
     
     .app-subtitle {
         font-size: 1.5rem;
-        color: white; /* White subtitle */
+        color: white !important; /* White subtitle */
         margin-bottom: 10px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
@@ -407,19 +407,15 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
 
-        # Show logo above title
+        # Show logo FIRST - completely separate from title/subtitle
         try:
             st.image("iobm.png", width=350)
         except:
             st.markdown('<div style="width: 350px; height: 200px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 0 auto;"><h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">IOBM</h1></div>', unsafe_allow_html=True)
 
-        # Title + subtitle (below logo)
-        st.markdown("""
-        <div style="text-align: center; margin-top: 20px;">
-            <h1 class="app-title">SSK ACMS</h1>
-            <p class="app-subtitle">Academic Course Management System</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # THEN show title + subtitle (completely separate divs)
+        st.markdown('<h1 class="app-title">SSK ACMS</h1>', unsafe_allow_html=True)
+        st.markdown('<p class="app-subtitle">Academic Course Management System</p>', unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -454,7 +450,7 @@ def login_page():
     # Bottom - Credits section with thin line separator
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
+    <div style='color: white !important; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);'>
         <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
     </div>
     """, unsafe_allow_html=True)
@@ -606,11 +602,11 @@ def main_app():
                 {}
             </div>
             <div>
-                <h1 style='color: white; font-size: 3.5rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
+                <h1 style='color: white !important; font-size: 3.5rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
             </div>
         </div>
         <div style='text-align: right; margin-right: 30px;'>
-            <p style='color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
+            <p style='color: white !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
                 Welcome, {}!
             </p>
         </div>
