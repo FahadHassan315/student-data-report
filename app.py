@@ -198,9 +198,10 @@ def load_catalog_data(catalog_year):
         return None, False
 
 def create_catalog_charts(catalog_df, selected_catalog_year):
-    """Create single pie chart showing college distribution by number of programs"""
+    """Create single pie chart showing college distribution by number of programs - MOVED UP"""
     
-    st.markdown(f"<h2 style='color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-weight: bold; margin-bottom: 30px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
+    # CHART TITLE - NOW WHITE
+    st.markdown(f"<h2 style='color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold; margin-top: 0px; margin-bottom: 15px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
     
     # Create college-wise program distribution (count unique programs per college)
     college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
@@ -218,7 +219,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # College pie chart based on number of programs
+        # College pie chart based on number of programs - SMALLER HEIGHT
         fig_college = px.pie(
             values=college_program_counts['program_count'],
             names=college_program_counts['college'],
@@ -234,12 +235,12 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             textposition='inside'
         )
         
-        # Improve chart styling with transparent background
+        # Improve chart styling with transparent background - REDUCED HEIGHT AND MARGINS
         fig_college.update_layout(
-            height=400, 
+            height=300,  # Reduced from 400 
             showlegend=True,
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',  # Changed to transparent
+            paper_bgcolor='rgba(0,0,0,0)',
             font=dict(color='#1a1a1a', size=14, family="Arial Black"),
             legend=dict(
                 orientation="v",
@@ -252,7 +253,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
                 bordercolor='#1a1a1a',
                 borderwidth=1
             ),
-            margin=dict(l=20, r=150, t=20, b=20)
+            margin=dict(l=20, r=150, t=5, b=5)  # Reduced margins
         )
         
         st.plotly_chart(fig_college, use_container_width=True)
@@ -263,7 +264,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col1:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Colleges</h3>
             <h1 style='color: #FF6B6B; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -271,7 +272,7 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col2:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Programs</h3>
             <h1 style='color: #4ECDC4; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
@@ -279,19 +280,19 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     
     with col3:
         st.markdown("""
-        <div style='background: rgba(255,255,255,0.7); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
+        <div style='background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); text-align: center; backdrop-filter: blur(5px);'>
             <h3 style='color: #1a1a1a; margin: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);'>Total Courses</h3>
             <h1 style='color: #45B7D1; margin: 10px 0 0 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>{}</h1>
         </div>
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with NO white boxes - FIXED FOR NO SCROLLING"""
+    """Display horizontal login page with NO white boxes - NO SCROLLING NEEDED"""
     
     # Set background image
     set_background_image()
     
-    # Add custom CSS to completely remove white containers and REDUCE heights
+    # Add custom CSS to completely remove white containers and REDUCE heights MORE
     st.markdown("""
     <style>
     /* Hide the default Streamlit header and menu */
@@ -323,46 +324,46 @@ def login_page():
         box-shadow: none !important;
     }
     
-    /* Custom login sections with NO background boxes - REDUCED HEIGHTS */
+    /* Custom login sections with NO background boxes - MORE REDUCED HEIGHTS */
     .logo-section {
         text-align: center;
-        margin: 10px 0;
-        padding: 20px 20px;
+        margin: 5px 0;
+        padding: 15px 20px;
     }
     
     .login-section {
-        margin: 10px 0;
-        padding: 30px 20px;
+        margin: 5px 0;
+        padding: 20px 20px;
     }
     
     .credits-section {
         text-align: center;
-        margin-top: 20px;
-        padding: 15px;
+        margin-top: 15px;
+        padding: 10px;
         border-top: 2px solid rgba(255,255,255,0.3);
     }
     
     .app-title {
-        font-size: 5rem;  /* Reduced from 7rem */
+        font-size: 4.5rem;  /* Further reduced from 5rem */
         font-weight: bold;
         color: white !important; 
-        margin: 5px 0;  /* Reduced from 10px 0 */
+        margin: 0px 0;  /* Removed all margins */
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
     }
     
     .app-subtitle {
-        font-size: 3rem;  /* Reduced from 4.5rem */
+        font-size: 2.5rem;  /* Further reduced from 3rem */
         color: white !important; 
-        margin-bottom: 5px;  /* Reduced from 10px */
+        margin-bottom: 0px;  /* Removed margin */
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     .login-title {
-        font-size: 2rem;  /* Reduced from 2.5rem */
+        font-size: 1.8rem;  /* Further reduced from 2rem */
         color: white;
-        margin-bottom: 20px;  /* Reduced from 30px */
+        margin-bottom: 15px;  /* Further reduced from 20px */
         text-align: center;
         font-weight: bold;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
@@ -370,7 +371,7 @@ def login_page():
     
     .credits-text {
         color: white !important;
-        font-size: 14px;  /* Reduced from 16px */
+        font-size: 13px;  /* Further reduced from 14px */
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
@@ -388,7 +389,7 @@ def login_page():
         background: rgba(255, 255, 255, 0.9) !important;
         border: 2px solid rgba(255, 255, 255, 0.3) !important;
         border-radius: 10px !important;
-        padding: 12px !important;  /* Reduced from 15px */
+        padding: 10px !important;  /* Further reduced from 12px */
         font-size: 16px !important;
         color: #1a1a1a !important;
         font-weight: 500 !important;
@@ -412,8 +413,8 @@ def login_page():
         color: white !important;
         border: none !important;
         border-radius: 10px !important;
-        padding: 12px 25px !important;  /* Reduced from 15px 30px */
-        font-size: 16px !important;  /* Reduced from 18px */
+        padding: 10px 20px !important;  /* Further reduced from 12px 25px */
+        font-size: 16px !important;
         font-weight: bold !important;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
@@ -433,17 +434,16 @@ def login_page():
     with col_left:
         st.markdown('<div class="logo-section">', unsafe_allow_html=True)
 
-        # Show logo FIRST - above everything
+        # Show logo FIRST - above everything - FURTHER REDUCED SIZE
         try:
-            # Force the logo to display with centered alignment - REDUCED SIZE
             col1, col2, col3 = st.columns([0.5, 1, 0.5])
             with col2:
-                st.image("iobm.png", width=250)  # Reduced from 350
+                st.image("iobm.png", width=200)  # Further reduced from 250
         except Exception as e:
-            # Fallback if image doesn't load - REDUCED SIZE
+            # Fallback if image doesn't load - FURTHER REDUCED SIZE
             st.markdown('''
-            <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-                <div style="width: 250px; height: 150px; background: rgba(255,255,255,0.2); 
+            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                <div style="width: 200px; height: 120px; background: rgba(255,255,255,0.2); 
                            display: flex; align-items: center; justify-content: center; 
                            border-radius: 10px;">
                     <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 0;">IOBM</h1>
@@ -451,9 +451,9 @@ def login_page():
             </div>
             ''', unsafe_allow_html=True)
 
-        # Title + subtitle (AFTER logo, with REDUCED spacing)
+        # Title + subtitle (AFTER logo, with NO spacing)
         st.markdown("""
-        <div style="text-align: center; margin-top: 15px;">
+        <div style="text-align: center; margin-top: 10px;">
             <h1 class="app-title">SSK ACMS</h1>
             <p class="app-subtitle">Academic Course Management System</p>
         </div>
@@ -471,7 +471,7 @@ def login_page():
         username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
         password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
         
-        # Reduced spacing
+        # Minimal spacing
         st.markdown("<br>", unsafe_allow_html=True)
         
         # Login button
@@ -489,7 +489,7 @@ def login_page():
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    # Bottom - Credits section with thin line separator - REDUCED
+    # Bottom - Credits section with thin line separator - FURTHER REDUCED
     st.markdown('<div class="credits-section">', unsafe_allow_html=True)
     st.markdown("""
     <div class="credits-text">
@@ -631,47 +631,49 @@ def assign_schedule(df, allow_weekend_courses=True):
     return schedule
 
 def main_app():
-    """Main application interface with improved design - FIXED HEADER SIZE"""
+    """Main application interface with improved design - COMPACT HEADER"""
     
     # Set background image for main app
     set_background_image()
     
-    # Header with white text and REDUCED size
+    # Header with white text and MUCH SMALLER size
     st.markdown("""
-    <div style='display: flex; align-items: center; justify-content: space-between; padding: 10px 0; margin-bottom: 20px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
-        <div style='display: flex; align-items: center; gap: 20px; flex: 1;'>
-            <div style='margin-left: 15px;'>
+    <div style='display: flex; align-items: center; justify-content: space-between; padding: 3px 0; margin-bottom: 5px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
+        <div style='display: flex; align-items: center; gap: 10px; flex: 1;'>
+            <div style='margin-left: 8px;'>
                 {}
             </div>
             <div>
-                <h1 style='color: white; font-size: 2.5rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
+                <h1 style='color: white; font-size: 1.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
             </div>
         </div>
-        <div style='text-align: right; margin-right: 20px;'>
-            <p style='color: white; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
+        <div style='text-align: right; margin-right: 10px;'>
+            <p style='color: white; font-size: 12px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
                 Welcome, {}!
             </p>
         </div>
     </div>
     """.format(
-        '<img src="data:image/png;base64,{}" width="80" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">'.format(get_base64_of_bin_file('iobm.png')) if get_base64_of_bin_file('iobm.png') else '<div style="width: 80px; height: 50px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold;">IOBM</div>',
+        '<img src="data:image/png;base64,{}" width="45" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">'.format(get_base64_of_bin_file('iobm.png')) if get_base64_of_bin_file('iobm.png') else '<div style="width: 45px; height: 30px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; font-size: 10px;">IOBM</div>',
         USERS[st.session_state.username]['display_name']
     ), unsafe_allow_html=True)
     
-    # Logout button in sidebar with better session management - FIXED WEBSOCKET ISSUE
+    # Logout button in sidebar - FIXED WEBSOCKET ERROR
     st.sidebar.markdown("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Use a safer approach for logout to avoid websocket errors
+        # Force page reload using JavaScript to prevent websocket issues
+        st.components.v1.html("""
+            <script>
+                window.parent.location.reload(true);
+            </script>
+        """, height=0)
+        
+        # Also clear session state as backup
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        
         st.session_state.logged_in = False
         st.session_state.username = ""
-        st.session_state.selected_college = None
-        st.session_state.selected_program = None
-        
-        # Clear cache to prevent websocket issues
-        st.cache_data.clear()
-        st.cache_resource.clear()
-        
-        # Use a more reliable rerun method
         st.rerun()
     
     # Sidebar
@@ -916,7 +918,7 @@ def main_app():
 
     # Add Room Allocation System button at the bottom
     st.markdown("---")
-    st.markdown("<h2 style='color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -924,11 +926,11 @@ def main_app():
             st.info("Opening Room Allocation System...")
             st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
     
-    # Footer - FIXED WHITE COLOR
+    # Footer - WHITE COLOR
     st.markdown("---")
     st.markdown(
         """
-        <div style='text-align: center; color: white; font-size: 14px; margin-top: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-weight: bold;'>
+        <div style='text-align: center; color: white; font-size: 14px; margin-top: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-weight: bold;'>
             <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
         </div>
         """, 
