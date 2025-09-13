@@ -923,20 +923,9 @@ def main_app():
             st.info("Opening Room Allocation System...")
             st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
     
-    # Footer - WHITE COLOR with direct styling
+    # Footer - Simplified approach
     st.markdown("---")
-    st.markdown(
-        """
-        <div class='footer-text' style='text-align: center; font-size: 14px; margin-top: 30px; font-weight: bold;'>
-            <p style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;'>
-                <strong style='color: white !important;'>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
-                <strong style='color: white !important;'>Supervisor:</strong> Dr. Rabiya Sabri | 
-                <strong style='color: white !important;'>Designer:</strong> Habibullah Rajpar
-            </p>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
+    st.markdown("**Development Team:** Fahad Hassan, Ali Hasnain Abro | **Supervisor:** Dr. Rabiya Sabri | **Designer:** Habibullah Rajpar")
 
 # Main application logic
 def main():
