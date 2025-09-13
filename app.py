@@ -927,7 +927,7 @@ def main_app():
     st.markdown("---")
     st.markdown(
         """
-        <div style='text-align: center; color: white !important; font-size: 14px; margin-top: 30px; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-weight: bold;'>
+        <div class='footer-text' style='text-align: center; font-size: 14px; margin-top: 30px; font-weight: bold;'>
             <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
         </div>
         """, 
