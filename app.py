@@ -100,14 +100,26 @@ def set_background_image():
             background: transparent !important;
         }}
         
-        /* Improve text visibility */
-        .stMarkdown, .stDataFrame, .stSelectbox, .stText {{
-            color: #1a1a1a !important;
+        /* ENHANCED: Force ALL titles and headers to be WHITE with higher specificity */
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
+        h1, h2, h3, h4, h5, h6, p, .stMetric,
+        .stMarkdown p, .stMarkdown strong, .stMarkdown b,
+        div[data-testid="stMarkdownContainer"] h1,
+        div[data-testid="stMarkdownContainer"] h2,
+        div[data-testid="stMarkdownContainer"] h3,
+        div[data-testid="stMarkdownContainer"] h4,
+        div[data-testid="stMarkdownContainer"] h5,
+        div[data-testid="stMarkdownContainer"] h6,
+        div[data-testid="stMarkdownContainer"] p,
+        div[data-testid="stMarkdownContainer"] strong,
+        div[data-testid="stMarkdownContainer"] b {{
+            color: white !important;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
         }}
         
-        h1, h2, h3, h4, h5, h6, p, .stMetric {{
+        /* Improve text visibility for regular content */
+        .stDataFrame, .stSelectbox, .stText {{
             color: #1a1a1a !important;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }}
         </style>
         """
@@ -142,6 +154,23 @@ def set_background_image():
         
         .js-plotly-plot .plotly {
             background: transparent !important;
+        }
+        
+        /* ENHANCED: Force ALL titles and headers to be WHITE with higher specificity */
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
+        h1, h2, h3, h4, h5, h6, p, .stMetric,
+        .stMarkdown p, .stMarkdown strong, .stMarkdown b,
+        div[data-testid="stMarkdownContainer"] h1,
+        div[data-testid="stMarkdownContainer"] h2,
+        div[data-testid="stMarkdownContainer"] h3,
+        div[data-testid="stMarkdownContainer"] h4,
+        div[data-testid="stMarkdownContainer"] h5,
+        div[data-testid="stMarkdownContainer"] h6,
+        div[data-testid="stMarkdownContainer"] p,
+        div[data-testid="stMarkdownContainer"] strong,
+        div[data-testid="stMarkdownContainer"] b {
+            color: white !important;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
         }
         </style>
         """
@@ -200,8 +229,16 @@ def load_catalog_data(catalog_year):
 def create_catalog_charts(catalog_df, selected_catalog_year):
     """Create single pie chart showing college distribution by number of programs"""
     
-    # CHART TITLE - WHITE COLOR
-    st.markdown(f"<h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-weight: bold; margin-top: 0px; margin-bottom: 15px;'>📊 Catalog Insights - {selected_catalog_year}</h2>", unsafe_allow_html=True)
+    # CHART TITLE - WHITE COLOR WITH ENHANCED STYLING
+    st.markdown(f"""
+    <div style='text-align: center; margin-bottom: 20px;'>
+        <h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; 
+                   font-weight: bold !important; margin: 0 !important; font-size: 2.2rem !important;
+                   font-family: Arial Black, sans-serif !important;'>
+            📊 Catalog Insights - {selected_catalog_year}
+        </h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Create college-wise program distribution (count unique programs per college)
     college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
@@ -636,7 +673,7 @@ def main_app():
     # Set background image for main app
     set_background_image()
     
-    # Header with WHITE text
+    # Header with WHITE text - ENHANCED STYLING
     st.markdown("""
     <div style='display: flex; align-items: center; justify-content: space-between; padding: 3px 0; margin-bottom: 5px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
         <div style='display: flex; align-items: center; gap: 10px; flex: 1;'>
@@ -644,11 +681,11 @@ def main_app():
                 {}
             </div>
             <div>
-                <h1 style='color: white !important; font-size: 1.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-family: Arial Black;'>SSK ACMS</h1>
+                <h1 style='color: white !important; font-size: 1.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-family: Arial Black !important; font-weight: bold !important;'>SSK ACMS</h1>
             </div>
         </div>
         <div style='text-align: right; margin-right: 10px;'>
-            <p style='color: white !important; font-size: 12px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin: 0;'>
+            <p style='color: white !important; font-size: 12px; font-weight: bold !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important; margin: 0;'>
                 Welcome, {}!
             </p>
         </div>
@@ -913,9 +950,17 @@ def main_app():
                     mime="text/csv",
                 )
 
-    # Add Room Allocation System button at the bottom
+    # Add Room Allocation System button at the bottom - WHITE TITLE
     st.markdown("---")
-    st.markdown("<h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-weight: bold; margin-bottom: 20px;'>🏢 Additional Tools</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style='text-align: center; margin-bottom: 20px;'>
+        <h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; 
+                   font-weight: bold !important; margin: 0 !important; font-size: 2rem !important;
+                   font-family: Arial Black, sans-serif !important;'>
+            🏢 Additional Tools
+        </h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -923,12 +968,17 @@ def main_app():
             st.info("Opening Room Allocation System...")
             st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
     
-    # Footer - WHITE COLOR
+    # Footer - WHITE COLOR - ENHANCED STYLING
     st.markdown("---")
     st.markdown(
         """
-        <div style='text-align: center; color: white !important; font-size: 14px; margin-top: 30px; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-weight: bold;'>
-            <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+        <div style='text-align: center; color: white !important; font-size: 14px; margin-top: 30px; 
+                    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-weight: bold !important;'>
+            <p style='color: white !important; margin: 0 !important;'>
+                <strong style='color: white !important;'>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
+                <strong style='color: white !important;'>Supervisor:</strong> Dr. Rabiya Sabri | 
+                <strong style='color: white !important;'>Designer:</strong> Habibullah Rajpar
+            </p>
         </div>
         """, 
         unsafe_allow_html=True
