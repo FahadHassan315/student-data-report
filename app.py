@@ -84,9 +84,74 @@ def set_background_image():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }}
         
-        /* Keep sidebar opaque */
-        .css-1d391kg, .css-1544g2n {{
-            background-color: rgba(255, 255, 255, 0.95) !important;
+        /* DARK SIDEBAR STYLING - UPDATED */
+        .css-1d391kg, .css-1544g2n, section[data-testid="stSidebar"], 
+        .css-1outpf7, .css-16huue1, section[data-testid="stSidebar"] > div {{
+            background-color: rgba(30, 30, 30, 0.95) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-right: 2px solid rgba(255, 255, 255, 0.2) !important;
+        }}
+        
+        /* Sidebar content styling */
+        section[data-testid="stSidebar"] .stMarkdown h1,
+        section[data-testid="stSidebar"] .stMarkdown h2,
+        section[data-testid="stSidebar"] .stMarkdown h3,
+        section[data-testid="stSidebar"] .stMarkdown h4,
+        section[data-testid="stSidebar"] .stMarkdown h5,
+        section[data-testid="stSidebar"] .stMarkdown h6,
+        section[data-testid="stSidebar"] .stMarkdown p,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] .stSelectbox label,
+        section[data-testid="stSidebar"] .stRadio label,
+        section[data-testid="stSidebar"] .stCheckbox label,
+        section[data-testid="stSidebar"] .stNumberInput label,
+        section[data-testid="stSidebar"] .stTextInput label {{
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+            font-weight: bold !important;
+        }}
+        
+        /* Sidebar input fields */
+        section[data-testid="stSidebar"] .stSelectbox > div > div > div,
+        section[data-testid="stSidebar"] .stNumberInput > div > div > input,
+        section[data-testid="stSidebar"] .stTextInput > div > div > input {{
+            background-color: rgba(60, 60, 60, 0.9) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 5px !important;
+        }}
+        
+        /* Sidebar buttons */
+        section[data-testid="stSidebar"] .stButton > button {{
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            font-weight: bold !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        }}
+        
+        /* Sidebar radio buttons */
+        section[data-testid="stSidebar"] .stRadio > div {{
+            background: transparent !important;
+        }}
+        
+        section[data-testid="stSidebar"] .stRadio label {{
+            color: white !important;
+        }}
+        
+        /* Sidebar expander */
+        section[data-testid="stSidebar"] .stExpander {{
+            background: rgba(50, 50, 50, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 8px !important;
+        }}
+        
+        section[data-testid="stSidebar"] .stExpander .streamlit-expanderHeader {{
+            background: rgba(40, 40, 40, 0.9) !important;
+            color: white !important;
+            font-weight: bold !important;
         }}
         
         /* Make charts blend better - remove white background completely */
@@ -140,9 +205,74 @@ def set_background_image():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        /* Keep sidebar opaque */
-        .css-1d391kg, .css-1544g2n {
-            background-color: rgba(255, 255, 255, 0.95) !important;
+        /* DARK SIDEBAR STYLING - UPDATED */
+        .css-1d391kg, .css-1544g2n, section[data-testid="stSidebar"], 
+        .css-1outpf7, .css-16huue1, section[data-testid="stSidebar"] > div {
+            background-color: rgba(30, 30, 30, 0.95) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-right: 2px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        /* Sidebar content styling */
+        section[data-testid="stSidebar"] .stMarkdown h1,
+        section[data-testid="stSidebar"] .stMarkdown h2,
+        section[data-testid="stSidebar"] .stMarkdown h3,
+        section[data-testid="stSidebar"] .stMarkdown h4,
+        section[data-testid="stSidebar"] .stMarkdown h5,
+        section[data-testid="stSidebar"] .stMarkdown h6,
+        section[data-testid="stSidebar"] .stMarkdown p,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] .stSelectbox label,
+        section[data-testid="stSidebar"] .stRadio label,
+        section[data-testid="stSidebar"] .stCheckbox label,
+        section[data-testid="stSidebar"] .stNumberInput label,
+        section[data-testid="stSidebar"] .stTextInput label {
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+            font-weight: bold !important;
+        }
+        
+        /* Sidebar input fields */
+        section[data-testid="stSidebar"] .stSelectbox > div > div > div,
+        section[data-testid="stSidebar"] .stNumberInput > div > div > input,
+        section[data-testid="stSidebar"] .stTextInput > div > div > input {
+            background-color: rgba(60, 60, 60, 0.9) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 5px !important;
+        }
+        
+        /* Sidebar buttons */
+        section[data-testid="stSidebar"] .stButton > button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            font-weight: bold !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        }
+        
+        /* Sidebar radio buttons */
+        section[data-testid="stSidebar"] .stRadio > div {
+            background: transparent !important;
+        }
+        
+        section[data-testid="stSidebar"] .stRadio label {
+            color: white !important;
+        }
+        
+        /* Sidebar expander */
+        section[data-testid="stSidebar"] .stExpander {
+            background: rgba(50, 50, 50, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 8px !important;
+        }
+        
+        section[data-testid="stSidebar"] .stExpander .streamlit-expanderHeader {
+            background: rgba(40, 40, 40, 0.9) !important;
+            color: white !important;
+            font-weight: bold !important;
         }
         
         /* Make charts blend better - remove white background completely */
