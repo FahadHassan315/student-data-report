@@ -5,7 +5,8 @@ The Student Data Report project automates the semester scheduling process using 
 
 This tool is designed to streamline academic planning for universities by generating conflict-free, optimized schedules and providing real-time insights through a dynamic dashboard.
 
-Project Demo: Watch on Loom
+Project Demo:
+https://www.loom.com/share/3080990f4187471389c669d15d27746c?sid=b3da6b6e-df3c-4a3f-a79d-e630eea23175
 
 Key Features
 
@@ -65,6 +66,6 @@ Author
 Fahad Hassan
 Email: fahadhassann21@gmail.com
 
-LinkedIn: linkedin.com/in/fahad-hassan-0b691524a
+LinkedIn: https://www.linkedin.com/in/fahad-hassan-0b691524a
 
-GitHub: github.com/FahadHassan315
+GitHub: https://github.com/FahadHassan315
