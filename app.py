@@ -63,6 +63,10 @@ def create_upload_template():
 
 def show_upload_guidelines():
     """Display upload guidelines and template"""
+    st.markdown("""
+    <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin: 20px 0;'>
+    """, unsafe_allow_html=True)
+    
     st.markdown("### 📋 Upload Guidelines")
     
     st.markdown("#### Required Columns:")
@@ -83,6 +87,8 @@ def show_upload_guidelines():
     - ✅ Make sure there are **no empty rows** in your data
     - ✅ Course codes should be **unique within each program and semester**
     """)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
     
     st.markdown("---")
     
