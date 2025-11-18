@@ -63,37 +63,31 @@ def create_upload_template():
 
 def show_upload_guidelines():
     """Display upload guidelines and template"""
+    st.markdown("### 📋 Upload Guidelines")
+    
+    st.markdown("#### Required Columns:")
     st.markdown("""
-    <div style='background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; margin: 20px 0;'>
-        <h3 style='color: #1a1a1a; margin-top: 0;'>📋 Upload Guidelines</h3>
-        
-        <h4 style='color: #1a1a1a;'>Required Columns:</h4>
-        <ul style='color: #1a1a1a;'>
-            <li><strong>program</strong> - Name of the academic program (e.g., BBA, MBA, BCS)</li>
-            <li><strong>college</strong> - Name of the college offering the course</li>
-            <li><strong>semester</strong> - Semester number (one, two, three, etc. or 1, 2, 3, etc.)</li>
-            <li><strong>course_code</strong> - Unique course identifier (e.g., ACC101, MGT201)</li>
-            <li><strong>course_title</strong> - Full name of the course</li>
-        </ul>
-        
-        <h4 style='color: #1a1a1a;'>Important Notes:</h4>
-        <ul style='color: #1a1a1a;'>
-            <li>All columns listed above are <strong>REQUIRED</strong></li>
-            <li>Column names should be exactly as shown (case-insensitive)</li>
-            <li>Semester values can be: one/1, two/2, three/3, four/4, five/5, six/6, seven/7, eight/8</li>
-            <li>File format: CSV (.csv) or Excel (.xlsx)</li>
-            <li>Make sure there are no empty rows in your data</li>
-            <li>Course codes should be unique within each program and semester</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    - **program** - Name of the academic program (e.g., BBA, MBA, BCS)
+    - **college** - Name of the college offering the course
+    - **semester** - Semester number (one, two, three, etc. or 1, 2, 3, etc.)
+    - **course_code** - Unique course identifier (e.g., ACC101, MGT201)
+    - **course_title** - Full name of the course
+    """)
+    
+    st.markdown("#### Important Notes:")
+    st.markdown("""
+    - ✅ All columns listed above are **REQUIRED**
+    - ✅ Column names should be exactly as shown (case-insensitive)
+    - ✅ Semester values can be: **one/1, two/2, three/3, four/4, five/5, six/6, seven/7, eight/8**
+    - ✅ File format: **CSV (.csv) or Excel (.xlsx)**
+    - ✅ Make sure there are **no empty rows** in your data
+    - ✅ Course codes should be **unique within each program and semester**
+    """)
+    
+    st.markdown("---")
     
     # Show template preview as table
-    st.markdown("""
-    <div style='background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; margin: 20px 0;'>
-        <h4 style='color: #1a1a1a; margin-top: 0;'>📄 Template Preview:</h4>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("#### 📄 Template Preview:")
     
     template_df = create_upload_template()
     st.dataframe(template_df, use_container_width=True, hide_index=True)
