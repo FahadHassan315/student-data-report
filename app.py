@@ -174,6 +174,22 @@ def set_background_image():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }}
         
+        /* Force all text in main content to be white with shadow */
+        .main .block-container * {{
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+        }}
+        
+        /* But keep dataframes and inputs readable */
+        .main .block-container .stDataFrame,
+        .main .block-container .stDataFrame *,
+        .main .block-container input,
+        .main .block-container .stTextInput,
+        .main .block-container .stSelectbox {{
+            color: #1a1a1a !important;
+            text-shadow: none !important;
+        }}
+        
         section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div {{
             background-color: rgba(30, 30, 30, 0.95) !important;
             backdrop-filter: blur(10px);
