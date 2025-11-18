@@ -51,11 +51,11 @@ CATALOG_FILES = {
 def create_upload_template():
     """Create a template CSV file for upload"""
     template_data = {
-        'program': ['BBA', 'BBA', 'MBA'],
-        'college': ['College of Business Management', 'College of Business Management', 'College of Business Management'],
-        'semester': ['one', 'one', 'one'],
-        'course_code': ['ACC101', 'MGT101', 'MBA501'],
-        'course_title': ['Introduction to Accounting', 'Principles of Management', 'Strategic Management']
+        'program': ['BBA', 'BBA', 'MBA', 'BCS'],
+        'college': ['College of Business Management', 'College of Business Management', 'College of Business Management', 'College of Computer Science'],
+        'semester': ['one', 'one', 'one', 'two'],
+        'course_code': ['ACC101', 'MGT101', 'MBA501', 'CS201'],
+        'course_title': ['Introduction to Accounting', 'Principles of Management', 'Strategic Management', 'Data Structures']
     }
     
     template_df = pd.DataFrame(template_data)
@@ -85,36 +85,20 @@ def show_upload_guidelines():
             <li>Make sure there are no empty rows in your data</li>
             <li>Course codes should be unique within each program and semester</li>
         </ul>
-        
-        <h4 style='color: #1a1a1a;'>Example Data:</h4>
-        <table style='width: 100%; border-collapse: collapse; color: #1a1a1a;'>
-            <tr style='background: #f0f0f0;'>
-                <th style='padding: 8px; border: 1px solid #ddd;'>program</th>
-                <th style='padding: 8px; border: 1px solid #ddd;'>college</th>
-                <th style='padding: 8px; border: 1px solid #ddd;'>semester</th>
-                <th style='padding: 8px; border: 1px solid #ddd;'>course_code</th>
-                <th style='padding: 8px; border: 1px solid #ddd;'>course_title</th>
-            </tr>
-            <tr>
-                <td style='padding: 8px; border: 1px solid #ddd;'>BBA</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>College of Business Management</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>one</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>ACC101</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>Introduction to Accounting</td>
-            </tr>
-            <tr style='background: #f9f9f9;'>
-                <td style='padding: 8px; border: 1px solid #ddd;'>MBA</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>College of Business Management</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>one</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>MBA501</td>
-                <td style='padding: 8px; border: 1px solid #ddd;'>Strategic Management</td>
-            </tr>
-        </table>
     </div>
     """, unsafe_allow_html=True)
     
-    # Download template button
+    # Show template preview as table
+    st.markdown("""
+    <div style='background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; margin: 20px 0;'>
+        <h4 style='color: #1a1a1a; margin-top: 0;'>📄 Template Preview:</h4>
+    </div>
+    """, unsafe_allow_html=True)
+    
     template_df = create_upload_template()
+    st.dataframe(template_df, use_container_width=True, hide_index=True)
+    
+    # Download template button
     csv_template = template_df.to_csv(index=False).encode('utf-8')
     
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -130,64 +114,12 @@ def show_upload_guidelines():
 def generate_report_summary(final_df, program_filter, semester_filter, student_counts=None, section_capacities=None):
     """Generate a comprehensive summary of the generated report"""
     
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                padding: 25px; border-radius: 15px; margin: 20px 0; 
-                box-shadow: 0 8px 20px rgba(0,0,0,0.3);'>
-        <h2 style='color: white; text-align: center; margin: 0 0 20px 0; 
-                   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>
-            📊 Report Summary
-        </h2>
-    """, unsafe_allow_html=True)
-    
-    # Overall statistics
-    total_courses = len(final_df)
-    total_sections = final_df['section'].nunique() if 'section' in final_df.columns else len(final_df)
-    total_students = final_df['total student strength'].sum() if 'total student strength' in final_df.columns else 0
-    programs_included = final_df['program'].nunique()
-    
-    # Create 4 columns for key metrics
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
-            <h4 style='color: #667eea; margin: 0;'>Total Courses</h4>
-            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_courses}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
-            <h4 style='color: #764ba2; margin: 0;'>Total Sections</h4>
-            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_sections}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
-            <h4 style='color: #FF6B6B; margin: 0;'>Total Students</h4>
-            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_students}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
-            <h4 style='color: #4ECDC4; margin: 0;'>Programs</h4>
-            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{programs_included}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    # Program-wise breakdown
+    # Program-wise breakdown at the end
     if program_filter == "All Programs":
+        st.markdown("---")
         st.markdown("""
         <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
-            <h3 style='color: #1a1a1a; margin-top: 0;'>📚 Program-wise Breakdown</h3>
+            <h4 style='color: #1a1a1a; margin-top: 0;'>📚 Program-wise Breakdown</h4>
         """, unsafe_allow_html=True)
         
         program_summary = final_df.groupby('program').agg({
@@ -207,51 +139,6 @@ def generate_report_summary(final_df, program_filter, semester_filter, student_c
         
         st.dataframe(program_summary, use_container_width=True, hide_index=True)
         st.markdown("</div>", unsafe_allow_html=True)
-    else:
-        # Single program details
-        st.markdown(f"""
-        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
-            <h3 style='color: #1a1a1a; margin-top: 0;'>📚 {program_filter} - Semester {semester_filter}</h3>
-            <p style='color: #1a1a1a; font-size: 16px;'><strong>Courses:</strong> {total_courses} | <strong>Sections:</strong> {total_sections} | <strong>Students:</strong> {total_students}</p>
-        """, unsafe_allow_html=True)
-        
-        if section_capacities and program_filter in section_capacities:
-            capacity = section_capacities[program_filter]
-            st.markdown(f"<p style='color: #1a1a1a;'><strong>Section Capacity:</strong> {capacity} students per section</p>", unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
-    
-    # Day-wise distribution
-    if 'days' in final_df.columns:
-        st.markdown("""
-        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
-            <h3 style='color: #1a1a1a; margin-top: 0;'>📅 Schedule Distribution</h3>
-        """, unsafe_allow_html=True)
-        
-        day_counts = final_df['days'].value_counts().reset_index()
-        day_counts.columns = ['Day', 'Number of Classes']
-        
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.dataframe(day_counts, use_container_width=True, hide_index=True)
-        
-        with col2:
-            # Weekend vs Weekday breakdown
-            weekend_classes = final_df[final_df['days'].str.contains('Saturday|Sunday', case=False, na=False)].shape[0]
-            weekday_classes = total_courses - weekend_classes
-            
-            st.markdown(f"""
-            <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
-                <h4 style='color: #1a1a1a; margin: 0;'>Weekday Classes</h4>
-                <h2 style='color: #4ECDC4; margin: 10px 0;'>{weekday_classes}</h2>
-                <h4 style='color: #1a1a1a; margin: 15px 0 0 0;'>Weekend Classes</h4>
-                <h2 style='color: #FF6B6B; margin: 10px 0 0 0;'>{weekend_classes}</h2>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
-    
-    st.markdown("</div>", unsafe_allow_html=True)
 
 def get_base64_of_bin_file(bin_file):
     """Convert image to base64 string"""
