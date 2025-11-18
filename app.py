@@ -520,30 +520,16 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page"""
+    """Display login page"""
     set_background_image()
     
+    # Additional CSS for login page
     st.markdown("""
     <style>
-    .stApp > header {
-        background-color: transparent;
-    }
-    
-    .main .block-container {
-        background: transparent !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-    }
-    
-    .element-container {
-        background: transparent !important;
-    }
-    
     .app-title {
         font-size: 5rem;
         font-weight: bold;
-        color: white !important; 
+        color: white !important;
         margin: 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
@@ -551,7 +537,7 @@ def login_page():
     
     .app-subtitle {
         font-size: 3rem;
-        color: white !important; 
+        color: white !important;
         margin-bottom: 10px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
@@ -559,3 +545,563 @@ def login_page():
     
     .login-title {
         font-size: 2rem;
+        color: white;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    }
+    
+    .credits-text {
+        color: white !important;
+        font-size: 14px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Main content
+    col_left, col_right = st.columns([1, 1], gap="large")
+    
+    # Left side - Logo and App Name
+    with col_left:
+        try:
+            col1, col2, col3 = st.columns([0.5, 1, 0.5])
+            with col2:
+                st.image("iobm.png", width=250)
+        except:
+            st.markdown('<div style="text-align: center;"><h1 style="color: white;">IOBM</h1></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div style="text-align: center; margin-top: 20px;">
+            <h1 class="app-title">SSK ACMS</h1>
+            <p class="app-subtitle">Academic Course Management System</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Right side - Login Form
+    with col_right:
+        st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
+        
+        username = st.text_input("👤 Username", placeholder="Enter your username")
+        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password")
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        if st.button("🚀 Login", use_container_width=True, type="primary"):
+            username_lower = username.lower()
+            password_lower = password.lower()
+            
+            if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
+                st.session_state.logged_in = True
+                st.session_state.username = username_lower
+                st.success("✅ Login successful!")
+                st.rerun()
+            else:
+                st.error("❌ Invalid username or password!")
+    
+    # Credits
+    st.markdown("""
+    <div style='text-align: center; margin-top: 50px; padding-top: 20px; border-top: 2px solid rgba(255,255,255,0.3);'>
+        <p class='credits-text'><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+def normalize_semester_name(semester):
+    """Normalize semester names for consistent ordering"""
+    semester_str = str(semester).lower().strip()
+    
+    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
+        return 'one'
+    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
+        return 'two'
+    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
+        return 'three'
+    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
+        return 'four'
+    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
+        return 'five'
+    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
+        return 'six'
+    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
+        return 'seven'
+    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
+        return 'eight'
+    else:
+        return semester_str
+
+def get_semester_order():
+    """Return the proper order for semesters"""
+    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
+
+def assign_schedule(df, allow_weekend_courses=True):
+    """Improved scheduling function"""
+    section_occupied_slots = defaultdict(set)
+    course_slot_usage = defaultdict(lambda: defaultdict(int))
+    course_section_slots = defaultdict(set)
+    
+    schedule = []
+    program_name = df["program"].iloc[0].lower() if not df.empty else ""
+    is_mba = "mba" in program_name
+    
+    weekday_slots = [
+        ("9:00 AM", "10:30 AM"),
+        ("10:45 AM", "12:15 PM"),
+        ("12:30 PM", "2:00 PM"),
+        ("2:15 PM", "3:45 PM")
+    ]
+
+    weekend_slots = [
+        ("9:00 AM", "12:00 PM"),
+        ("2:00 PM", "5:00 PM")
+    ]
+
+    mba_slots = [
+        ("9:00 AM", "12:00 PM"),
+        ("2:00 PM", "5:00 PM"),
+        ("6:30 PM", "9:30 PM")
+    ]
+
+    weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
+    weekend_days = ["Saturday", "Sunday"]
+    
+    if is_mba:
+        all_slots = []
+        for slot in mba_slots:
+            if slot == ("6:30 PM", "9:30 PM"):
+                for day in weekday_days:
+                    all_slots.append((day, slot))
+            else:
+                for day in weekend_days:
+                    all_slots.append((day, slot))
+    else:
+        all_slots = []
+        for slot in weekday_slots:
+            for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
+                all_slots.append((f"{day1} / {day2}", slot))
+        
+        if allow_weekend_courses:
+            for slot in weekend_slots:
+                for day in weekend_days:
+                    all_slots.append((day, slot))
+    
+    for _, row in df.iterrows():
+        course = row["course_title"]
+        sections = row["required sections"]
+        
+        for sec in range(1, sections + 1):
+            slot_assigned = False
+            candidate_slots = all_slots.copy()
+            candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
+            
+            for slot_key in candidate_slots:
+                day, slot = slot_key
+                
+                if slot_key in section_occupied_slots[sec]:
+                    continue
+                
+                if slot_key in course_section_slots[course]:
+                    continue
+                
+                section_occupied_slots[sec].add(slot_key)
+                course_slot_usage[course][slot_key] += 1
+                course_section_slots[course].add(slot_key)
+                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+                slot_assigned = True
+                break
+            
+            if not slot_assigned:
+                slot_key = random.choice(all_slots)
+                day, slot = slot_key
+                section_occupied_slots[sec].add(slot_key)
+                course_slot_usage[course][slot_key] += 1
+                course_section_slots[course].add(slot_key)
+                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
+    
+    return schedule
+
+def main_app():
+    """Main application interface"""
+    set_background_image()
+    
+    # Header
+    st.markdown("""
+    <div style='display: flex; align-items: center; justify-content: space-between; padding: 3px 0; margin-bottom: 5px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
+        <div style='display: flex; align-items: center; gap: 10px; flex: 1;'>
+            <div style='margin-left: 8px;'>
+    """, unsafe_allow_html=True)
+    
+    try:
+        bin_str = get_base64_of_bin_file('iobm.png')
+        if bin_str:
+            st.markdown(f'<img src="data:image/png;base64,{bin_str}" width="45" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">', unsafe_allow_html=True)
+        else:
+            st.markdown('<div style="width: 45px; height: 30px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; font-size: 10px;">IOBM</div>', unsafe_allow_html=True)
+    except:
+        st.markdown('<div style="width: 45px; height: 30px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; font-size: 10px;">IOBM</div>', unsafe_allow_html=True)
+    
+    st.markdown(f"""
+            </div>
+            <div>
+                <h1 style='color: white !important; font-size: 1.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-family: Arial Black !important; font-weight: bold !important;'>SSK ACMS</h1>
+            </div>
+        </div>
+        <div style='text-align: right; margin-right: 10px;'>
+            <p style='color: white !important; font-size: 12px; font-weight: bold !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important; margin: 0;'>
+                Welcome, {USERS[st.session_state.username]['display_name']}!
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Logout button
+    st.sidebar.markdown("---")
+    if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
+        keys_to_delete = list(st.session_state.keys())
+        for key in keys_to_delete:
+            del st.session_state[key]
+        st.session_state.logged_in = False
+        st.session_state.username = ""
+        st.rerun()
+    
+    # Sidebar
+    st.sidebar.header("Input Parameters")
+
+    data_source = st.sidebar.radio(
+        "Choose Data Source:",
+        ["📊 Institutional Catalog", "📁 Upload Your Own File"],
+        index=0
+    )
+    
+    catalog_df = None
+    selected_catalog_year = None
+    
+    if data_source == "📊 Institutional Catalog":
+        default_index = list(CATALOG_FILES.keys()).index("2023-2024")
+        selected_catalog_year = st.sidebar.selectbox(
+            "Select Academic Year:",
+            list(CATALOG_FILES.keys()),
+            index=default_index
+        )
+        
+        catalog_df, success = load_catalog_data(selected_catalog_year)
+        if not success:
+            st.error(f"Failed to load the {selected_catalog_year} catalog.")
+            st.stop()
+        
+        create_catalog_charts(catalog_df, selected_catalog_year)
+            
+    else:
+        # Show upload guidelines first
+        show_upload_guidelines()
+        
+        uploaded_file = st.sidebar.file_uploader("Upload Catalog File", type=["csv", "xlsx"])
+        if uploaded_file:
+            try:
+                if uploaded_file.name.endswith(".csv"):
+                    catalog_df = pd.read_csv(uploaded_file)
+                else:
+                    catalog_df = pd.read_excel(uploaded_file)
+                
+                catalog_df.columns = catalog_df.columns.str.lower().str.strip()
+                
+                # Validate required columns
+                required_columns = ['program', 'college', 'semester', 'course_code', 'course_title']
+                missing_columns = [col for col in required_columns if col not in catalog_df.columns]
+                
+                if missing_columns:
+                    st.error(f"❌ Missing required columns: {', '.join(missing_columns)}")
+                    st.info("Please download the template and ensure all required columns are present.")
+                    st.stop()
+                
+                catalog_df = catalog_df.dropna(subset=['semester'])
+                catalog_df['course_code'] = catalog_df['course_code'].fillna('')
+                catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
+                catalog_df['college'] = catalog_df['college'].fillna('Unknown College')
+                catalog_df['semester'] = catalog_df['semester'].astype(str).str.lower().str.strip()
+                
+                selected_catalog_year = "Custom Upload"
+                st.success("✅ File uploaded successfully!")
+                create_catalog_charts(catalog_df, selected_catalog_year)
+                
+            except Exception as e:
+                st.error(f"Error reading file: {e}")
+                st.stop()
+        else:
+            st.warning("Please upload a file to continue.")
+            st.stop()
+
+    if catalog_df is None:
+        st.error("No data loaded.")
+        st.stop()
+
+    # Program selection
+    programs_list = sorted(catalog_df["program"].unique())
+    programs_with_all = ["All Programs"] + programs_list
+    program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
+    
+    # Semester selection
+    raw_semesters = catalog_df["semester"].unique()
+    normalized_semesters = []
+    
+    for sem in raw_semesters:
+        if sem and str(sem).strip():
+            normalized = normalize_semester_name(sem)
+            normalized_semesters.append((normalized, sem))
+    
+    semester_order = get_semester_order()
+    normalized_semesters.sort(key=lambda x: semester_order.index(x[0]) if x[0] in semester_order else 999)
+    
+    semester_display_list = [original for normalized, original in normalized_semesters]
+    semester_filter = st.sidebar.selectbox("Select Semester", semester_display_list)
+    
+    selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
+    has_bachelor_programs = any("mba" not in prog.lower() for prog in selected_programs)
+    
+    include_weekend_courses = True
+    if has_bachelor_programs:
+        st.sidebar.markdown("### Weekend Course Settings")
+        include_weekend_courses = st.sidebar.checkbox(
+            "Include Weekend Courses",
+            value=True,
+            help="Uncheck to avoid weekend classes"
+        )
+    
+    # Student count and capacity input
+    if program_filter == "All Programs":
+        if 'student_counts' not in st.session_state:
+            st.session_state.student_counts = {program: 1 for program in programs_list}
+        if 'section_capacities' not in st.session_state:
+            st.session_state.section_capacities = {program: 40 for program in programs_list}
+        
+        with st.sidebar.expander("👥 Program Settings", expanded=False):
+            st.markdown("**Configure each program:**")
+            for program in programs_list:
+                st.markdown(f"**{program}**")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.session_state.student_counts[program] = st.number_input(
+                        "Students",
+                        min_value=0,
+                        value=st.session_state.student_counts.get(program, 1),
+                        step=1,
+                        key=f"students_{program}",
+                        help="Set to 0 to exclude this program"
+                    )
+                with col2:
+                    st.session_state.section_capacities[program] = st.number_input(
+                        "Capacity",
+                        min_value=1,
+                        max_value=100,
+                        value=st.session_state.section_capacities.get(program, 40),
+                        step=1,
+                        key=f"capacity_{program}",
+                        help="Students per section"
+                    )
+                st.markdown("---")
+        
+        student_counts = st.session_state.student_counts
+        section_capacities = st.session_state.section_capacities
+        
+    else:
+        student_count = st.sidebar.number_input("Enter Number of Students", min_value=1, step=1)
+        section_capacity = st.sidebar.number_input(
+            "Section Capacity",
+            min_value=1,
+            max_value=100,
+            value=40,
+            step=1,
+            help="Maximum students per section (default: 40)"
+        )
+        section_capacities = {program_filter: section_capacity}
+
+    # Generate report
+    if st.sidebar.button("Generate Report"):
+        catalog_name = selected_catalog_year if selected_catalog_year else "Custom_Upload"
+        
+        if program_filter == "All Programs":
+            all_programs_df = catalog_df[
+                catalog_df["semester"] == semester_filter
+            ][["program", "course_code", "course_title", "college"]].copy()
+            
+            if all_programs_df.empty:
+                st.warning("No courses found for the selected Semester.")
+            else:
+                all_results = []
+                
+                for program in programs_list:
+                    # Skip if student count is 0
+                    if student_counts[program] == 0:
+                        continue
+                    
+                    program_df = all_programs_df[all_programs_df["program"] == program].copy()
+                    
+                    if not program_df.empty:
+                        current_student_count = student_counts[program]
+                        current_capacity = section_capacities.get(program, 40)
+                        
+                        program_df["failed/withdrawn students"] = 0
+                        program_df["active students"] = current_student_count
+                        program_df["total student strength"] = current_student_count
+                        program_df["required sections"] = program_df["total student strength"].apply(
+                            lambda x: math.ceil(x / current_capacity)
+                        )
+                        program_df["section"] = ""
+                        program_df["name"] = "Faculty Member"
+                        program_df["ids"] = ""
+                        program_df["type name"] = ""
+                        program_df["semester_selected"] = semester_filter
+                        program_df["catalog_year"] = catalog_name
+                        
+                        schedule = assign_schedule(program_df, include_weekend_courses)
+                        
+                        expanded_df = []
+                        sched_idx = 0
+                        
+                        for _, row in program_df.iterrows():
+                            for sec in range(1, row["required sections"] + 1):
+                                new_row = row.copy()
+                                new_row["section"] = sec
+                                new_row["days"] = schedule[sched_idx][1]
+                                new_row["time's"] = schedule[sched_idx][2]
+                                expanded_df.append(new_row)
+                                sched_idx += 1
+                        
+                        program_result_df = pd.DataFrame(expanded_df)
+                        program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                        all_results.append(program_result_df)
+                
+                if all_results:
+                    final_df = pd.concat(all_results, ignore_index=True)
+                    final_df = final_df[[
+                        "program", "college", "section", "course_code", "course_title", "name", "ids", 
+                        "type name", "days", "time's", "failed/withdrawn students", 
+                        "active students", "total student strength", "required sections",
+                        "semester_selected", "catalog_year"
+                    ]]
+                    
+                    st.success("✅ Report generated for all programs!")
+                    
+                    # Generate summary
+                    generate_report_summary(final_df, program_filter, semester_filter, student_counts, section_capacities)
+                    
+                    # Display program-wise data
+                    for program in programs_list:
+                        if student_counts[program] > 0:
+                            program_data = final_df[final_df["program"] == program]
+                            if not program_data.empty:
+                                st.subheader(f"📚 {program}")
+                                st.dataframe(program_data)
+                    
+                    csv = final_df.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Download Complete Schedule CSV",
+                        data=csv,
+                        file_name=f"timetable_AllPrograms_{semester_filter}_{catalog_name}.csv",
+                        mime="text/csv",
+                    )
+                else:
+                    st.warning("No data found for any programs in the selected semester (all programs may have 0 students).")
+        
+        else:
+            # Single program logic
+            df = catalog_df[
+                (catalog_df["program"] == program_filter) & 
+                (catalog_df["semester"] == semester_filter)
+            ][["program", "course_code", "course_title", "college"]].copy()
+            
+            if df.empty:
+                st.warning("No courses found for the selected Program and Semester.")
+            else:
+                df["failed/withdrawn students"] = 0
+                df["active students"] = student_count
+                df["total student strength"] = student_count
+                df["required sections"] = df["total student strength"].apply(
+                    lambda x: math.ceil(x / section_capacity)
+                )
+                df["section"] = ""
+                df["name"] = "Faculty Member"
+                df["ids"] = ""
+                df["type name"] = ""
+                df["semester_selected"] = semester_filter
+                df["catalog_year"] = catalog_name
+                
+                schedule = assign_schedule(df, include_weekend_courses)
+                
+                expanded_df = []
+                sched_idx = 0
+                
+                for _, row in df.iterrows():
+                    for sec in range(1, row["required sections"] + 1):
+                        new_row = row.copy()
+                        new_row["section"] = sec
+                        new_row["days"] = schedule[sched_idx][1]
+                        new_row["time's"] = schedule[sched_idx][2]
+                        expanded_df.append(new_row)
+                        sched_idx += 1
+                
+                df = pd.DataFrame(expanded_df)
+                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
+                df = df[[
+                    "program", "college", "section", "course_code", "course_title", "name", "ids", 
+                    "type name", "days", "time's", "failed/withdrawn students", 
+                    "active students", "total student strength", "required sections",
+                    "semester_selected", "catalog_year"
+                ]]
+                
+                st.success("✅ Report generated!")
+                
+                # Generate summary
+                generate_report_summary(df, program_filter, semester_filter, section_capacities=section_capacities)
+                
+                st.dataframe(df)
+                
+                csv = df.to_csv(index=False).encode('utf-8')
+                st.download_button(
+                    label="📥 Download CSV",
+                    data=csv,
+                    file_name=f"timetable_{program_filter}_{semester_filter}_{catalog_name}.csv",
+                    mime="text/csv",
+                )
+
+    # Room Allocation System link
+    st.markdown("---")
+    st.markdown("""
+    <div style='text-align: center; margin-bottom: 20px;'>
+        <h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; 
+                   font-weight: bold !important; margin: 0 !important; font-size: 2rem !important;
+                   font-family: Arial Black, sans-serif !important;'>
+            🏢 Additional Tools
+        </h2>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
+            st.info("Opening Room Allocation System...")
+            st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
+    
+    # Footer
+    st.markdown("---")
+    st.markdown("""
+    <div style='text-align: center; color: white !important; font-size: 14px; margin-top: 30px; 
+                text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-weight: bold !important;'>
+        <p style='color: white !important; margin: 0 !important;'>
+            <strong style='color: white !important;'>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
+            <strong style='color: white !important;'>Supervisor:</strong> Dr. Rabiya Sabri | 
+            <strong style='color: white !important;'>Designer:</strong> Habibullah Rajpar
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+def main():
+    """Main function to run the application"""
+    if not st.session_state.logged_in:
+        login_page()
+    else:
+        main_app()
+
+if __name__ == "__main__":
+    main()
