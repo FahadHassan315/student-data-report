@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from collections import defaultdict
 import base64
+from io import BytesIO
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
@@ -24,6 +25,10 @@ if 'selected_college' not in st.session_state:
     st.session_state.selected_college = None
 if 'selected_program' not in st.session_state:
     st.session_state.selected_program = None
+if 'student_counts' not in st.session_state:
+    st.session_state.student_counts = {}
+if 'section_capacities' not in st.session_state:
+    st.session_state.section_capacities = {}
 
 # User credentials and display names
 USERS = {
@@ -43,6 +48,211 @@ CATALOG_FILES = {
     "2025-2026": "csvcatalog 2025-26 timetables.csv"
 }
 
+def create_upload_template():
+    """Create a template CSV file for upload"""
+    template_data = {
+        'program': ['BBA', 'BBA', 'MBA'],
+        'college': ['College of Business Management', 'College of Business Management', 'College of Business Management'],
+        'semester': ['one', 'one', 'one'],
+        'course_code': ['ACC101', 'MGT101', 'MBA501'],
+        'course_title': ['Introduction to Accounting', 'Principles of Management', 'Strategic Management']
+    }
+    
+    template_df = pd.DataFrame(template_data)
+    return template_df
+
+def show_upload_guidelines():
+    """Display upload guidelines and template"""
+    st.markdown("""
+    <div style='background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; margin: 20px 0;'>
+        <h3 style='color: #1a1a1a; margin-top: 0;'>📋 Upload Guidelines</h3>
+        
+        <h4 style='color: #1a1a1a;'>Required Columns:</h4>
+        <ul style='color: #1a1a1a;'>
+            <li><strong>program</strong> - Name of the academic program (e.g., BBA, MBA, BCS)</li>
+            <li><strong>college</strong> - Name of the college offering the course</li>
+            <li><strong>semester</strong> - Semester number (one, two, three, etc. or 1, 2, 3, etc.)</li>
+            <li><strong>course_code</strong> - Unique course identifier (e.g., ACC101, MGT201)</li>
+            <li><strong>course_title</strong> - Full name of the course</li>
+        </ul>
+        
+        <h4 style='color: #1a1a1a;'>Important Notes:</h4>
+        <ul style='color: #1a1a1a;'>
+            <li>All columns listed above are <strong>REQUIRED</strong></li>
+            <li>Column names should be exactly as shown (case-insensitive)</li>
+            <li>Semester values can be: one/1, two/2, three/3, four/4, five/5, six/6, seven/7, eight/8</li>
+            <li>File format: CSV (.csv) or Excel (.xlsx)</li>
+            <li>Make sure there are no empty rows in your data</li>
+            <li>Course codes should be unique within each program and semester</li>
+        </ul>
+        
+        <h4 style='color: #1a1a1a;'>Example Data:</h4>
+        <table style='width: 100%; border-collapse: collapse; color: #1a1a1a;'>
+            <tr style='background: #f0f0f0;'>
+                <th style='padding: 8px; border: 1px solid #ddd;'>program</th>
+                <th style='padding: 8px; border: 1px solid #ddd;'>college</th>
+                <th style='padding: 8px; border: 1px solid #ddd;'>semester</th>
+                <th style='padding: 8px; border: 1px solid #ddd;'>course_code</th>
+                <th style='padding: 8px; border: 1px solid #ddd;'>course_title</th>
+            </tr>
+            <tr>
+                <td style='padding: 8px; border: 1px solid #ddd;'>BBA</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>College of Business Management</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>one</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>ACC101</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>Introduction to Accounting</td>
+            </tr>
+            <tr style='background: #f9f9f9;'>
+                <td style='padding: 8px; border: 1px solid #ddd;'>MBA</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>College of Business Management</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>one</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>MBA501</td>
+                <td style='padding: 8px; border: 1px solid #ddd;'>Strategic Management</td>
+            </tr>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Download template button
+    template_df = create_upload_template()
+    csv_template = template_df.to_csv(index=False).encode('utf-8')
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.download_button(
+            label="📥 Download Template CSV",
+            data=csv_template,
+            file_name="ssk_acms_upload_template.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
+
+def generate_report_summary(final_df, program_filter, semester_filter, student_counts=None, section_capacities=None):
+    """Generate a comprehensive summary of the generated report"""
+    
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 25px; border-radius: 15px; margin: 20px 0; 
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3);'>
+        <h2 style='color: white; text-align: center; margin: 0 0 20px 0; 
+                   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>
+            📊 Report Summary
+        </h2>
+    """, unsafe_allow_html=True)
+    
+    # Overall statistics
+    total_courses = len(final_df)
+    total_sections = final_df['section'].nunique() if 'section' in final_df.columns else len(final_df)
+    total_students = final_df['total student strength'].sum() if 'total student strength' in final_df.columns else 0
+    programs_included = final_df['program'].nunique()
+    
+    # Create 4 columns for key metrics
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
+            <h4 style='color: #667eea; margin: 0;'>Total Courses</h4>
+            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_courses}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
+            <h4 style='color: #764ba2; margin: 0;'>Total Sections</h4>
+            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_sections}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
+            <h4 style='color: #FF6B6B; margin: 0;'>Total Students</h4>
+            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{total_students}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
+            <h4 style='color: #4ECDC4; margin: 0;'>Programs</h4>
+            <h2 style='color: #1a1a1a; margin: 10px 0 0 0;'>{programs_included}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Program-wise breakdown
+    if program_filter == "All Programs":
+        st.markdown("""
+        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
+            <h3 style='color: #1a1a1a; margin-top: 0;'>📚 Program-wise Breakdown</h3>
+        """, unsafe_allow_html=True)
+        
+        program_summary = final_df.groupby('program').agg({
+            'course_code': 'count',
+            'section': 'nunique',
+            'total student strength': 'first'
+        }).reset_index()
+        program_summary.columns = ['Program', 'Courses', 'Sections', 'Students']
+        
+        # Add capacity information if available
+        if section_capacities:
+            capacity_list = []
+            for prog in program_summary['Program']:
+                capacity = section_capacities.get(prog, 40)
+                capacity_list.append(capacity)
+            program_summary['Section Capacity'] = capacity_list
+        
+        st.dataframe(program_summary, use_container_width=True, hide_index=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+    else:
+        # Single program details
+        st.markdown(f"""
+        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
+            <h3 style='color: #1a1a1a; margin-top: 0;'>📚 {program_filter} - Semester {semester_filter}</h3>
+            <p style='color: #1a1a1a; font-size: 16px;'><strong>Courses:</strong> {total_courses} | <strong>Sections:</strong> {total_sections} | <strong>Students:</strong> {total_students}</p>
+        """, unsafe_allow_html=True)
+        
+        if section_capacities and program_filter in section_capacities:
+            capacity = section_capacities[program_filter]
+            st.markdown(f"<p style='color: #1a1a1a;'><strong>Section Capacity:</strong> {capacity} students per section</p>", unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    # Day-wise distribution
+    if 'days' in final_df.columns:
+        st.markdown("""
+        <div style='background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-top: 15px;'>
+            <h3 style='color: #1a1a1a; margin-top: 0;'>📅 Schedule Distribution</h3>
+        """, unsafe_allow_html=True)
+        
+        day_counts = final_df['days'].value_counts().reset_index()
+        day_counts.columns = ['Day', 'Number of Classes']
+        
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.dataframe(day_counts, use_container_width=True, hide_index=True)
+        
+        with col2:
+            # Weekend vs Weekday breakdown
+            weekend_classes = final_df[final_df['days'].str.contains('Saturday|Sunday', case=False, na=False)].shape[0]
+            weekday_classes = total_courses - weekend_classes
+            
+            st.markdown(f"""
+            <div style='background: rgba(255,255,255,0.95); padding: 15px; border-radius: 10px; text-align: center;'>
+                <h4 style='color: #1a1a1a; margin: 0;'>Weekday Classes</h4>
+                <h2 style='color: #4ECDC4; margin: 10px 0;'>{weekday_classes}</h2>
+                <h4 style='color: #1a1a1a; margin: 15px 0 0 0;'>Weekend Classes</h4>
+                <h2 style='color: #FF6B6B; margin: 10px 0 0 0;'>{weekend_classes}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+
 def get_base64_of_bin_file(bin_file):
     """Convert image to base64 string"""
     try:
@@ -54,11 +264,9 @@ def get_base64_of_bin_file(bin_file):
 
 def set_background_image():
     """Set background image for the app"""
-    # Try to get the image as base64
     bin_str = get_base64_of_bin_file('bg.jpg')
     
     if bin_str:
-        # If local image exists, use it
         background_css = f"""
         <style>
         .stApp {{
@@ -75,7 +283,6 @@ def set_background_image():
             -webkit-backdrop-filter: blur(10px);
         }}
         
-        /* Make main content area semi-transparent */
         .main .block-container {{
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
@@ -84,35 +291,24 @@ def set_background_image():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }}
         
-        /* DARK SIDEBAR STYLING - UPDATED */
-        .css-1d391kg, .css-1544g2n, section[data-testid="stSidebar"], 
-        .css-1outpf7, .css-16huue1, section[data-testid="stSidebar"] > div {{
+        section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div {{
             background-color: rgba(30, 30, 30, 0.95) !important;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-right: 2px solid rgba(255, 255, 255, 0.2) !important;
         }}
         
-        /* Sidebar content styling */
         section[data-testid="stSidebar"] .stMarkdown h1,
         section[data-testid="stSidebar"] .stMarkdown h2,
         section[data-testid="stSidebar"] .stMarkdown h3,
         section[data-testid="stSidebar"] .stMarkdown h4,
-        section[data-testid="stSidebar"] .stMarkdown h5,
-        section[data-testid="stSidebar"] .stMarkdown h6,
         section[data-testid="stSidebar"] .stMarkdown p,
-        section[data-testid="stSidebar"] label,
-        section[data-testid="stSidebar"] .stSelectbox label,
-        section[data-testid="stSidebar"] .stRadio label,
-        section[data-testid="stSidebar"] .stCheckbox label,
-        section[data-testid="stSidebar"] .stNumberInput label,
-        section[data-testid="stSidebar"] .stTextInput label {{
+        section[data-testid="stSidebar"] label {{
             color: white !important;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
             font-weight: bold !important;
         }}
         
-        /* Sidebar input fields */
         section[data-testid="stSidebar"] .stSelectbox > div > div > div,
         section[data-testid="stSidebar"] .stNumberInput > div > div > input,
         section[data-testid="stSidebar"] .stTextInput > div > div > input {{
@@ -122,74 +318,22 @@ def set_background_image():
             border-radius: 5px !important;
         }}
         
-        /* Sidebar buttons */
         section[data-testid="stSidebar"] .stButton > button {{
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
             color: white !important;
             border: none !important;
             border-radius: 8px !important;
             font-weight: bold !important;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
         }}
         
-        /* Sidebar radio buttons */
-        section[data-testid="stSidebar"] .stRadio > div {{
-            background: transparent !important;
-        }}
-        
-        section[data-testid="stSidebar"] .stRadio label {{
-            color: white !important;
-        }}
-        
-        /* Sidebar expander */
-        section[data-testid="stSidebar"] .stExpander {{
-            background: rgba(50, 50, 50, 0.8) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 8px !important;
-        }}
-        
-        section[data-testid="stSidebar"] .stExpander .streamlit-expanderHeader {{
-            background: rgba(40, 40, 40, 0.9) !important;
-            color: white !important;
-            font-weight: bold !important;
-        }}
-        
-        /* Make charts blend better - remove white background completely */
-        .js-plotly-plot {{
-            background: transparent !important;
-            border-radius: 10px;
-            padding: 10px;
-        }}
-        
-        .js-plotly-plot .plotly {{
-            background: transparent !important;
-        }}
-        
-        /* ENHANCED: Force ALL titles and headers to be WHITE with higher specificity */
         .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
-        h1, h2, h3, h4, h5, h6, p, .stMetric,
-        .stMarkdown p, .stMarkdown strong, .stMarkdown b,
-        div[data-testid="stMarkdownContainer"] h1,
-        div[data-testid="stMarkdownContainer"] h2,
-        div[data-testid="stMarkdownContainer"] h3,
-        div[data-testid="stMarkdownContainer"] h4,
-        div[data-testid="stMarkdownContainer"] h5,
-        div[data-testid="stMarkdownContainer"] h6,
-        div[data-testid="stMarkdownContainer"] p,
-        div[data-testid="stMarkdownContainer"] strong,
-        div[data-testid="stMarkdownContainer"] b {{
+        h1, h2, h3, h4, h5, h6, p {{
             color: white !important;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
-        }}
-        
-        /* Improve text visibility for regular content */
-        .stDataFrame, .stSelectbox, .stText {{
-            color: #1a1a1a !important;
         }}
         </style>
         """
     else:
-        # Fallback: use a gradient background
         background_css = """
         <style>
         .stApp {
@@ -205,35 +349,23 @@ def set_background_image():
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        /* DARK SIDEBAR STYLING - UPDATED */
-        .css-1d391kg, .css-1544g2n, section[data-testid="stSidebar"], 
-        .css-1outpf7, .css-16huue1, section[data-testid="stSidebar"] > div {
+        section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div {
             background-color: rgba(30, 30, 30, 0.95) !important;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-right: 2px solid rgba(255, 255, 255, 0.2) !important;
         }
         
-        /* Sidebar content styling */
         section[data-testid="stSidebar"] .stMarkdown h1,
         section[data-testid="stSidebar"] .stMarkdown h2,
         section[data-testid="stSidebar"] .stMarkdown h3,
         section[data-testid="stSidebar"] .stMarkdown h4,
-        section[data-testid="stSidebar"] .stMarkdown h5,
-        section[data-testid="stSidebar"] .stMarkdown h6,
         section[data-testid="stSidebar"] .stMarkdown p,
-        section[data-testid="stSidebar"] label,
-        section[data-testid="stSidebar"] .stSelectbox label,
-        section[data-testid="stSidebar"] .stRadio label,
-        section[data-testid="stSidebar"] .stCheckbox label,
-        section[data-testid="stSidebar"] .stNumberInput label,
-        section[data-testid="stSidebar"] .stTextInput label {
+        section[data-testid="stSidebar"] label {
             color: white !important;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
             font-weight: bold !important;
         }
         
-        /* Sidebar input fields */
         section[data-testid="stSidebar"] .stSelectbox > div > div > div,
         section[data-testid="stSidebar"] .stNumberInput > div > div > input,
         section[data-testid="stSidebar"] .stTextInput > div > div > input {
@@ -243,62 +375,16 @@ def set_background_image():
             border-radius: 5px !important;
         }
         
-        /* Sidebar buttons */
         section[data-testid="stSidebar"] .stButton > button {
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
             color: white !important;
             border: none !important;
             border-radius: 8px !important;
             font-weight: bold !important;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
         }
         
-        /* Sidebar radio buttons */
-        section[data-testid="stSidebar"] .stRadio > div {
-            background: transparent !important;
-        }
-        
-        section[data-testid="stSidebar"] .stRadio label {
-            color: white !important;
-        }
-        
-        /* Sidebar expander */
-        section[data-testid="stSidebar"] .stExpander {
-            background: rgba(50, 50, 50, 0.8) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 8px !important;
-        }
-        
-        section[data-testid="stSidebar"] .stExpander .streamlit-expanderHeader {
-            background: rgba(40, 40, 40, 0.9) !important;
-            color: white !important;
-            font-weight: bold !important;
-        }
-        
-        /* Make charts blend better - remove white background completely */
-        .js-plotly-plot {
-            background: transparent !important;
-            border-radius: 10px;
-            padding: 10px;
-        }
-        
-        .js-plotly-plot .plotly {
-            background: transparent !important;
-        }
-        
-        /* ENHANCED: Force ALL titles and headers to be WHITE with higher specificity */
         .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
-        h1, h2, h3, h4, h5, h6, p, .stMetric,
-        .stMarkdown p, .stMarkdown strong, .stMarkdown b,
-        div[data-testid="stMarkdownContainer"] h1,
-        div[data-testid="stMarkdownContainer"] h2,
-        div[data-testid="stMarkdownContainer"] h3,
-        div[data-testid="stMarkdownContainer"] h4,
-        div[data-testid="stMarkdownContainer"] h5,
-        div[data-testid="stMarkdownContainer"] h6,
-        div[data-testid="stMarkdownContainer"] p,
-        div[data-testid="stMarkdownContainer"] strong,
-        div[data-testid="stMarkdownContainer"] b {
+        h1, h2, h3, h4, h5, h6, p {
             color: white !important;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
         }
@@ -306,13 +392,6 @@ def set_background_image():
         """
     
     st.markdown(background_css, unsafe_allow_html=True)
-
-def display_logo_main():
-    """Display IOBM logo for main app - larger size for header"""
-    try:
-        st.image("iobm.png", width=200)
-    except:
-        st.markdown("<h2>IOBM</h2>", unsafe_allow_html=True)
 
 def load_catalog_data(catalog_year):
     """Load catalog data from the repository CSV file"""
@@ -336,18 +415,13 @@ def load_catalog_data(catalog_year):
         return None, False
     
     try:
-        # Normalize column names
         catalog_df.columns = catalog_df.columns.str.lower().str.strip()
-        
-        # Handle missing values
         catalog_df = catalog_df.dropna(subset=['semester'])
         catalog_df = catalog_df[catalog_df['semester'].astype(str).str.strip() != '']
         catalog_df['course_code'] = catalog_df['course_code'].fillna('')
         catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
         catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
         catalog_df['college'] = catalog_df['college'].fillna('Unknown College')
-        
-        # Convert semester values to lowercase for consistency
         catalog_df['semester'] = catalog_df['semester'].astype(str).str.lower().str.strip()
         
         return catalog_df, True
@@ -359,7 +433,6 @@ def load_catalog_data(catalog_year):
 def create_catalog_charts(catalog_df, selected_catalog_year):
     """Create single pie chart showing college distribution by number of programs"""
     
-    # CHART TITLE - WHITE COLOR WITH ENHANCED STYLING
     st.markdown(f"""
     <div style='text-align: center; margin-bottom: 20px;'>
         <h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; 
@@ -370,30 +443,25 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
     </div>
     """, unsafe_allow_html=True)
     
-    # Create college-wise program distribution (count unique programs per college)
     college_program_counts = catalog_df.groupby('college')['program'].nunique().reset_index()
     college_program_counts.columns = ['college', 'program_count']
     college_program_counts = college_program_counts.sort_values('program_count', ascending=False)
     
-    # Create a detailed hover text showing all programs in each college
     hover_text = []
     for college in college_program_counts['college']:
         programs_in_college = catalog_df[catalog_df['college'] == college]['program'].unique()
         programs_list = "<br>• ".join(sorted(programs_in_college))
         hover_text.append(f"<b>{college}</b><br>Programs: {len(programs_in_college)}<br><br>• {programs_list}")
     
-    # Center the pie chart with better styling
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # College pie chart based on number of programs
         fig_college = px.pie(
             values=college_program_counts['program_count'],
             names=college_program_counts['college'],
             color_discrete_sequence=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8']
         )
         
-        # Update hover template to show programs
         fig_college.update_traces(
             hovertemplate=hover_text,
             textinfo="label+percent",
@@ -402,7 +470,6 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
             textposition='inside'
         )
         
-        # Improve chart styling with transparent background
         fig_college.update_layout(
             height=300,
             showlegend=True,
@@ -425,7 +492,6 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         
         st.plotly_chart(fig_college, use_container_width=True)
     
-    # Summary statistics with increased opacity for background blending
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
     
@@ -454,20 +520,15 @@ def create_catalog_charts(catalog_df, selected_catalog_year):
         """.format(len(catalog_df)), unsafe_allow_html=True)
 
 def login_page():
-    """Display horizontal login page with restored original sizes"""
-    
-    # Set background image
+    """Display horizontal login page"""
     set_background_image()
     
-    # Add custom CSS to completely remove white containers
     st.markdown("""
     <style>
-    /* Hide the default Streamlit header and menu */
     .stApp > header {
         background-color: transparent;
     }
     
-    /* Remove ALL white backgrounds and containers */
     .main .block-container {
         background: transparent !important;
         padding: 0 !important;
@@ -475,653 +536,26 @@ def login_page():
         box-shadow: none !important;
     }
     
-    /* Remove any element containers */
     .element-container {
         background: transparent !important;
     }
     
-    /* Hide Streamlit's image container styling */
-    .stImage {
-        background: transparent !important;
-    }
-    
-    .stImage > div {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Custom login sections with NO background boxes - ORIGINAL SIZES RESTORED */
-    .logo-section {
-        text-align: center;
-        margin: 10px 0;
-        padding: 20px 20px;
-    }
-    
-    .login-section {
-        margin: 10px 0;
-        padding: 30px 20px;
-    }
-    
-    .credits-section {
-        text-align: center;
-        margin-top: 20px;
-        padding: 15px;
-        border-top: 2px solid rgba(255,255,255,0.3);
-    }
-    
     .app-title {
-        font-size: 5rem;  /* RESTORED TO ORIGINAL */
+        font-size: 5rem;
         font-weight: bold;
         color: white !important; 
-        margin: 10px 0;  /* RESTORED MARGINS */
+        margin: 10px 0;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
         font-family: 'Arial Black', sans-serif;
     }
     
     .app-subtitle {
-        font-size: 3rem;  /* RESTORED TO ORIGINAL */
+        font-size: 3rem;
         color: white !important; 
-        margin-bottom: 10px;  /* RESTORED MARGIN */
+        margin-bottom: 10px;
         font-weight: 600;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
     
     .login-title {
-        font-size: 2rem;  /* RESTORED TO ORIGINAL */
-        color: white;
-        margin-bottom: 25px;  /* RESTORED MARGIN */
-        text-align: center;
-        font-weight: bold;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-    }
-    
-    .credits-text {
-        color: white !important;
-        font-size: 14px;  /* RESTORED TO ORIGINAL */
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-    }
-    
-    .credits-text p {
-        color: white !important;
-    }
-    
-    .credits-text strong {
-        color: white !important;
-    }
-    
-    /* Make form inputs more visible */
-    .stTextInput > div > div > input {
-        background: rgba(255, 255, 255, 0.9) !important;
-        border: 2px solid rgba(255, 255, 255, 0.3) !important;
-        border-radius: 10px !important;
-        padding: 12px !important;  /* RESTORED PADDING */
-        font-size: 16px !important;
-        color: #1a1a1a !important;
-        font-weight: 500 !important;
-    }
-    
-    .stTextInput > div > div > input:focus {
-        border-color: #4ECDC4 !important;
-        box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3) !important;
-    }
-    
-    .stTextInput > label {
-        color: white !important;
-        font-weight: bold !important;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
-        font-size: 16px !important;
-    }
-    
-    /* Style buttons */
-    .stButton > button {
-        background: linear-gradient(45deg, #FF6B6B, #4ECDC4) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 10px !important;
-        padding: 12px 25px !important;  /* RESTORED PADDING */
-        font-size: 16px !important;
-        font-weight: bold !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    # Main content - two columns
-    col_left, col_right = st.columns([1, 1], gap="large")
-    
-    # Left side - Logo and App Name
-    with col_left:
-        st.markdown('<div class="logo-section">', unsafe_allow_html=True)
-
-        # Show logo FIRST - above everything - RESTORED SIZE
-        try:
-            col1, col2, col3 = st.columns([0.5, 1, 0.5])
-            with col2:
-                st.image("iobm.png", width=250)  # RESTORED TO ORIGINAL SIZE
-        except Exception as e:
-            # Fallback if image doesn't load - RESTORED SIZE
-            st.markdown('''
-            <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-                <div style="width: 250px; height: 150px; background: rgba(255,255,255,0.2); 
-                           display: flex; align-items: center; justify-content: center; 
-                           border-radius: 10px;">
-                    <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); margin: 0;">IOBM</h1>
-                </div>
-            </div>
-            ''', unsafe_allow_html=True)
-
-        # Title + subtitle (AFTER logo, with RESTORED spacing)
-        st.markdown("""
-        <div style="text-align: center; margin-top: 20px;">
-            <h1 class="app-title">SSK ACMS</h1>
-            <p class="app-subtitle">Academic Course Management System</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Right side - Login Form
-    with col_right:
-        st.markdown('<div class="login-section">', unsafe_allow_html=True)
-        
-        st.markdown('<h2 class="login-title">🔐 Login</h2>', unsafe_allow_html=True)
-        
-        # Login form with better spacing
-        username = st.text_input("👤 Username", placeholder="Enter your username", key="username_input")
-        password = st.text_input("🔒 Password", type="password", placeholder="Enter your password", key="password_input")
-        
-        # RESTORED spacing
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        
-        # Login button
-        if st.button("🚀 Login", use_container_width=True, type="primary"):
-            username_lower = username.lower()
-            password_lower = password.lower()
-            
-            if username_lower in USERS and USERS[username_lower]["password"] == password_lower:
-                st.session_state.logged_in = True
-                st.session_state.username = username_lower
-                st.success("✅ Login successful!")
-                st.rerun()
-            else:
-                st.error("❌ Invalid username or password!")
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Bottom - Credits section with thin line separator - RESTORED
-    st.markdown('<div class="credits-section">', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="credits-text">
-        <p><strong>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | <strong>Supervisor:</strong> Dr. Rabiya Sabri | <strong>Designer:</strong> Habibullah Rajpar</p>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-def normalize_semester_name(semester):
-    """Normalize semester names for consistent ordering"""
-    semester_str = str(semester).lower().strip()
-    
-    if semester_str in ['one', '1', 'first', 'semester 1', 'sem 1']:
-        return 'one'
-    elif semester_str in ['two', '2', 'second', 'semester 2', 'sem 2']:
-        return 'two'
-    elif semester_str in ['three', '3', 'third', 'semester 3', 'sem 3']:
-        return 'three'
-    elif semester_str in ['four', '4', 'fourth', 'semester 4', 'sem 4']:
-        return 'four'
-    elif semester_str in ['five', '5', 'fifth', 'semester 5', 'sem 5']:
-        return 'five'
-    elif semester_str in ['six', '6', 'sixth', 'semester 6', 'sem 6']:
-        return 'six'
-    elif semester_str in ['seven', '7', 'seventh', 'semester 7', 'sem 7']:
-        return 'seven'
-    elif semester_str in ['eight', '8', 'eighth', 'eights', 'semester 8', 'sem 8']:
-        return 'eight'
-    else:
-        return semester_str
-
-def get_semester_order():
-    """Return the proper order for semesters"""
-    return ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']
-
-def assign_schedule(df, allow_weekend_courses=True):
-    """Improved scheduling function"""
-    section_occupied_slots = defaultdict(set)
-    course_slot_usage = defaultdict(lambda: defaultdict(int))
-    course_section_slots = defaultdict(set)
-    
-    schedule = []
-    program_name = df["program"].iloc[0].lower() if not df.empty else ""
-    is_mba = "mba" in program_name
-    
-    # Time slots
-    weekday_slots = [
-        ("9:00 AM", "10:30 AM"),
-        ("10:45 AM", "12:15 PM"),
-        ("12:30 PM", "2:00 PM"),
-        ("2:15 PM", "3:45 PM")
-    ]
-
-    weekend_slots = [
-        ("9:00 AM", "12:00 PM"),
-        ("2:00 PM", "5:00 PM")
-    ]
-
-    mba_slots = [
-        ("9:00 AM", "12:00 PM"),
-        ("2:00 PM", "5:00 PM"),
-        ("6:30 PM", "9:30 PM")
-    ]
-
-    weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday"]
-    weekend_days = ["Saturday", "Sunday"]
-    
-    # Get all available slots
-    if is_mba:
-        all_slots = []
-        for slot in mba_slots:
-            if slot == ("6:30 PM", "9:30 PM"):
-                for day in weekday_days:
-                    all_slots.append((day, slot))
-            else:
-                for day in weekend_days:
-                    all_slots.append((day, slot))
-    else:
-        all_slots = []
-        for slot in weekday_slots:
-            for day1, day2 in [("Monday", "Wednesday"), ("Tuesday", "Thursday")]:
-                all_slots.append((f"{day1} / {day2}", slot))
-        
-        if allow_weekend_courses:
-            for slot in weekend_slots:
-                for day in weekend_days:
-                    all_slots.append((day, slot))
-    
-    total_sections = df["required sections"].max() if not df.empty else 0
-    
-    for _, row in df.iterrows():
-        course = row["course_title"]
-        course_code = row["course_code"]
-        sections = row["required sections"]
-        
-        for sec in range(1, sections + 1):
-            slot_assigned = False
-            candidate_slots = all_slots.copy()
-            candidate_slots.sort(key=lambda slot: course_slot_usage[course][slot])
-            
-            for slot_key in candidate_slots:
-                day, slot = slot_key
-                
-                if slot_key in section_occupied_slots[sec]:
-                    continue
-                
-                if slot_key in course_section_slots[course]:
-                    continue
-                
-                section_occupied_slots[sec].add(slot_key)
-                course_slot_usage[course][slot_key] += 1
-                course_section_slots[course].add(slot_key)
-                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-                slot_assigned = True
-                break
-            
-            if not slot_assigned:
-                for slot_key in candidate_slots:
-                    day, slot = slot_key
-                    
-                    if slot_key in section_occupied_slots[sec]:
-                        continue
-                    
-                    section_occupied_slots[sec].add(slot_key)
-                    course_slot_usage[course][slot_key] += 1
-                    course_section_slots[course].add(slot_key)
-                    schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-                    slot_assigned = True
-                    break
-            
-            if not slot_assigned:
-                slot_key = random.choice(all_slots)
-                day, slot = slot_key
-                section_occupied_slots[sec].add(slot_key)
-                course_slot_usage[course][slot_key] += 1
-                course_section_slots[course].add(slot_key)
-                schedule.append((sec, day, f"{slot[0]} - {slot[1]}"))
-    
-    return schedule
-
-def main_app():
-    """Main application interface with improved design"""
-    
-    # Set background image for main app
-    set_background_image()
-    
-    # Header with WHITE text - ENHANCED STYLING
-    st.markdown("""
-    <div style='display: flex; align-items: center; justify-content: space-between; padding: 3px 0; margin-bottom: 5px; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);'>
-        <div style='display: flex; align-items: center; gap: 10px; flex: 1;'>
-            <div style='margin-left: 8px;'>
-                {}
-            </div>
-            <div>
-                <h1 style='color: white !important; font-size: 1.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-family: Arial Black !important; font-weight: bold !important;'>SSK ACMS</h1>
-            </div>
-        </div>
-        <div style='text-align: right; margin-right: 10px;'>
-            <p style='color: white !important; font-size: 12px; font-weight: bold !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important; margin: 0;'>
-                Welcome, {}!
-            </p>
-        </div>
-    </div>
-    """.format(
-        '<img src="data:image/png;base64,{}" width="45" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">'.format(get_base64_of_bin_file('iobm.png')) if get_base64_of_bin_file('iobm.png') else '<div style="width: 45px; height: 30px; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-weight: bold; font-size: 10px;">IOBM</div>',
-        USERS[st.session_state.username]['display_name']
-    ), unsafe_allow_html=True)
-    
-    # Logout button in sidebar - IMPROVED LOGOUT
-    st.sidebar.markdown("---")
-    if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Clear ALL session state items
-        keys_to_delete = list(st.session_state.keys())
-        for key in keys_to_delete:
-            del st.session_state[key]
-        
-        # Set logged in to False explicitly
-        st.session_state.logged_in = False
-        st.session_state.username = ""
-        
-        # Use st.experimental_rerun() which is more reliable
-        st.rerun()
-    
-    # Sidebar
-    st.sidebar.header("Input Parameters")
-
-    data_source = st.sidebar.radio(
-        "Choose Data Source:",
-        ["📊 Institutional Catalog", "📁 Upload Your Own File"],
-        index=0
-    )
-    
-    catalog_df = None
-    selected_catalog_year = None
-    
-    if data_source == "📊 Institutional Catalog":
-        default_index = list(CATALOG_FILES.keys()).index("2023-2024")
-        selected_catalog_year = st.sidebar.selectbox(
-            "Select Academic Year:",
-            list(CATALOG_FILES.keys()),
-            index=default_index
-        )
-        
-        catalog_df, success = load_catalog_data(selected_catalog_year)
-        if not success:
-            st.error(f"Failed to load the {selected_catalog_year} catalog.")
-            st.stop()
-        
-        create_catalog_charts(catalog_df, selected_catalog_year)
-            
-    else:
-        uploaded_file = st.sidebar.file_uploader("Upload Catalog File", type=["csv", "xlsx"])
-        if uploaded_file:
-            try:
-                if uploaded_file.name.endswith(".csv"):
-                    catalog_df = pd.read_csv(uploaded_file)
-                else:
-                    catalog_df = pd.read_excel(uploaded_file)
-                
-                catalog_df.columns = catalog_df.columns.str.lower().str.strip()
-                catalog_df = catalog_df.dropna(subset=['semester'])
-                catalog_df['course_code'] = catalog_df['course_code'].fillna('')
-                catalog_df['course_title'] = catalog_df['course_title'].fillna('Unknown Course')
-                catalog_df['college'] = catalog_df.get('college', pd.Series(['Unknown College'] * len(catalog_df)))
-                
-                selected_catalog_year = "Custom Upload"
-                create_catalog_charts(catalog_df, selected_catalog_year)
-                
-            except Exception as e:
-                st.error(f"Error reading file: {e}")
-                st.stop()
-        else:
-            st.warning("Please upload a file to continue.")
-            st.stop()
-
-    if catalog_df is None:
-        st.error("No data loaded.")
-        st.stop()
-
-    # Rest of the main functionality continues here...
-    programs_list = sorted(catalog_df["program"].unique())
-    programs_with_all = ["All Programs"] + programs_list
-    program_filter = st.sidebar.selectbox("Select Program", programs_with_all)
-    
-    # Get semesters
-    raw_semesters = catalog_df["semester"].unique()
-    normalized_semesters = []
-    
-    for sem in raw_semesters:
-        if sem and str(sem).strip():
-            normalized = normalize_semester_name(sem)
-            normalized_semesters.append((normalized, sem))
-    
-    semester_order = get_semester_order()
-    normalized_semesters.sort(key=lambda x: semester_order.index(x[0]) if x[0] in semester_order else 999)
-    
-    semester_display_list = [original for normalized, original in normalized_semesters]
-    semester_filter = st.sidebar.selectbox("Select Semester", semester_display_list)
-    
-    selected_programs = [program_filter] if program_filter != "All Programs" else programs_list
-    has_bachelor_programs = any("mba" not in prog.lower() for prog in selected_programs)
-    
-    include_weekend_courses = True
-    if has_bachelor_programs:
-        st.sidebar.markdown("### Weekend Course Settings")
-        include_weekend_courses = st.sidebar.checkbox(
-            "Include Weekend Courses",
-            value=True,
-            help="Uncheck to avoid weekend classes"
-        )
-    
-    # Student count input
-    if program_filter == "All Programs":
-        if 'student_counts' not in st.session_state:
-            st.session_state.student_counts = {program: 1 for program in programs_list}
-        
-        with st.sidebar.expander("👥 Program-wise Student Counts", expanded=False):
-            st.markdown("**Enter number of students for each program:**")
-            for program in programs_list:
-                st.session_state.student_counts[program] = st.number_input(
-                    f"{program}",
-                    min_value=1,
-                    value=st.session_state.student_counts.get(program, 1),
-                    step=1,
-                    key=f"students_{program}"
-                )
-        
-        student_counts = st.session_state.student_counts
-        
-    else:
-        student_count = st.sidebar.number_input("Enter Number of Students", min_value=1, step=1)
-
-    # Generate report
-    if st.sidebar.button("Generate Report"):
-        catalog_name = selected_catalog_year if selected_catalog_year else "Custom_Upload"
-        
-        if program_filter == "All Programs":
-            all_programs_df = catalog_df[
-                catalog_df["semester"] == semester_filter
-            ][["program", "course_code", "course_title", "college"]].copy()
-            
-            if all_programs_df.empty:
-                st.warning("No courses found for the selected Semester.")
-            else:
-                all_results = []
-                
-                for program in programs_list:
-                    program_df = all_programs_df[all_programs_df["program"] == program].copy()
-                    
-                    if not program_df.empty:
-                        current_student_count = student_counts[program]
-                        
-                        program_df["failed/withdrawn students"] = 0
-                        program_df["active students"] = current_student_count
-                        program_df["total student strength"] = current_student_count
-                        program_df["required sections"] = program_df["total student strength"].apply(lambda x: math.ceil(x / 40))
-                        program_df["section"] = ""
-                        program_df["name"] = "Faculty Member"
-                        program_df["ids"] = ""
-                        program_df["type name"] = ""
-                        program_df["semester_selected"] = semester_filter
-                        program_df["catalog_year"] = catalog_name
-                        
-                        schedule = assign_schedule(program_df, include_weekend_courses)
-                        
-                        expanded_df = []
-                        sched_idx = 0
-                        
-                        for _, row in program_df.iterrows():
-                            for sec in range(1, row["required sections"] + 1):
-                                new_row = row.copy()
-                                new_row["section"] = sec
-                                new_row["days"] = schedule[sched_idx][1]
-                                new_row["time's"] = schedule[sched_idx][2]
-                                expanded_df.append(new_row)
-                                sched_idx += 1
-                        
-                        program_result_df = pd.DataFrame(expanded_df)
-                        program_result_df = program_result_df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                        all_results.append(program_result_df)
-                
-                if all_results:
-                    final_df = pd.concat(all_results, ignore_index=True)
-                    final_df = final_df[[
-                        "program", "college", "section", "course_code", "course_title", "name", "ids", 
-                        "type name", "days", "time's", "failed/withdrawn students", 
-                        "active students", "total student strength", "required sections",
-                        "semester_selected", "catalog_year"
-                    ]]
-                    
-                    st.success("Report generated for all programs!")
-                    
-                    for program in programs_list:
-                        program_data = final_df[final_df["program"] == program]
-                        if not program_data.empty:
-                            st.subheader(f"📚 {program}")
-                            st.dataframe(program_data)
-                    
-                    csv = final_df.to_csv(index=False).encode('utf-8')
-                    st.download_button(
-                        label="📥 Download Complete Schedule CSV",
-                        data=csv,
-                        file_name=f"timetable_AllPrograms_{semester_filter}_{catalog_name}.csv",
-                        mime="text/csv",
-                    )
-                else:
-                    st.warning("No data found for any programs in the selected semester.")
-        
-        else:
-            # Single program logic
-            df = catalog_df[
-                (catalog_df["program"] == program_filter) & 
-                (catalog_df["semester"] == semester_filter)
-            ][["program", "course_code", "course_title", "college"]].copy()
-            
-            if df.empty:
-                st.warning("No courses found for the selected Program and Semester.")
-            else:
-                df["failed/withdrawn students"] = 0
-                df["active students"] = student_count
-                df["total student strength"] = student_count
-                df["required sections"] = df["total student strength"].apply(lambda x: math.ceil(x / 40))
-                df["section"] = ""
-                df["name"] = "Faculty Member"
-                df["ids"] = ""
-                df["type name"] = ""
-                df["semester_selected"] = semester_filter
-                df["catalog_year"] = catalog_name
-                
-                schedule = assign_schedule(df, include_weekend_courses)
-                
-                expanded_df = []
-                sched_idx = 0
-                
-                for _, row in df.iterrows():
-                    for sec in range(1, row["required sections"] + 1):
-                        new_row = row.copy()
-                        new_row["section"] = sec
-                        new_row["days"] = schedule[sched_idx][1]
-                        new_row["time's"] = schedule[sched_idx][2]
-                        expanded_df.append(new_row)
-                        sched_idx += 1
-                
-                df = pd.DataFrame(expanded_df)
-                df = df.sort_values(by=["section", "course_code"]).reset_index(drop=True)
-                df = df[[
-                    "program", "college", "section", "course_code", "course_title", "name", "ids", 
-                    "type name", "days", "time's", "failed/withdrawn students", 
-                    "active students", "total student strength", "required sections",
-                    "semester_selected", "catalog_year"
-                ]]
-                
-                st.success("Report generated!")
-                st.dataframe(df)
-                
-                csv = df.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="📥 Download CSV",
-                    data=csv,
-                    file_name=f"timetable_{program_filter}_{semester_filter}_{catalog_name}.csv",
-                    mime="text/csv",
-                )
-
-    # Add Room Allocation System button at the bottom - WHITE TITLE
-    st.markdown("---")
-    st.markdown("""
-    <div style='text-align: center; margin-bottom: 20px;'>
-        <h2 style='color: white !important; text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; 
-                   font-weight: bold !important; margin: 0 !important; font-size: 2rem !important;
-                   font-family: Arial Black, sans-serif !important;'>
-            🏢 Additional Tools
-        </h2>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🏫 Go to Room Allocation System", use_container_width=True, type="primary"):
-            st.info("Opening Room Allocation System...")
-            st.markdown("[🏫 Click here to access Room Allocation System](https://iobm-room-allocation-system.streamlit.app)")
-    
-    # Footer - WHITE COLOR - ENHANCED STYLING
-    st.markdown("---")
-    st.markdown(
-        """
-        <div style='text-align: center; color: white !important; font-size: 14px; margin-top: 30px; 
-                    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important; font-weight: bold !important;'>
-            <p style='color: white !important; margin: 0 !important;'>
-                <strong style='color: white !important;'>Development Team:</strong> Fahad Hassan, Ali Hasnain Abro | 
-                <strong style='color: white !important;'>Supervisor:</strong> Dr. Rabiya Sabri | 
-                <strong style='color: white !important;'>Designer:</strong> Habibullah Rajpar
-            </p>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-
-# Main application logic
-def main():
-    """Main function to run the application"""
-    if not st.session_state.logged_in:
-        login_page()
-    else:
-        main_app()
-
-# Run the application
-if __name__ == "__main__":
-    main()
+        font-size: 2rem;
