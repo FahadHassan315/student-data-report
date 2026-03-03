@@ -63,3 +63,8 @@ This tool is designed to streamline academic planning for universities by genera
 Email: [fahadhassann21@gmail.com](mailto:fahadhassann21@gmail.com)  
 LinkedIn: [https://www.linkedin.com/in/fahad-hassan-0b691524a](https://www.linkedin.com/in/fahad-hassan-0b691524a)  
 GitHub: [https://github.com/FahadHassan315](https://github.com/FahadHassan315)
+
+**Ali Hasnain Abro**  
+Email: [aliabro2004@gmail.com](mailto:aliabro2004@gmail.com)  
+LinkedIn: [https://www.linkedin.com/in/alihasnainabro](https://www.linkedin.com/in/alihasnainabro)  
+GitHub: [https://github.com/FahadHassan315](https://github.com/AliHasnainAbro)
